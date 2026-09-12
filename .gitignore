@@ -23,17 +23,45 @@
 *.pem
 Thumbs.db
 
-# debug
+# debug & logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
-# env files
+# env files (NEVER commit secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .env*
 !.env.example
 
-# typescript
+# databases & binary dumps (Do not commit binary SQLite databases)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+prisma/*.db
+prisma/*.db-journal
+
+# uploads & temporary directories
+/scripts/uploads/*
+!/scripts/uploads/.gitkeep
+/uploads/*
+
+# python & ML cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+.venv/
+env/
+
+# typescript & build
 next-env.d.ts
 *.tsbuildinfo
 

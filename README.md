@@ -1,164 +1,175 @@
-# Sales Analytics Dashboard
+# Real-Time Indian Retail Sales Analytics Dashboard
 
-A modern, responsive sales analytics dashboard built with Next.js 15, TypeScript, Tailwind CSS, and Recharts. The app visualizes deterministic monthly sales data for 2022, 2023, and 2024, with year filters, dynamic summaries, chart switching, a custom sales threshold, and a data table.
+[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![Razorpay](https://img.shields.io/badge/Razorpay-Webhook_Ingestion-02042B?style=flat-square&logo=razorpay)](https://razorpay.com/)
+[![Currency](https://img.shields.io/badge/Currency-INR_(₹)-047857?style=flat-square)](https://en.wikipedia.org/wiki/Indian_rupee)
 
-## Project description
+An enterprise-grade, real-time Indian retail sales intelligence dashboard built with Next.js (App Router), TypeScript, and Tailwind CSS. It streams live retail and digital transactions across all **28 Indian States and 8 Union Territories**, ingests cryptographically verified **Razorpay webhooks**, and manages a nationwide network of **78 authenticated retail merchants** with active GSTIN and PAN validation.
 
-This project demonstrates a clean App Router architecture: Server Components by default, Client Components only where interaction is required, Atomic Design UI, and a data-access layer that can later be swapped from mock data to a real API or Kaggle-backed source.
+---
 
-## Features
+## Key Features
 
-- Dashboard header with context for the selected dataset
-- Year selector for 2022, 2023, and 2024
-- Summary cards: total sales, average monthly sales, highest month, lowest month
-- Recharts visualizations: bar, line, and pie
-- Sales comparison: annual totals and month-over-month overlay vs the previous year
-- Custom sales threshold filter (`sales >= threshold`)
-- Sales table with month, sales, year, and target status badges
-- Loading, error, and empty states
-- Responsive layout for desktop, laptop, tablet, and mobile
-- `GET /api/sales?year=2024` data-access API
+- **Live Razorpay Webhook Ingestion**:
+  - Secure webhook endpoint at `/api/webhooks/razorpay` validating incoming `X-Razorpay-Signature` with HMAC-SHA256.
+  - Automatically captures `payment.captured` and `order.paid` events, converts paise to INR (`₹`), and updates persistent storage.
+  - Multi-gateway webhook architecture with dedicated routes for **Google Pay**, **PhonePe**, **Cashfree**, and **PayU**.
 
-## Tech stack
+- **All-India 36 State & UT Transaction Stream**:
+  - Background transaction ticker modeling realistic Indian digital commerce weighting (Maharashtra, Karnataka, Delhi NCR, Tamil Nadu, Gujarat, Uttar Pradesh, etc.).
+  - Tracks state-by-state gross volume, average order values (AOV), transaction counts, and market share percentages.
 
-- Next.js 15 (App Router)
-- React 19
-- TypeScript
-- Tailwind CSS
-- Recharts
-- ESLint (`next/core-web-vitals`, `next/typescript`)
+- **Verified Retail Merchant Network (78 Stores)**:
+  - Database-backed directory of 78 authenticated retail stores across every state and union territory in India.
+  - Complete with state GST codes (01 to 38), 15-digit GSTINs, 10-digit PANs, business categories, and verification badges.
+  - Interactive UI tab with search, state filtering, and direct **CSV / JSON export**.
 
-## Folder structure
+- **Indian Rupee (INR) Formatting Standard**:
+  - Strict Indian numbering system compliance (e.g., `₹1,25,000` Lakhs and `₹1,50,00,000` Crores).
+  - Clean empty states ("₹0.00", "0 transactions") with zero synthetic demo data hardcoded.
 
-```text
-src/
-  app/
-    api/sales/route.ts
-    globals.css
-    layout.tsx
-    page.tsx
-  components/
-    atoms/          # Button, Input, Select, Badge, Label, Card, Icon
-    molecules/      # Stat card, year selector, filters, states
-    organisms/      # Header, chart, summary, table, comparison, dashboard view
-    templates/      # Dashboard layout
-  data/
-    sales.ts        # Deterministic mock dataset
-  hooks/
-    useSales.ts     # Client fetch of /api/sales
-  lib/
-    sales.ts        # Data-access layer
-    utils.ts        # Formatting and filtering helpers
-  types/
-    sales.ts
+- **Embedded Webhook Simulator Modal**:
+  - Interactive developer modal to fire mock-verified or live test webhooks for Razorpay, Google Pay, PhonePe, Cashfree, and PayU without leaving the browser.
+
+- **Machine Learning Sales Forecasting**:
+  - Historical and predictive time-series revenue projections with confidence intervals.
+
+---
+
+## Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router, React 19)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with custom dark glassmorphism
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Charts**: [Recharts](https://recharts.org/)
+- **Database**: SQLite via `@prisma/client` and Node.js built-in `node:sqlite`
+- **Payments / Webhooks**: Razorpay Webhooks (HMAC-SHA256 cryptographic verification)
+
+---
+
+## Repository Structure
+
+```
+├── prisma/
+│   └── schema.prisma              # Database schema (LiveTransaction, RegisteredShop)
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── analytics/         # Analytical aggregate endpoints (overview, monthly, shops)
+│   │   │   │   ├── shops/         # Verified shop directory API (?format=csv / json)
+│   │   │   │   └── state-breakdown/# 36 State & UT metrics
+│   │   │   └── webhooks/          # Payment gateway webhook endpoints
+│   │   │       ├── razorpay/      # Razorpay HMAC signature verifier & ingestion
+│   │   │       ├── googlepay/     # Google Pay transaction handler
+│   │   │       ├── phonepe/       # PhonePe transaction handler
+│   │   │       └── simulate/      # Webhook testing sandbox
+│   │   ├── globals.css            # Custom glassmorphic utilities and styling
+│   │   └── page.tsx               # Primary dashboard page
+│   ├── components/
+│   │   ├── molecules/             # Simulator modal, State selector, Date filters
+│   │   ├── organisms/             # Overview cards, Leaderboard, State table, Charts
+│   │   └── templates/             # Dashboard responsive layout shell
+│   ├── data/
+│   │   ├── verified_retail_shops.json  # 78 Verified Indian stores dataset
+│   │   ├── verified_retail_shops.csv   # Downloadable spreadsheet
+│   │   └── verifiedShops.ts       # Typed accessors and lookup utilities
+│   ├── hooks/
+│   │   └── useAnalytics.ts        # Dynamic polling and live state management
+│   └── lib/
+│       ├── analytics.ts           # SQLite aggregation and ranking algorithms
+│       └── stream/
+│           └── indiaTransactionEngine.ts # All-India real-time streaming service
+├── .env.example                   # Safe environment template
+├── package.json
+└── README.md
 ```
 
-## Installation
+---
 
+## Quickstart Guide
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/ANKITT2006/Sales-Analytics-Dashboard.git
+cd Sales-Analytics-Dashboard
+```
+
+### 2. Install Dependencies
 ```bash
 npm install
 ```
 
-## How to run the project
+### 3. Configure Environment Variables
+Copy `.env.example` to `.env.local`:
+```bash
+cp .env.example .env.local
+```
 
-Development:
+Configure your credentials in `.env.local`:
+```env
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+PORT=3000
+DATABASE_URL="file:./prisma/dev.db"
 
+# Razorpay Credentials (from Dashboard -> Settings -> API Keys)
+RAZORPAY_KEY_ID=rzp_test_your_key_id
+RAZORPAY_KEY_SECRET=your_key_secret
+
+# Razorpay Webhook Secret (configured when creating a webhook)
+RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
+```
+
+### 4. Run the Development Server
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Production build:
+---
 
-```bash
-npm run build
-npm start
-```
+## Razorpay Webhook Setup (Local Development)
 
-## How the data works
+To receive real payments from Razorpay test checkout on your local machine:
 
-Monthly sales figures live in `src/data/sales.ts`. They are deterministic (not random on each render) and include realistic seasonality: a slower February and a stronger Q4, with year-over-year growth.
+1. **Start ngrok tunnel**:
+   ```bash
+   npx ngrok http 3000
+   ```
+   Copy the forwarding HTTPS URL (e.g., `https://abc1-23.ngrok-free.app`).
 
-`src/lib/sales.ts` is the only module that should read that dataset. UI components receive data through:
+2. **Configure Razorpay Webhook**:
+   - Go to **Razorpay Dashboard** &rarr; **Settings** &rarr; **Webhooks** &rarr; **Add New Webhook**.
+   - **Webhook URL**: `https://<your-ngrok-domain>/api/webhooks/razorpay`
+   - **Secret**: Enter the same secret set in `RAZORPAY_WEBHOOK_SECRET` in your `.env.local`.
+   - **Active Events**:
+     - `payment.captured`
+     - `order.paid`
+   - Save the webhook.
 
-1. `GET /api/sales?year=2024`
-2. The `useSales` hook
+3. **Verify Incoming Payments**:
+   - Complete a test payment using Razorpay Checkout or test cards.
+   - Watch the Next.js terminal logs and observe the dashboard update instantly in INR (`₹`) without page reload!
 
-Summary metrics are calculated at request time from the selected year’s records. They are never hard-coded in the UI.
+---
 
-### Kaggle / real data later
+## API Reference
 
-The original brief mentioned a Kaggle sales dataset. This app does **not** download Kaggle files. To swap in a real source later:
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/webhooks/razorpay` | `POST` | Ingests verified Razorpay webhook payload with `X-Razorpay-Signature` validation. |
+| `/api/webhooks/googlepay` | `POST` | Ingests verified Google Pay UPI transaction events. |
+| `/api/webhooks/simulate` | `POST` | Developer endpoint to trigger simulated webhook payloads. |
+| `/api/analytics/overview` | `GET` | Aggregated executive KPIs (Revenue, AOV, Transactions, Active Stores). |
+| `/api/analytics/shops` | `GET` | Directory of 78 verified retail shops. Supports `?format=csv` and `?state=MH`. |
+| `/api/analytics/shops/leaderboard` | `GET` | Merchant performance rankings by volume and order count. |
+| `/api/analytics/state-breakdown` | `GET` | All-India 28 state & 8 UT breakdown matrix. |
 
-1. Export a monthly sales CSV (month, year, sales).
-2. Map rows into the `SalesRecord` type in `src/types/sales.ts`.
-3. Replace `SALES_DATA` in `src/data/sales.ts`, or have `src/lib/sales.ts` fetch from a database or HTTP API instead of importing the mock array.
+---
 
-Suitable public starting points include retail or supermarket sales datasets on Kaggle that include order date and revenue. Aggregate those rows by calendar month before they reach this dashboard.
+## License
 
-## How to replace mock data with API data
-
-Today the API route reads the mock data-access layer:
-
-```ts
-// src/app/api/sales/route.ts
-const payload = getSalesPayload(year);
-```
-
-To use an external API:
-
-1. Change `getSalesByYear` in `src/lib/sales.ts` to fetch from your backend.
-2. Keep the `SalesApiResponse` shape the same.
-3. Leave `useSales` and the dashboard UI unchanged.
-
-The frontend already depends on `/api/sales?year=`, not on in-component arrays.
-
-## Available scripts
-
-| Script | Description |
-| --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Create a production build |
-| `npm start` | Start the production server |
-| `npm run lint` | Run ESLint |
-
-## Chart functionality
-
-Use the **Bar**, **Line**, and **Pie** controls to switch visualizations for the selected year.
-
-- Bar and line charts show monthly sales over time.
-- The pie chart shows sales distribution across months.
-- Charts use `ResponsiveContainer`, tooltips, legends, and currency formatting.
-
-The comparison panel shows annual totals for all years and a monthly overlay against the previous year (when one exists).
-
-## Filter functionality
-
-- **Year** updates the chart, summary cards, comparison overlay, and table.
-- **Show sales above** keeps months where `sales >= threshold`.
-- Empty input shows every month.
-- Invalid or negative values show an inline error and do not apply a filter.
-- `0` is valid and includes all non-negative sales.
-- Large thresholds may hide every month; the chart and table show an empty state instead of a blank area.
-
-Table **Status** uses a $20,000 monthly target (`Above Target` / `Below Target`) and is not color-only: the badge includes text.
-
-## Future enhancements
-
-- Replace mock data with a Kaggle-backed ETL pipeline or live CRM/ERP API
-- Persist year, chart type, and threshold in the URL query string
-- Add CSV export for the filtered table
-- Authentication and role-based access
-- Dark mode
-- Additional dimensions (region, product, channel)
-
-## GitHub
-
-This repository is ready to push. `node_modules` and `.next` are ignored. Do not commit secrets. If you later share a GitHub remote URL, connect it with:
-
-```bash
-git remote add origin <your-repo-url>
-git push -u origin main
-```
->>>>>>> 367bd55 (Initial commit: Sales Analytics Dashboard)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

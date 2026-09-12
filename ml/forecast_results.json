@@ -1,0 +1,3893 @@
+{
+  "last_updated": "2026-09-12T10:15:56.505132",
+  "summary": {
+    "total_revenue": 52455220.4,
+    "active_shops": 60,
+    "total_transactions": 1000000,
+    "average_order_value": 52.46,
+    "return_rate_pct": 50.01,
+    "yoy_growth_pct": 0.31,
+    "mom_growth_pct": -39.91
+  },
+  "pan_india_monthly": [
+    {
+      "month": "2020-01",
+      "sales": 1023565.45,
+      "is_prediction": false,
+      "lower_bound": 1023565.45,
+      "upper_bound": 1023565.45
+    },
+    {
+      "month": "2020-02",
+      "sales": 953488.19,
+      "is_prediction": false,
+      "lower_bound": 953488.19,
+      "upper_bound": 953488.19
+    },
+    {
+      "month": "2020-03",
+      "sales": 1015781.37,
+      "is_prediction": false,
+      "lower_bound": 1015781.37,
+      "upper_bound": 1015781.37
+    },
+    {
+      "month": "2020-04",
+      "sales": 988549.87,
+      "is_prediction": false,
+      "lower_bound": 988549.87,
+      "upper_bound": 988549.87
+    },
+    {
+      "month": "2020-05",
+      "sales": 1001696.33,
+      "is_prediction": false,
+      "lower_bound": 1001696.33,
+      "upper_bound": 1001696.33
+    },
+    {
+      "month": "2020-06",
+      "sales": 988630.18,
+      "is_prediction": false,
+      "lower_bound": 988630.18,
+      "upper_bound": 988630.18
+    },
+    {
+      "month": "2020-07",
+      "sales": 1012661.97,
+      "is_prediction": false,
+      "lower_bound": 1012661.97,
+      "upper_bound": 1012661.97
+    },
+    {
+      "month": "2020-08",
+      "sales": 1022764.43,
+      "is_prediction": false,
+      "lower_bound": 1022764.43,
+      "upper_bound": 1022764.43
+    },
+    {
+      "month": "2020-09",
+      "sales": 989218.28,
+      "is_prediction": false,
+      "lower_bound": 989218.28,
+      "upper_bound": 989218.28
+    },
+    {
+      "month": "2020-10",
+      "sales": 1008214.78,
+      "is_prediction": false,
+      "lower_bound": 1008214.78,
+      "upper_bound": 1008214.78
+    },
+    {
+      "month": "2020-11",
+      "sales": 998095.24,
+      "is_prediction": false,
+      "lower_bound": 998095.24,
+      "upper_bound": 998095.24
+    },
+    {
+      "month": "2020-12",
+      "sales": 1012884.46,
+      "is_prediction": false,
+      "lower_bound": 1012884.46,
+      "upper_bound": 1012884.46
+    },
+    {
+      "month": "2021-01",
+      "sales": 1019424.75,
+      "is_prediction": false,
+      "lower_bound": 1019424.75,
+      "upper_bound": 1019424.75
+    },
+    {
+      "month": "2021-02",
+      "sales": 914130.51,
+      "is_prediction": false,
+      "lower_bound": 914130.51,
+      "upper_bound": 914130.51
+    },
+    {
+      "month": "2021-03",
+      "sales": 1021530.14,
+      "is_prediction": false,
+      "lower_bound": 1021530.14,
+      "upper_bound": 1021530.14
+    },
+    {
+      "month": "2021-04",
+      "sales": 977534.57,
+      "is_prediction": false,
+      "lower_bound": 977534.57,
+      "upper_bound": 977534.57
+    },
+    {
+      "month": "2021-05",
+      "sales": 1011122.43,
+      "is_prediction": false,
+      "lower_bound": 1011122.43,
+      "upper_bound": 1011122.43
+    },
+    {
+      "month": "2021-06",
+      "sales": 991433.74,
+      "is_prediction": false,
+      "lower_bound": 991433.74,
+      "upper_bound": 991433.74
+    },
+    {
+      "month": "2021-07",
+      "sales": 1021536.65,
+      "is_prediction": false,
+      "lower_bound": 1021536.65,
+      "upper_bound": 1021536.65
+    },
+    {
+      "month": "2021-08",
+      "sales": 1010434.45,
+      "is_prediction": false,
+      "lower_bound": 1010434.45,
+      "upper_bound": 1010434.45
+    },
+    {
+      "month": "2021-09",
+      "sales": 971126.82,
+      "is_prediction": false,
+      "lower_bound": 971126.82,
+      "upper_bound": 971126.82
+    },
+    {
+      "month": "2021-10",
+      "sales": 1023812.22,
+      "is_prediction": false,
+      "lower_bound": 1023812.22,
+      "upper_bound": 1023812.22
+    },
+    {
+      "month": "2021-11",
+      "sales": 992148.55,
+      "is_prediction": false,
+      "lower_bound": 992148.55,
+      "upper_bound": 992148.55
+    },
+    {
+      "month": "2021-12",
+      "sales": 1014676.09,
+      "is_prediction": false,
+      "lower_bound": 1014676.09,
+      "upper_bound": 1014676.09
+    },
+    {
+      "month": "2022-01",
+      "sales": 1019373.51,
+      "is_prediction": false,
+      "lower_bound": 1019373.51,
+      "upper_bound": 1019373.51
+    },
+    {
+      "month": "2022-02",
+      "sales": 910431.32,
+      "is_prediction": false,
+      "lower_bound": 910431.32,
+      "upper_bound": 910431.32
+    },
+    {
+      "month": "2022-03",
+      "sales": 1016946.28,
+      "is_prediction": false,
+      "lower_bound": 1016946.28,
+      "upper_bound": 1016946.28
+    },
+    {
+      "month": "2022-04",
+      "sales": 988888.0,
+      "is_prediction": false,
+      "lower_bound": 988888.0,
+      "upper_bound": 988888.0
+    },
+    {
+      "month": "2022-05",
+      "sales": 1020629.0,
+      "is_prediction": false,
+      "lower_bound": 1020629.0,
+      "upper_bound": 1020629.0
+    },
+    {
+      "month": "2022-06",
+      "sales": 996858.89,
+      "is_prediction": false,
+      "lower_bound": 996858.89,
+      "upper_bound": 996858.89
+    },
+    {
+      "month": "2022-07",
+      "sales": 1016872.19,
+      "is_prediction": false,
+      "lower_bound": 1016872.19,
+      "upper_bound": 1016872.19
+    },
+    {
+      "month": "2022-08",
+      "sales": 1006269.54,
+      "is_prediction": false,
+      "lower_bound": 1006269.54,
+      "upper_bound": 1006269.54
+    },
+    {
+      "month": "2022-09",
+      "sales": 977087.51,
+      "is_prediction": false,
+      "lower_bound": 977087.51,
+      "upper_bound": 977087.51
+    },
+    {
+      "month": "2022-10",
+      "sales": 1008172.01,
+      "is_prediction": false,
+      "lower_bound": 1008172.01,
+      "upper_bound": 1008172.01
+    },
+    {
+      "month": "2022-11",
+      "sales": 983624.09,
+      "is_prediction": false,
+      "lower_bound": 983624.09,
+      "upper_bound": 983624.09
+    },
+    {
+      "month": "2022-12",
+      "sales": 1001880.56,
+      "is_prediction": false,
+      "lower_bound": 1001880.56,
+      "upper_bound": 1001880.56
+    },
+    {
+      "month": "2023-01",
+      "sales": 1008107.16,
+      "is_prediction": false,
+      "lower_bound": 1008107.16,
+      "upper_bound": 1008107.16
+    },
+    {
+      "month": "2023-02",
+      "sales": 926532.97,
+      "is_prediction": false,
+      "lower_bound": 926532.97,
+      "upper_bound": 926532.97
+    },
+    {
+      "month": "2023-03",
+      "sales": 1033556.59,
+      "is_prediction": false,
+      "lower_bound": 1033556.59,
+      "upper_bound": 1033556.59
+    },
+    {
+      "month": "2023-04",
+      "sales": 978488.79,
+      "is_prediction": false,
+      "lower_bound": 978488.79,
+      "upper_bound": 978488.79
+    },
+    {
+      "month": "2023-05",
+      "sales": 1014930.61,
+      "is_prediction": false,
+      "lower_bound": 1014930.61,
+      "upper_bound": 1014930.61
+    },
+    {
+      "month": "2023-06",
+      "sales": 965819.82,
+      "is_prediction": false,
+      "lower_bound": 965819.82,
+      "upper_bound": 965819.82
+    },
+    {
+      "month": "2023-07",
+      "sales": 1029246.18,
+      "is_prediction": false,
+      "lower_bound": 1029246.18,
+      "upper_bound": 1029246.18
+    },
+    {
+      "month": "2023-08",
+      "sales": 1015234.15,
+      "is_prediction": false,
+      "lower_bound": 1015234.15,
+      "upper_bound": 1015234.15
+    },
+    {
+      "month": "2023-09",
+      "sales": 985031.04,
+      "is_prediction": false,
+      "lower_bound": 985031.04,
+      "upper_bound": 985031.04
+    },
+    {
+      "month": "2023-10",
+      "sales": 1019665.03,
+      "is_prediction": false,
+      "lower_bound": 1019665.03,
+      "upper_bound": 1019665.03
+    },
+    {
+      "month": "2023-11",
+      "sales": 989565.16,
+      "is_prediction": false,
+      "lower_bound": 989565.16,
+      "upper_bound": 989565.16
+    },
+    {
+      "month": "2023-12",
+      "sales": 1017350.68,
+      "is_prediction": false,
+      "lower_bound": 1017350.68,
+      "upper_bound": 1017350.68
+    },
+    {
+      "month": "2024-01",
+      "sales": 1013783.66,
+      "is_prediction": false,
+      "lower_bound": 1013783.66,
+      "upper_bound": 1013783.66
+    },
+    {
+      "month": "2024-02",
+      "sales": 943285.44,
+      "is_prediction": false,
+      "lower_bound": 943285.44,
+      "upper_bound": 943285.44
+    },
+    {
+      "month": "2024-03",
+      "sales": 1019427.01,
+      "is_prediction": false,
+      "lower_bound": 1019427.01,
+      "upper_bound": 1019427.01
+    },
+    {
+      "month": "2024-04",
+      "sales": 976736.25,
+      "is_prediction": false,
+      "lower_bound": 976736.25,
+      "upper_bound": 976736.25
+    },
+    {
+      "month": "2024-05",
+      "sales": 586965.49,
+      "is_prediction": false,
+      "lower_bound": 586965.49,
+      "upper_bound": 586965.49
+    },
+    {
+      "month": "2024-06",
+      "sales": 591751.87,
+      "is_prediction": true,
+      "lower_bound": 555063.25,
+      "upper_bound": 628440.49
+    },
+    {
+      "month": "2024-07",
+      "sales": 601289.44,
+      "is_prediction": true,
+      "lower_bound": 556794.02,
+      "upper_bound": 645784.85
+    },
+    {
+      "month": "2024-08",
+      "sales": 603957.48,
+      "is_prediction": true,
+      "lower_bound": 552017.14,
+      "upper_bound": 655897.83
+    },
+    {
+      "month": "2024-09",
+      "sales": 599447.63,
+      "is_prediction": true,
+      "lower_bound": 540701.76,
+      "upper_bound": 658193.5
+    },
+    {
+      "month": "2024-10",
+      "sales": 602511.22,
+      "is_prediction": true,
+      "lower_bound": 536234.98,
+      "upper_bound": 668787.45
+    },
+    {
+      "month": "2024-11",
+      "sales": 599916.64,
+      "is_prediction": true,
+      "lower_bound": 526726.81,
+      "upper_bound": 673106.47
+    }
+  ],
+  "state_monthly": {
+    "LAX": [
+      {
+        "month": "2020-01",
+        "sales": 102305.86,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 95547.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 102792.45,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 97714.1,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 97909.83,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 101586.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 103803.84,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 98836.28,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 103889.96,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 103035.43,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 98868.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 101326.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 103734.87,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 89566.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 106814.16,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 101596.18,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 101516.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 98457.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 101379.96,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 101824.15,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 95269.27,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 95528.16,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 95856.79,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 103502.33,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 102270.99,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 91541.03,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 105364.65,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 96021.15,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 103036.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 98960.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 104324.49,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 99392.75,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 96839.97,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 102130.08,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 96365.09,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 101550.25,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 98010.91,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 94120.27,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 102630.28,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 96017.69,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 102399.01,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 89999.3,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 105172.21,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 104699.2,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 93754.91,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 100937.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 95950.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 98184.02,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 101668.12,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 92872.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 100135.06,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 98176.45,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 57203.06,
+        "is_prediction": false
+      }
+    ],
+    "SFO": [
+      {
+        "month": "2020-01",
+        "sales": 101341.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 101600.93,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 101639.76,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 95670.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 101102.16,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 98920.27,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 98733.74,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 104632.33,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 103277.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 100904.08,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 98841.86,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 103828.84,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 102524.28,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 90514.69,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 101714.65,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 95056.57,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 98677.16,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 99391.06,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 100775.02,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 98828.47,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 98503.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 107406.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 95805.51,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 101087.24,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 98853.13,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 89465.5,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 99440.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 96495.25,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 102643.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 101332.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 99897.31,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 101897.85,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 98290.37,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 103611.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 97791.69,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 101087.31,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 102551.47,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 93514.53,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 104135.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 95032.57,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 102147.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 99400.92,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 101667.43,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 99233.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 99805.02,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 101005.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 96697.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 103670.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 102643.14,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 90337.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 104220.74,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 94692.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 58758.63,
+        "is_prediction": false
+      }
+    ],
+    "HOU": [
+      {
+        "month": "2020-01",
+        "sales": 101093.31,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 93881.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 98218.85,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 94182.89,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 102906.14,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 98211.89,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 99646.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 103460.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 92342.31,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 96757.37,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 100903.34,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 101952.68,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 101184.27,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 92434.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 104767.28,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 98326.64,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 99344.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 101220.45,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 103116.49,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 104203.09,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 99109.08,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 104605.64,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 101338.82,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 101137.09,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 100581.61,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 92454.52,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 100633.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 93955.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 100150.29,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 98214.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 103496.07,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 103363.45,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 97015.44,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 101421.88,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 101113.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 97095.22,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 99720.34,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 93773.81,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 106966.58,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 98999.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 104033.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 101563.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 101639.25,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 99658.3,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 98954.05,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 100164.88,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 103336.06,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 105474.12,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 97557.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 94082.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 99877.35,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 100002.43,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 57408.47,
+        "is_prediction": false
+      }
+    ],
+    "CHI": [
+      {
+        "month": "2020-01",
+        "sales": 106576.04,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 89492.49,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 101421.82,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 100532.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 104836.86,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 97099.51,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 101033.88,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 103520.11,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 96803.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 100523.53,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 98386.39,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 101211.11,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 102317.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 90973.97,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 99173.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 100008.39,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 102472.52,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 94144.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 102129.55,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 99204.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 94587.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 103417.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 101320.02,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 100231.22,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 101570.15,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 93381.79,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 102472.0,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 97786.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 102921.52,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 97203.54,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 103077.23,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 104364.38,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 99212.99,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 102240.0,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 95948.73,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 99015.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 100132.84,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 96513.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 105267.13,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 98366.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 102445.01,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 95393.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 104806.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 104203.38,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 99425.46,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 108266.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 100190.69,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 102345.35,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 103750.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 96374.91,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 102554.58,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 97195.22,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 55342.26,
+        "is_prediction": false
+      }
+    ],
+    "BOS": [
+      {
+        "month": "2020-01",
+        "sales": 103880.36,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 97523.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 100265.35,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 95522.06,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 100295.75,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 97525.93,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 103877.63,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 103584.38,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 101059.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 106866.6,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 97894.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 106313.66,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 97491.28,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 88938.11,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 101143.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 95983.39,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 104889.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 103799.88,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 100645.01,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 98674.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 93829.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 99102.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 97610.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 103317.12,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 103898.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 89904.11,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 103833.23,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 101120.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 103832.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 98309.55,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 101130.89,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 103592.53,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 104120.14,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 97425.3,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 98629.54,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 101351.64,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 100533.66,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 94587.19,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 102128.0,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 102156.07,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 97818.3,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 97038.6,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 104426.89,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 101334.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 99266.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 98187.63,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 97476.08,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 104691.21,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 97783.68,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 98744.16,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 99513.07,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 98287.86,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 62150.35,
+        "is_prediction": false
+      }
+    ],
+    "NYC": [
+      {
+        "month": "2020-01",
+        "sales": 106385.66,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 93727.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 100287.39,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 98436.57,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 100193.91,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 102015.55,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 104462.3,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 102872.18,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 99557.38,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 104661.86,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 100489.14,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 99115.99,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 103394.24,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 93113.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 99711.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 96910.68,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 100701.16,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 101602.29,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 100704.51,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 97957.07,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 95508.46,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 104593.47,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 100357.35,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 102542.55,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 106853.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 91188.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 101613.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 99076.82,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 101718.82,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 100999.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 101529.53,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 96143.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 95393.55,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 105033.9,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 100183.54,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 100360.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 101610.65,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 94575.19,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 99080.29,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 98754.46,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 99431.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 97847.04,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 102774.56,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 98931.51,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 99948.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 98124.44,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 97618.93,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 98694.91,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 99726.09,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 93569.1,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 100087.57,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 102650.37,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 59646.0,
+        "is_prediction": false
+      }
+    ],
+    "SEA": [
+      {
+        "month": "2020-01",
+        "sales": 98114.16,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 96038.69,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 100829.64,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 99598.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 96614.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 99257.49,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 103663.13,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 102503.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 96596.12,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 97347.82,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 101311.4,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 99805.91,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 102980.63,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 90307.74,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 103691.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 98257.96,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 103684.37,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 99458.43,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 102114.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 103594.43,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 97675.82,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 105345.03,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 96721.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 100912.2,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 97575.46,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 89301.04,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 98829.54,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 103460.52,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 103137.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 100724.63,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 102522.53,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 97112.03,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 95633.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 99142.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 94310.31,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 98713.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 101584.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 90321.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 107175.2,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 97252.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 99629.37,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 96218.51,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 101707.87,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 102782.22,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 97727.83,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 103892.76,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 100633.2,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 104773.38,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 100210.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 93603.15,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 104266.47,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 97405.12,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 59292.4,
+        "is_prediction": false
+      }
+    ],
+    "MIA": [
+      {
+        "month": "2020-01",
+        "sales": 101949.24,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 94230.6,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 103494.69,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 100624.04,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 103110.5,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 97474.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 103803.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 104128.04,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 94080.92,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 100388.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 100524.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 96691.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 98172.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 91330.36,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 100760.92,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 95747.07,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 99151.52,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 99718.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 105015.73,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 101055.43,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 100163.15,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 102172.06,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 102832.76,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 101169.12,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 104570.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 89292.32,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 101476.33,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 98823.73,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 101393.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 100838.68,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 99322.24,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 98807.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 98907.22,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 96170.9,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 102735.56,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 100414.86,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 102430.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 88260.21,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 103670.75,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 92746.88,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 103294.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 95581.66,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 104284.4,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 105060.91,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 100835.64,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 100441.06,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 101198.12,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 100300.19,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 103103.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 93704.86,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 103083.09,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 94745.18,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 57213.5,
+        "is_prediction": false
+      }
+    ],
+    "DAL": [
+      {
+        "month": "2020-01",
+        "sales": 103129.52,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 97595.22,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 105862.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 103481.58,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 96023.21,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 98373.62,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 97012.07,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 101330.99,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 101787.89,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 93998.76,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 102733.57,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 101216.3,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 104951.74,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 91003.88,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 102655.56,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 95878.14,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 98148.52,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 96478.56,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 106067.93,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 104295.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 101911.73,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 103004.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 99095.95,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 103014.42,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 100860.55,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 93327.31,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 101400.02,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 99102.1,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 102514.36,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 98619.36,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 101666.13,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 101459.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 95473.63,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 102827.3,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 102518.69,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 100915.27,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 102917.28,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 89828.54,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 103196.23,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 98472.79,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 106151.45,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 94963.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 99164.58,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 102121.37,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 101078.01,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 107299.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 98064.04,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 100497.67,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 104037.26,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 98529.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 102198.13,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 99227.41,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 59627.05,
+        "is_prediction": false
+      }
+    ],
+    "ATL": [
+      {
+        "month": "2020-01",
+        "sales": 98789.89,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-02",
+        "sales": 93849.54,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-03",
+        "sales": 100968.75,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-04",
+        "sales": 102786.95,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-05",
+        "sales": 98703.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-06",
+        "sales": 98164.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-07",
+        "sales": 96625.71,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-08",
+        "sales": 97896.02,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-09",
+        "sales": 99823.5,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-10",
+        "sales": 103730.56,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-11",
+        "sales": 98141.96,
+        "is_prediction": false
+      },
+      {
+        "month": "2020-12",
+        "sales": 101422.03,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-01",
+        "sales": 102673.65,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-02",
+        "sales": 95946.39,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-03",
+        "sales": 101096.92,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-04",
+        "sales": 99769.55,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-05",
+        "sales": 102535.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-06",
+        "sales": 97162.47,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-07",
+        "sales": 99588.04,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-08",
+        "sales": 100796.9,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-09",
+        "sales": 94568.6,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-10",
+        "sales": 98636.98,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-11",
+        "sales": 101208.7,
+        "is_prediction": false
+      },
+      {
+        "month": "2021-12",
+        "sales": 97762.8,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-01",
+        "sales": 102339.02,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-02",
+        "sales": 90574.9,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-03",
+        "sales": 101882.45,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-04",
+        "sales": 103045.94,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-05",
+        "sales": 99280.66,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-06",
+        "sales": 101656.08,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-07",
+        "sales": 99905.77,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-08",
+        "sales": 100135.72,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-09",
+        "sales": 96200.48,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-10",
+        "sales": 98168.31,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-11",
+        "sales": 94027.35,
+        "is_prediction": false
+      },
+      {
+        "month": "2022-12",
+        "sales": 101377.23,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-01",
+        "sales": 98614.63,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-02",
+        "sales": 91037.58,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-03",
+        "sales": 99306.43,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-04",
+        "sales": 100690.14,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-05",
+        "sales": 97579.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-06",
+        "sales": 97812.74,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-07",
+        "sales": 103602.28,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-08",
+        "sales": 97209.2,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-09",
+        "sales": 94234.99,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-10",
+        "sales": 101344.59,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-11",
+        "sales": 98399.68,
+        "is_prediction": false
+      },
+      {
+        "month": "2023-12",
+        "sales": 98719.03,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-01",
+        "sales": 103302.61,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-02",
+        "sales": 91466.17,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-03",
+        "sales": 103490.95,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-04",
+        "sales": 94353.89,
+        "is_prediction": false
+      },
+      {
+        "month": "2024-05",
+        "sales": 60323.77,
+        "is_prediction": false
+      }
+    ]
+  },
+  "state_distribution": [
+    {
+      "state_code": "DAL",
+      "state_name": "Dallas",
+      "revenue": 5277111.53,
+      "orders": 100559,
+      "share_pct": 10.06
+    },
+    {
+      "state_code": "BOS",
+      "state_name": "Boston",
+      "revenue": 5263307.96,
+      "orders": 100566,
+      "share_pct": 10.03
+    },
+    {
+      "state_code": "CHI",
+      "state_name": "Chicago",
+      "revenue": 5263187.45,
+      "orders": 100059,
+      "share_pct": 10.03
+    },
+    {
+      "state_code": "NYC",
+      "state_name": "New York",
+      "revenue": 5252469.92,
+      "orders": 100007,
+      "share_pct": 10.01
+    },
+    {
+      "state_code": "HOU",
+      "state_name": "Houston",
+      "revenue": 5247054.78,
+      "orders": 100050,
+      "share_pct": 10.0
+    },
+    {
+      "state_code": "SFO",
+      "state_name": "San Francisco",
+      "revenue": 5241099.86,
+      "orders": 99808,
+      "share_pct": 9.99
+    },
+    {
+      "state_code": "MIA",
+      "state_name": "Miami",
+      "revenue": 5240498.44,
+      "orders": 99839,
+      "share_pct": 9.99
+    },
+    {
+      "state_code": "SEA",
+      "state_name": "Seattle",
+      "revenue": 5235365.43,
+      "orders": 100167,
+      "share_pct": 9.98
+    },
+    {
+      "state_code": "LAX",
+      "state_name": "Los Angeles",
+      "revenue": 5232393.19,
+      "orders": 99879,
+      "share_pct": 9.97
+    },
+    {
+      "state_code": "ATL",
+      "state_name": "Atlanta",
+      "revenue": 5202731.84,
+      "orders": 99066,
+      "share_pct": 9.92
+    }
+  ],
+  "shop_leaderboard": [
+    {
+      "shop_id": "STORE_BOS_009",
+      "shop_name": "Boston Pharmacy",
+      "gstin": "US-BOS-PHAR",
+      "state_code": "BOS",
+      "state_name": "Boston",
+      "category": "Pharmacy",
+      "revenue": 890450.14,
+      "orders": 16878,
+      "return_rate_pct": 49.91,
+      "performance_score": 87.5
+    },
+    {
+      "shop_id": "STORE_SEA_060",
+      "shop_name": "Seattle Warehouse Club",
+      "gstin": "US-SEA-WARE",
+      "state_code": "SEA",
+      "state_name": "Seattle",
+      "category": "Warehouse Club",
+      "revenue": 890720.15,
+      "orders": 17074,
+      "return_rate_pct": 49.88,
+      "performance_score": 87.5
+    },
+    {
+      "shop_id": "STORE_DAL_020",
+      "shop_name": "Dallas Department Store",
+      "gstin": "US-DAL-DEPA",
+      "state_code": "DAL",
+      "state_name": "Dallas",
+      "category": "Department Store",
+      "revenue": 888924.78,
+      "orders": 16857,
+      "return_rate_pct": 49.75,
+      "performance_score": 87.3
+    },
+    {
+      "shop_id": "STORE_DAL_023",
+      "shop_name": "Dallas Supermarket",
+      "gstin": "US-DAL-SUPE",
+      "state_code": "DAL",
+      "state_name": "Dallas",
+      "category": "Supermarket",
+      "revenue": 885298.18,
+      "orders": 16906,
+      "return_rate_pct": 50.51,
+      "performance_score": 87.3
+    },
+    {
+      "shop_id": "STORE_NYC_047",
+      "shop_name": "New York Supermarket",
+      "gstin": "US-NYC-SUPE",
+      "state_code": "NYC",
+      "state_name": "New York",
+      "category": "Supermarket",
+      "revenue": 887425.45,
+      "orders": 16869,
+      "return_rate_pct": 50.12,
+      "performance_score": 87.3
+    },
+    {
+      "shop_id": "STORE_CHI_017",
+      "shop_name": "Chicago Supermarket",
+      "gstin": "US-CHI-SUPE",
+      "state_code": "CHI",
+      "state_name": "Chicago",
+      "category": "Supermarket",
+      "revenue": 885849.96,
+      "orders": 16747,
+      "return_rate_pct": 49.92,
+      "performance_score": 87.2
+    },
+    {
+      "shop_id": "STORE_SFO_050",
+      "shop_name": "San Francisco Department Store",
+      "gstin": "US-SFO-DEPA",
+      "state_code": "SFO",
+      "state_name": "San Francisco",
+      "category": "Department Store",
+      "revenue": 886476.22,
+      "orders": 16806,
+      "return_rate_pct": 49.65,
+      "performance_score": 87.2
+    },
+    {
+      "shop_id": "STORE_BOS_008",
+      "shop_name": "Boston Department Store",
+      "gstin": "US-BOS-DEPA",
+      "state_code": "BOS",
+      "state_name": "Boston",
+      "category": "Department Store",
+      "revenue": 884090.59,
+      "orders": 17041,
+      "return_rate_pct": 49.91,
+      "performance_score": 87.1
+    },
+    {
+      "shop_id": "STORE_CHI_013",
+      "shop_name": "Chicago Convenience Store",
+      "gstin": "US-CHI-CONV",
+      "state_code": "CHI",
+      "state_name": "Chicago",
+      "category": "Convenience Store",
+      "revenue": 883270.97,
+      "orders": 16861,
+      "return_rate_pct": 49.91,
+      "performance_score": 87.1
+    },
+    {
+      "shop_id": "STORE_CHI_016",
+      "shop_name": "Chicago Specialty Store",
+      "gstin": "US-CHI-SPEC",
+      "state_code": "CHI",
+      "state_name": "Chicago",
+      "category": "Specialty Store",
+      "revenue": 881737.22,
+      "orders": 16816,
+      "return_rate_pct": 50.34,
+      "performance_score": 87.1
+    },
+    {
+      "shop_id": "STORE_MIA_039",
+      "shop_name": "Miami Pharmacy",
+      "gstin": "US-MIA-PHAR",
+      "state_code": "MIA",
+      "state_name": "Miami",
+      "category": "Pharmacy",
+      "revenue": 883265.32,
+      "orders": 16859,
+      "return_rate_pct": 49.74,
+      "performance_score": 87.0
+    },
+    {
+      "shop_id": "STORE_SFO_051",
+      "shop_name": "San Francisco Pharmacy",
+      "gstin": "US-SFO-PHAR",
+      "state_code": "SFO",
+      "state_name": "San Francisco",
+      "category": "Pharmacy",
+      "revenue": 879589.62,
+      "orders": 16723,
+      "return_rate_pct": 50.43,
+      "performance_score": 87.0
+    },
+    {
+      "shop_id": "STORE_BOS_011",
+      "shop_name": "Boston Supermarket",
+      "gstin": "US-BOS-SUPE",
+      "state_code": "BOS",
+      "state_name": "Boston",
+      "category": "Supermarket",
+      "revenue": 880596.32,
+      "orders": 16765,
+      "return_rate_pct": 49.69,
+      "performance_score": 86.9
+    },
+    {
+      "shop_id": "STORE_CHI_018",
+      "shop_name": "Chicago Warehouse Club",
+      "gstin": "US-CHI-WARE",
+      "state_code": "CHI",
+      "state_name": "Chicago",
+      "category": "Warehouse Club",
+      "revenue": 881100.78,
+      "orders": 16641,
+      "return_rate_pct": 49.7,
+      "performance_score": 86.9
+    },
+    {
+      "shop_id": "STORE_DAL_019",
+      "shop_name": "Dallas Convenience Store",
+      "gstin": "US-DAL-CONV",
+      "state_code": "DAL",
+      "state_name": "Dallas",
+      "category": "Convenience Store",
+      "revenue": 879453.95,
+      "orders": 16724,
+      "return_rate_pct": 49.96,
+      "performance_score": 86.9
+    },
+    {
+      "shop_id": "STORE_DAL_021",
+      "shop_name": "Dallas Pharmacy",
+      "gstin": "US-DAL-PHAR",
+      "state_code": "DAL",
+      "state_name": "Dallas",
+      "category": "Pharmacy",
+      "revenue": 879913.93,
+      "orders": 16724,
+      "return_rate_pct": 49.95,
+      "performance_score": 86.9
+    },
+    {
+      "shop_id": "STORE_HOU_025",
+      "shop_name": "Houston Convenience Store",
+      "gstin": "US-HOU-CONV",
+      "state_code": "HOU",
+      "state_name": "Houston",
+      "category": "Convenience Store",
+      "revenue": 880667.46,
+      "orders": 16846,
+      "return_rate_pct": 49.98,
+      "performance_score": 86.9
+    },
+    {
+      "shop_id": "STORE_HOU_028",
+      "shop_name": "Houston Specialty Store",
+      "gstin": "US-HOU-SPEC",
+      "state_code": "HOU",
+      "state_name": "Houston",
+      "category": "Specialty Store",
+      "revenue": 878650.14,
+      "orders": 16793,
+      "return_rate_pct": 50.47,
+      "performance_score": 86.9
+    },
+    {
+      "shop_id": "STORE_NYC_044",
+      "shop_name": "New York Department Store",
+      "gstin": "US-NYC-DEPA",
+      "state_code": "NYC",
+      "state_name": "New York",
+      "category": "Department Store",
+      "revenue": 877227.2,
+      "orders": 16685,
+      "return_rate_pct": 50.49,
+      "performance_score": 86.9
+    },
+    {
+      "shop_id": "STORE_LAX_031",
+      "shop_name": "Los Angeles Convenience Store",
+      "gstin": "US-LAX-CONV",
+      "state_code": "LAX",
+      "state_name": "Los Angeles",
+      "category": "Convenience Store",
+      "revenue": 877957.79,
+      "orders": 16799,
+      "return_rate_pct": 50.18,
+      "performance_score": 86.8
+    },
+    {
+      "shop_id": "STORE_SFO_054",
+      "shop_name": "San Francisco Warehouse Club",
+      "gstin": "US-SFO-WARE",
+      "state_code": "SFO",
+      "state_name": "San Francisco",
+      "category": "Warehouse Club",
+      "revenue": 879577.87,
+      "orders": 16673,
+      "return_rate_pct": 49.61,
+      "performance_score": 86.8
+    },
+    {
+      "shop_id": "STORE_ATL_006",
+      "shop_name": "Atlanta Warehouse Club",
+      "gstin": "US-ATL-WARE",
+      "state_code": "ATL",
+      "state_name": "Atlanta",
+      "category": "Warehouse Club",
+      "revenue": 875410.59,
+      "orders": 16567,
+      "return_rate_pct": 50.09,
+      "performance_score": 86.7
+    },
+    {
+      "shop_id": "STORE_BOS_010",
+      "shop_name": "Boston Specialty Store",
+      "gstin": "US-BOS-SPEC",
+      "state_code": "BOS",
+      "state_name": "Boston",
+      "category": "Specialty Store",
+      "revenue": 876681.56,
+      "orders": 16721,
+      "return_rate_pct": 50.04,
+      "performance_score": 86.7
+    },
+    {
+      "shop_id": "STORE_HOU_027",
+      "shop_name": "Houston Pharmacy",
+      "gstin": "US-HOU-PHAR",
+      "state_code": "HOU",
+      "state_name": "Houston",
+      "category": "Pharmacy",
+      "revenue": 878162.41,
+      "orders": 16734,
+      "return_rate_pct": 49.78,
+      "performance_score": 86.7
+    },
+    {
+      "shop_id": "STORE_LAX_033",
+      "shop_name": "Los Angeles Pharmacy",
+      "gstin": "US-LAX-PHAR",
+      "state_code": "LAX",
+      "state_name": "Los Angeles",
+      "category": "Pharmacy",
+      "revenue": 879354.05,
+      "orders": 16681,
+      "return_rate_pct": 49.48,
+      "performance_score": 86.7
+    },
+    {
+      "shop_id": "STORE_SEA_059",
+      "shop_name": "Seattle Supermarket",
+      "gstin": "US-SEA-SUPE",
+      "state_code": "SEA",
+      "state_name": "Seattle",
+      "category": "Supermarket",
+      "revenue": 879384.0,
+      "orders": 16772,
+      "return_rate_pct": 49.39,
+      "performance_score": 86.7
+    },
+    {
+      "shop_id": "STORE_DAL_024",
+      "shop_name": "Dallas Warehouse Club",
+      "gstin": "US-DAL-WARE",
+      "state_code": "DAL",
+      "state_name": "Dallas",
+      "category": "Warehouse Club",
+      "revenue": 875187.1,
+      "orders": 16735,
+      "return_rate_pct": 50.04,
+      "performance_score": 86.6
+    },
+    {
+      "shop_id": "STORE_HOU_030",
+      "shop_name": "Houston Warehouse Club",
+      "gstin": "US-HOU-WARE",
+      "state_code": "HOU",
+      "state_name": "Houston",
+      "category": "Warehouse Club",
+      "revenue": 875510.96,
+      "orders": 16570,
+      "return_rate_pct": 49.75,
+      "performance_score": 86.6
+    },
+    {
+      "shop_id": "STORE_MIA_038",
+      "shop_name": "Miami Department Store",
+      "gstin": "US-MIA-DEPA",
+      "state_code": "MIA",
+      "state_name": "Miami",
+      "category": "Department Store",
+      "revenue": 872548.05,
+      "orders": 16647,
+      "return_rate_pct": 50.45,
+      "performance_score": 86.6
+    },
+    {
+      "shop_id": "STORE_MIA_042",
+      "shop_name": "Miami Warehouse Club",
+      "gstin": "US-MIA-WARE",
+      "state_code": "MIA",
+      "state_name": "Miami",
+      "category": "Warehouse Club",
+      "revenue": 873277.3,
+      "orders": 16576,
+      "return_rate_pct": 50.2,
+      "performance_score": 86.6
+    },
+    {
+      "shop_id": "STORE_NYC_045",
+      "shop_name": "New York Pharmacy",
+      "gstin": "US-NYC-PHAR",
+      "state_code": "NYC",
+      "state_name": "New York",
+      "category": "Pharmacy",
+      "revenue": 875366.69,
+      "orders": 16680,
+      "return_rate_pct": 49.78,
+      "performance_score": 86.6
+    },
+    {
+      "shop_id": "STORE_SEA_055",
+      "shop_name": "Seattle Convenience Store",
+      "gstin": "US-SEA-CONV",
+      "state_code": "SEA",
+      "state_name": "Seattle",
+      "category": "Convenience Store",
+      "revenue": 875881.1,
+      "orders": 16710,
+      "return_rate_pct": 49.69,
+      "performance_score": 86.6
+    },
+    {
+      "shop_id": "STORE_CHI_015",
+      "shop_name": "Chicago Pharmacy",
+      "gstin": "US-CHI-PHAR",
+      "state_code": "CHI",
+      "state_name": "Chicago",
+      "category": "Pharmacy",
+      "revenue": 869663.03,
+      "orders": 16566,
+      "return_rate_pct": 50.63,
+      "performance_score": 86.5
+    },
+    {
+      "shop_id": "STORE_LAX_035",
+      "shop_name": "Los Angeles Supermarket",
+      "gstin": "US-LAX-SUPE",
+      "state_code": "LAX",
+      "state_name": "Los Angeles",
+      "category": "Supermarket",
+      "revenue": 873442.3,
+      "orders": 16616,
+      "return_rate_pct": 50.01,
+      "performance_score": 86.5
+    },
+    {
+      "shop_id": "STORE_NYC_046",
+      "shop_name": "New York Specialty Store",
+      "gstin": "US-NYC-SPEC",
+      "state_code": "NYC",
+      "state_name": "New York",
+      "category": "Specialty Store",
+      "revenue": 871554.29,
+      "orders": 16525,
+      "return_rate_pct": 50.12,
+      "performance_score": 86.5
+    },
+    {
+      "shop_id": "STORE_MIA_037",
+      "shop_name": "Miami Convenience Store",
+      "gstin": "US-MIA-CONV",
+      "state_code": "MIA",
+      "state_name": "Miami",
+      "category": "Convenience Store",
+      "revenue": 871056.31,
+      "orders": 16583,
+      "return_rate_pct": 50.18,
+      "performance_score": 86.4
+    },
+    {
+      "shop_id": "STORE_SEA_057",
+      "shop_name": "Seattle Pharmacy",
+      "gstin": "US-SEA-PHAR",
+      "state_code": "SEA",
+      "state_name": "Seattle",
+      "category": "Pharmacy",
+      "revenue": 870973.3,
+      "orders": 16653,
+      "return_rate_pct": 49.95,
+      "performance_score": 86.4
+    },
+    {
+      "shop_id": "STORE_ATL_002",
+      "shop_name": "Atlanta Department Store",
+      "gstin": "US-ATL-DEPA",
+      "state_code": "ATL",
+      "state_name": "Atlanta",
+      "category": "Department Store",
+      "revenue": 867943.81,
+      "orders": 16548,
+      "return_rate_pct": 50.37,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_BOS_012",
+      "shop_name": "Boston Warehouse Club",
+      "gstin": "US-BOS-WARE",
+      "state_code": "BOS",
+      "state_name": "Boston",
+      "category": "Warehouse Club",
+      "revenue": 871767.54,
+      "orders": 16708,
+      "return_rate_pct": 49.57,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_DAL_022",
+      "shop_name": "Dallas Specialty Store",
+      "gstin": "US-DAL-SPEC",
+      "state_code": "DAL",
+      "state_name": "Dallas",
+      "category": "Specialty Store",
+      "revenue": 868333.59,
+      "orders": 16613,
+      "return_rate_pct": 50.27,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_HOU_029",
+      "shop_name": "Houston Supermarket",
+      "gstin": "US-HOU-SUPE",
+      "state_code": "HOU",
+      "state_name": "Houston",
+      "category": "Supermarket",
+      "revenue": 868014.06,
+      "orders": 16565,
+      "return_rate_pct": 50.26,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_LAX_034",
+      "shop_name": "Los Angeles Specialty Store",
+      "gstin": "US-LAX-SPEC",
+      "state_code": "LAX",
+      "state_name": "Los Angeles",
+      "category": "Specialty Store",
+      "revenue": 868404.83,
+      "orders": 16652,
+      "return_rate_pct": 50.31,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_MIA_040",
+      "shop_name": "Miami Specialty Store",
+      "gstin": "US-MIA-SPEC",
+      "state_code": "MIA",
+      "state_name": "Miami",
+      "category": "Specialty Store",
+      "revenue": 871833.28,
+      "orders": 16593,
+      "return_rate_pct": 49.56,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_MIA_041",
+      "shop_name": "Miami Supermarket",
+      "gstin": "US-MIA-SUPE",
+      "state_code": "MIA",
+      "state_name": "Miami",
+      "category": "Supermarket",
+      "revenue": 868518.18,
+      "orders": 16581,
+      "return_rate_pct": 50.01,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_NYC_043",
+      "shop_name": "New York Convenience Store",
+      "gstin": "US-NYC-CONV",
+      "state_code": "NYC",
+      "state_name": "New York",
+      "category": "Convenience Store",
+      "revenue": 870198.39,
+      "orders": 16689,
+      "return_rate_pct": 49.88,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_NYC_048",
+      "shop_name": "New York Warehouse Club",
+      "gstin": "US-NYC-WARE",
+      "state_code": "NYC",
+      "state_name": "New York",
+      "category": "Warehouse Club",
+      "revenue": 870697.9,
+      "orders": 16559,
+      "return_rate_pct": 49.54,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_SFO_053",
+      "shop_name": "San Francisco Supermarket",
+      "gstin": "US-SFO-SUPE",
+      "state_code": "SFO",
+      "state_name": "San Francisco",
+      "category": "Supermarket",
+      "revenue": 869536.63,
+      "orders": 16616,
+      "return_rate_pct": 49.89,
+      "performance_score": 86.3
+    },
+    {
+      "shop_id": "STORE_ATL_001",
+      "shop_name": "Atlanta Convenience Store",
+      "gstin": "US-ATL-CONV",
+      "state_code": "ATL",
+      "state_name": "Atlanta",
+      "category": "Convenience Store",
+      "revenue": 867963.02,
+      "orders": 16575,
+      "return_rate_pct": 50.06,
+      "performance_score": 86.2
+    },
+    {
+      "shop_id": "STORE_ATL_004",
+      "shop_name": "Atlanta Specialty Store",
+      "gstin": "US-ATL-SPEC",
+      "state_code": "ATL",
+      "state_name": "Atlanta",
+      "category": "Specialty Store",
+      "revenue": 866083.77,
+      "orders": 16460,
+      "return_rate_pct": 50.35,
+      "performance_score": 86.2
+    },
+    {
+      "shop_id": "STORE_HOU_026",
+      "shop_name": "Houston Department Store",
+      "gstin": "US-HOU-DEPA",
+      "state_code": "HOU",
+      "state_name": "Houston",
+      "category": "Department Store",
+      "revenue": 866049.75,
+      "orders": 16542,
+      "return_rate_pct": 50.37,
+      "performance_score": 86.2
+    },
+    {
+      "shop_id": "STORE_ATL_005",
+      "shop_name": "Atlanta Supermarket",
+      "gstin": "US-ATL-SUPE",
+      "state_code": "ATL",
+      "state_name": "Atlanta",
+      "category": "Supermarket",
+      "revenue": 865390.13,
+      "orders": 16499,
+      "return_rate_pct": 50.22,
+      "performance_score": 86.1
+    },
+    {
+      "shop_id": "STORE_LAX_032",
+      "shop_name": "Los Angeles Department Store",
+      "gstin": "US-LAX-DEPA",
+      "state_code": "LAX",
+      "state_name": "Los Angeles",
+      "category": "Department Store",
+      "revenue": 866455.38,
+      "orders": 16549,
+      "return_rate_pct": 49.99,
+      "performance_score": 86.1
+    },
+    {
+      "shop_id": "STORE_LAX_036",
+      "shop_name": "Los Angeles Warehouse Club",
+      "gstin": "US-LAX-WARE",
+      "state_code": "LAX",
+      "state_name": "Los Angeles",
+      "category": "Warehouse Club",
+      "revenue": 866778.84,
+      "orders": 16582,
+      "return_rate_pct": 49.71,
+      "performance_score": 86.1
+    },
+    {
+      "shop_id": "STORE_SFO_049",
+      "shop_name": "San Francisco Convenience Store",
+      "gstin": "US-SFO-CONV",
+      "state_code": "SFO",
+      "state_name": "San Francisco",
+      "category": "Convenience Store",
+      "revenue": 865730.56,
+      "orders": 16509,
+      "return_rate_pct": 50.11,
+      "performance_score": 86.1
+    },
+    {
+      "shop_id": "STORE_ATL_003",
+      "shop_name": "Atlanta Pharmacy",
+      "gstin": "US-ATL-PHAR",
+      "state_code": "ATL",
+      "state_name": "Atlanta",
+      "category": "Pharmacy",
+      "revenue": 859940.52,
+      "orders": 16417,
+      "return_rate_pct": 50.39,
+      "performance_score": 85.9
+    },
+    {
+      "shop_id": "STORE_SEA_056",
+      "shop_name": "Seattle Department Store",
+      "gstin": "US-SEA-DEPA",
+      "state_code": "SEA",
+      "state_name": "Seattle",
+      "category": "Department Store",
+      "revenue": 860274.3,
+      "orders": 16511,
+      "return_rate_pct": 50.57,
+      "performance_score": 85.9
+    },
+    {
+      "shop_id": "STORE_BOS_007",
+      "shop_name": "Boston Convenience Store",
+      "gstin": "US-BOS-CONV",
+      "state_code": "BOS",
+      "state_name": "Boston",
+      "category": "Convenience Store",
+      "revenue": 859721.81,
+      "orders": 16453,
+      "return_rate_pct": 50.09,
+      "performance_score": 85.8
+    },
+    {
+      "shop_id": "STORE_CHI_014",
+      "shop_name": "Chicago Department Store",
+      "gstin": "US-CHI-DEPA",
+      "state_code": "CHI",
+      "state_name": "Chicago",
+      "category": "Department Store",
+      "revenue": 861565.49,
+      "orders": 16428,
+      "return_rate_pct": 49.84,
+      "performance_score": 85.8
+    },
+    {
+      "shop_id": "STORE_SFO_052",
+      "shop_name": "San Francisco Specialty Store",
+      "gstin": "US-SFO-SPEC",
+      "state_code": "SFO",
+      "state_name": "San Francisco",
+      "category": "Specialty Store",
+      "revenue": 860188.96,
+      "orders": 16481,
+      "return_rate_pct": 49.64,
+      "performance_score": 85.7
+    },
+    {
+      "shop_id": "STORE_SEA_058",
+      "shop_name": "Seattle Specialty Store",
+      "gstin": "US-SEA-SPEC",
+      "state_code": "SEA",
+      "state_name": "Seattle",
+      "category": "Specialty Store",
+      "revenue": 858132.58,
+      "orders": 16447,
+      "return_rate_pct": 49.96,
+      "performance_score": 85.7
+    }
+  ]
+}

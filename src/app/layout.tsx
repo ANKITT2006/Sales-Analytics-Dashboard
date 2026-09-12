@@ -8,9 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sales Analytics Dashboard",
+  title: "Pan-India Sales Analytics Engine | GSTIN Verified & ML Forecasting",
   description:
-    "Analyze monthly sales performance for 2022–2024 with charts, summaries, and filters.",
+    "End-to-end transactional intelligence for registered Indian retail businesses with 15-char GSTIN verification and self-trained machine learning time-series forecasting.",
 };
 
 export default function RootLayout({
@@ -19,8 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} font-sans`}>{children}</body>
+    <html lang="en" className="dark">
+      <body className={`${inter.variable} font-sans bg-slate-950 text-slate-100 antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }

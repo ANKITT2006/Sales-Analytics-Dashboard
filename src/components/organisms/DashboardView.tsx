@@ -1,101 +1,133 @@
 "use client";
 
+import React, { useState } from "react";
 import { DashboardHeader } from "@/components/organisms/DashboardHeader";
-import { FilterPanel } from "@/components/organisms/FilterPanel";
-import { SalesChart } from "@/components/organisms/SalesChart";
-import { SalesComparison } from "@/components/organisms/SalesComparison";
-import { SalesSummarySection } from "@/components/organisms/SalesSummary";
-import { SalesTable } from "@/components/organisms/SalesTable";
-import { ErrorState } from "@/components/molecules/ErrorState";
+import { EngineOverviewCards } from "@/components/organisms/EngineOverviewCards";
+import { MlForecastChart } from "@/components/organisms/MlForecastChart";
+import { GeoDistributionChart } from "@/components/organisms/GeoDistributionChart";
+import { ShopLeaderboard } from "@/components/organisms/ShopLeaderboard";
+import { LiveTransactionsFeed } from "@/components/organisms/LiveTransactionsFeed";
+import { StateBreakdownTable } from "@/components/organisms/StateBreakdownTable";
+import { StateSelector } from "@/components/molecules/StateSelector";
+import { DateRangeSelector, DateRangeOption } from "@/components/molecules/DateRangeSelector";
+import { CsvUploadModal } from "@/components/molecules/CsvUploadModal";
 import { LoadingState } from "@/components/molecules/LoadingState";
-import { MONTHLY_SALES_TARGET } from "@/data/sales";
-import { useSales } from "@/hooks/useSales";
-import { filterByThreshold, parseThreshold } from "@/lib/utils";
-import type { ChartType, SalesYear } from "@/types/sales";
-import { useMemo, useState } from "react";
+import { ErrorState } from "@/components/molecules/ErrorState";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 export function DashboardView() {
-  const [year, setYear] = useState<SalesYear>(2024);
-  const [chartType, setChartType] = useState<ChartType>("bar");
-  const [thresholdInput, setThresholdInput] = useState("");
-  const [targetInput, setTargetInput] = useState(String(MONTHLY_SALES_TARGET));
-  const { data, isLoading, error, retry } = useSales(year);
+  const [selectedState, setSelectedState] = useState<string>("ALL");
+  const [dateRange, setDateRange] = useState<DateRangeOption>("2y");
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isRetraining, setIsRetraining] = useState(false);
 
-  const threshold = useMemo(
-    () => parseThreshold(thresholdInput),
-    [thresholdInput],
-  );
+  const {
+    summary,
+    monthly,
+    geoDistribution,
+    leaderboard,
+    regionName,
+    isLoading,
+    isLiveUpdating,
+    error,
+    refetch,
+  } = useAnalytics(selectedState, dateRange);
 
-  const targetValue = useMemo(() => {
-    const parsed = Number(targetInput.replace(/,/g, ""));
-    return Number.isFinite(parsed) && parsed > 0 ? parsed : MONTHLY_SALES_TARGET;
-  }, [targetInput]);
-
-  const filteredData = useMemo(() => {
-    if (!data) {
-      return [];
+  const handleRetrain = async () => {
+    setIsRetraining(true);
+    try {
+      // Trigger train script through lightweight fetch or re-ingestion
+      const res = await fetch("/api/analytics/overview?retrain=true");
+      await res.json();
+      refetch();
+    } catch {
+      //
+    } finally {
+      setIsRetraining(false);
     }
-
-    return filterByThreshold(data.data, threshold.value);
-  }, [data, threshold.value]);
-
-  const handleResetFilters = () => {
-    setThresholdInput("");
-    setTargetInput(String(MONTHLY_SALES_TARGET));
-    setChartType("bar");
   };
 
   return (
     <div className="space-y-6">
-      <DashboardHeader year={year} />
-      <FilterPanel
-        year={year}
-        chartType={chartType}
-        thresholdInput={thresholdInput}
-        thresholdError={threshold.error}
-        targetInput={targetInput}
-        onYearChange={setYear}
-        onChartTypeChange={setChartType}
-        onThresholdChange={setThresholdInput}
-        onTargetChange={setTargetInput}
-        onResetFilters={handleResetFilters}
+      {/* Header */}
+      <DashboardHeader
+        regionName={regionName}
+        onOpenUpload={() => setIsUploadOpen(true)}
+        onRetrain={handleRetrain}
+        isRetraining={isRetraining}
       />
 
+      {/* Control Bar: State / Region Filter + Date Range */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-3.5 backdrop-blur-md">
+        <div className="w-full sm:w-72">
+          <StateSelector value={selectedState} onChange={setSelectedState} />
+        </div>
+        <div className="flex items-center justify-between sm:justify-end gap-3">
+          <DateRangeSelector value={dateRange} onChange={setDateRange} />
+          {selectedState !== "ALL" && (
+            <button
+              type="button"
+              onClick={() => setSelectedState("ALL")}
+              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 underline underline-offset-2 shrink-0"
+            >
+              Reset to All India
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Loading & Error States */}
       {isLoading ? (
-        <LoadingState label="Loading sales analytics dataset..." />
+        <LoadingState label="Syncing live transaction intelligence..." />
       ) : null}
 
-      {error ? <ErrorState message={error} onRetry={retry} /> : null}
+      {error ? <ErrorState message={error} onRetry={refetch} /> : null}
 
-      {!isLoading && !error && data ? (
+      {/* Main Content */}
+      {!isLoading && !error ? (
         <>
-          <SalesSummarySection
-            summary={data.summary}
-            data={data.data}
-            target={targetValue}
+          {/* Executive Overview KPI Summary */}
+          <EngineOverviewCards
+            summary={summary}
+            regionName={regionName}
+            dateRange={dateRange}
+            isLiveUpdating={isLiveUpdating}
           />
-          <div className="grid gap-6 xl:grid-cols-2">
-            <SalesChart
-              year={year}
-              chartType={chartType}
-              data={filteredData}
-              target={targetValue}
-            />
-            <SalesComparison
-              year={year}
-              currentData={data.data}
-              previous={data.previousYear}
-              comparison={data.comparison}
-            />
+
+          {/* Time Series Forecast + Geo Distribution Split */}
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <MlForecastChart data={monthly} regionName={regionName} />
+            </div>
+            <div className="lg:col-span-1">
+              <GeoDistributionChart
+                data={geoDistribution}
+                selectedState={selectedState}
+                onSelectState={setSelectedState}
+              />
+            </div>
           </div>
-          <SalesTable
-            data={filteredData}
-            year={year}
-            target={targetValue}
+
+          {/* Real-time National Ticker & Razorpay Live Webhook Feed */}
+          <LiveTransactionsFeed selectedState={selectedState} />
+
+          {/* All-India 28 States & 8 UTs Regional Breakdown Matrix */}
+          <StateBreakdownTable
+            selectedState={selectedState}
+            onSelectState={setSelectedState}
           />
+
+          {/* Shop Leaderboard & Performance Ranking */}
+          <ShopLeaderboard data={leaderboard} regionName={regionName} />
         </>
       ) : null}
+
+      {/* CSV Ingestion Dropzone Modal */}
+      <CsvUploadModal
+        isOpen={isUploadOpen}
+        onClose={() => setIsUploadOpen(false)}
+        onSuccess={refetch}
+      />
     </div>
   );
 }
-

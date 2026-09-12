@@ -1,0 +1,54 @@
+// Prisma schema for Real Retail Transactions Analytics Engine
+// Source: data/Retail_Transactions_Dataset.csv (1,000,000 records)
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// Real transaction model corresponding 1:1 with data/Retail_Transactions_Dataset.csv
+model RetailTransaction {
+  transaction_id    BigInt   @id
+  date              DateTime
+  customer_name     String
+  product           String   // List of products stored as string representation e.g. "['Clothing', 'Electronics']"
+  total_items       Int
+  total_cost        Float    // Represents the final transaction amount / sales revenue
+  payment_method    String   // Cash, Credit Card, Debit Card, Mobile Payment
+  city              String   // 10 US Cities (Atlanta, Boston, Chicago, Dallas, Houston, Los Angeles, Miami, New York, San Francisco, Seattle)
+  store_type        String   // Convenience Store, Department Store, Pharmacy, Specialty Store, Supermarket, Warehouse Club
+  discount_applied  Boolean  // Boolean indicating whether a discount was applied
+  customer_category String   // Homemaker, Middle-Aged, Professional, Retiree, Senior Citizen, Student, Teenager, Young Adult
+  season            String   // Fall, Spring, Summer, Winter
+  promotion         String?  // BOGO, Discount on Selected Items, None, or null
+
+  @@index([date])
+  @@index([city])
+  @@index([store_type])
+  @@index([payment_method])
+  @@index([customer_category])
+}
+
+model LiveTransaction {
+  transaction_id    String   @id
+  amount_inr        Float
+  currency          String   @default("INR")
+  method            String
+  status            String
+  customer_email    String?
+  customer_contact  String?
+  customer_name     String?
+  shop_id           String
+  state_code        String
+  city              String?
+  timestamp         String
+  created_at        DateTime @default(now())
+
+  @@index([state_code])
+  @@index([shop_id])
+}
+

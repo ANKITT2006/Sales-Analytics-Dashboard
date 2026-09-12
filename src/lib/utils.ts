@@ -15,11 +15,15 @@ export function cn(
 }
 
 export function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-IN", {
     style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
+    currency: "INR",
+    maximumFractionDigits: 2,
+  }).format(value || 0);
+}
+
+export function formatNumberIN(value: number): string {
+  return new Intl.NumberFormat("en-IN").format(value || 0);
 }
 
 export function formatPercent(value: number): string {
