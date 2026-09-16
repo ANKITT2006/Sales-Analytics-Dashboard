@@ -110,10 +110,11 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
                 {activeTab === "leaderboard" ? "Merchant Performance Leaderboard" : "Verified Retail Merchant Network"}
               </h3>
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-400 border border-emerald-500/30">
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#4E9B8F]/10 px-2.5 py-0.5 text-[11px] font-semibold text-[#4E9B8F] border border-[#4E9B8F]/30">
                 <CheckCircle2 className="h-3 w-3" /> 78 Verified Stores
               </span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#8A949E]">
               {activeTab === "leaderboard"
                 ? `Ranked by verified live volume & order count • ${regionName}`
                 : "Authenticated retail stores with valid GSTIN across all 28 Indian States & 8 UTs"}
@@ -123,7 +124,7 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
 
         {/* Tab Switcher & Export Controls */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="inline-flex rounded-xl bg-slate-950 p-1 border border-slate-800">
+          <div className="inline-flex rounded-xl bg-[#0A0E12] p-1 border border-[#222E3A]">
             <button
               onClick={() => {
                 setActiveTab("leaderboard");
@@ -131,8 +132,8 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === "leaderboard"
-                  ? "bg-amber-500/20 text-amber-300 shadow-sm border border-amber-500/40"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#D9A15B]/20 text-[#D9A15B] shadow-sm border border-[#D9A15B]/40"
+                  : "text-[#8A949E] hover:text-[#EDE6D9]"
               }`}
             >
               🏆 Top Performers
@@ -144,8 +145,8 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === "verified_all"
-                  ? "bg-emerald-500/20 text-emerald-300 shadow-sm border border-emerald-500/40"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#4E9B8F]/20 text-[#4E9B8F] shadow-sm border border-[#4E9B8F]/40"
+                  : "text-[#8A949E] hover:text-[#EDE6D9]"
               }`}
             >
               🏪 All Verified Shops (78)
@@ -157,20 +158,20 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
             <a
               href="/api/analytics/shops?format=csv"
               download="verified_retail_shops.csv"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-950/40 px-3 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-900/60 hover:text-white transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#2A3745] bg-[#161E26] px-3 py-1.5 text-xs font-semibold text-[#EDE6D9] hover:bg-[#1E2934] hover:border-[#D9A15B]/40 hover:text-[#D9A15B] transition-all shadow-sm"
               title="Download full verified retail shops dataset as CSV"
             >
-              <FileSpreadsheet className="h-3.5 w-3.5" />
+              <FileSpreadsheet className="h-3.5 w-3.5 text-[#D9A15B]" />
               CSV
             </a>
             <a
               href="/api/analytics/shops?format=json"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-sky-500/30 bg-sky-950/40 px-3 py-1.5 text-xs font-semibold text-sky-300 hover:bg-sky-900/60 hover:text-white transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#2A3745] bg-[#161E26] px-3 py-1.5 text-xs font-semibold text-[#EDE6D9] hover:bg-[#1E2934] hover:border-[#4E9B8F]/40 hover:text-[#4E9B8F] transition-all shadow-sm"
               title="View/Download JSON API data"
             >
-              <FileJson className="h-3.5 w-3.5" />
+              <FileJson className="h-3.5 w-3.5 text-[#4E9B8F]" />
               JSON
             </a>
           </div>
@@ -178,9 +179,9 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 bg-slate-950/50 p-3 rounded-xl border border-slate-800/80">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 bg-[#0A0E12]/60 p-3 rounded-xl border border-[#222E3A]">
         <div className="relative flex-1 min-w-[240px]">
-          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-[#8A949E]" />
           <input
             type="text"
             placeholder={

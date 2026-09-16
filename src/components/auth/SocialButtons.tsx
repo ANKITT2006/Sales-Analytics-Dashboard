@@ -38,7 +38,7 @@ export function SocialButtons({ mode = "signin", onPrototypeLogin }: SocialButto
         <button
           type="button"
           onClick={() => handleProviderClick("Google")}
-          className="group relative flex h-11 flex-1 items-center justify-center gap-3 rounded-xl border border-slate-700/80 bg-slate-900/90 px-4 text-xs font-semibold text-slate-200 shadow-sm transition-all duration-200 hover:border-slate-500 hover:bg-slate-800 hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50"
+          className="group relative flex h-11 flex-1 items-center justify-center gap-3 rounded-xl border border-[#222E3A] bg-[#161E26] px-4 text-xs font-semibold text-[#EDE6D9] shadow-sm transition-all duration-200 hover:border-[#D9A15B]/40 hover:bg-[#1C252F] hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A15B]/50"
           aria-label={googleText}
         >
           {/* Google Official SVG */}
@@ -67,7 +67,7 @@ export function SocialButtons({ mode = "signin", onPrototypeLogin }: SocialButto
         <button
           type="button"
           onClick={() => handleProviderClick("Facebook")}
-          className="group relative flex h-11 flex-1 items-center justify-center gap-3 rounded-xl border border-blue-900/60 bg-[#1877F2]/10 px-4 text-xs font-semibold text-blue-300 shadow-sm transition-all duration-200 hover:border-blue-500/80 hover:bg-[#1877F2]/20 hover:text-blue-100 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50"
+          className="group relative flex h-11 flex-1 items-center justify-center gap-3 rounded-xl border border-[#222E3A] bg-[#161E26] px-4 text-xs font-semibold text-[#EDE6D9] shadow-sm transition-all duration-200 hover:border-[#D9A15B]/40 hover:bg-[#1C252F] hover:text-white active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A15B]/50"
           aria-label={facebookText}
         >
           {/* Facebook Official SVG */}
@@ -81,44 +81,44 @@ export function SocialButtons({ mode = "signin", onPrototypeLogin }: SocialButto
       {/* OAuth Explanation Modal for Prototype Environment */}
       {modalProvider && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
           aria-labelledby="oauth-dialog-title"
         >
-          <div className="relative w-full max-w-md rounded-2xl border border-slate-700/80 bg-slate-900 p-6 shadow-2xl shadow-black">
+          <div className="relative w-full max-w-md rounded-2xl border border-[#222E3A] bg-[#12181D] p-6 shadow-2xl shadow-black">
             <button
               type="button"
               onClick={() => setModalProvider(null)}
-              className="absolute top-4 right-4 rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+              className="absolute top-4 right-4 rounded-lg p-1.5 text-[#8A949E] hover:bg-[#161E26] hover:text-[#EDE6D9] transition-colors"
               aria-label="Close modal"
             >
               <X className="h-5 w-5" />
             </button>
 
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#D9A15B]/15 text-[#D9A15B] border border-[#D9A15B]/30">
                 <ShieldAlert className="h-5 w-5" />
               </div>
               <div>
-                <h3 id="oauth-dialog-title" className="text-base font-bold text-white">
+                <h3 id="oauth-dialog-title" className="text-base font-bold text-[#EDE6D9] font-serif">
                   {modalProvider} OAuth 2.0 Integration
                 </h3>
-                <p className="text-xs text-slate-400">Prototype Environment Notice</p>
+                <p className="text-xs text-[#8A949E]">Prototype Environment Notice</p>
               </div>
             </div>
 
-            <div className="mt-4 rounded-xl border border-slate-800 bg-slate-950/60 p-3.5 text-xs text-slate-300 space-y-2">
+            <div className="mt-4 rounded-xl border border-[#222E3A] bg-[#0A0E12] p-3.5 text-xs text-[#EDE6D9] space-y-2">
               <p>
                 In this prototype deployment, third-party authentication via{" "}
-                <strong className="text-white font-semibold">{modalProvider}</strong> requires production OAuth client credentials:
+                <strong className="text-[#D9A15B] font-semibold">{modalProvider}</strong> requires production OAuth client credentials:
               </p>
-              <code className="block rounded bg-slate-900 px-2 py-1 text-[11px] font-mono text-emerald-400 border border-slate-800">
+              <code className="block rounded bg-[#161E26] px-2 py-1 text-[11px] font-mono text-[#4E9B8F] border border-[#222E3A]">
                 {modalProvider === "Google"
                   ? "GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET"
                   : "FACEBOOK_APP_ID & FACEBOOK_APP_SECRET"}
               </code>
-              <p className="text-slate-400">
+              <p className="text-[#8A949E]">
                 To prevent simulated/fake logins without credentials, the system does not bypass OAuth protocol. You can explore the application using direct credentials or the verified prototype account.
               </p>
             </div>
@@ -127,14 +127,14 @@ export function SocialButtons({ mode = "signin", onPrototypeLogin }: SocialButto
               <button
                 type="button"
                 onClick={() => setModalProvider(null)}
-                className="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-colors"
+                className="rounded-xl border border-[#2A3745] bg-[#161E26] px-4 py-2 text-xs font-semibold text-[#EDE6D9] hover:bg-[#1E2934] transition-colors"
               >
                 Close Notice
               </button>
               <button
                 type="button"
                 onClick={handleUseDemoAccount}
-                className="flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500 transition-colors shadow-md shadow-emerald-900/30"
+                className="flex items-center justify-center gap-1.5 rounded-xl bg-[#D9A15B] hover:bg-[#C6904A] px-4 py-2 text-xs font-bold text-[#0A0E12] transition-colors shadow-md shadow-[#D9A15B]/20"
               >
                 <CheckCircle2 className="h-4 w-4" />
                 <span>Sign in with Demo Account</span>

@@ -82,43 +82,43 @@ export function StateBreakdownTable({
   const getDensityBadge = (share: number) => {
     if (share >= 8) {
       return (
-        <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-400 border border-emerald-500/30">
+        <span className="inline-flex items-center gap-1 rounded-md bg-[#4E9B8F]/15 px-2 py-0.5 text-[10px] font-bold text-[#4E9B8F] border border-[#4E9B8F]/30">
           High Density
         </span>
       );
     }
     if (share >= 3) {
       return (
-        <span className="inline-flex items-center gap-1 rounded-md bg-blue-500/15 px-2 py-0.5 text-[10px] font-bold text-blue-400 border border-blue-500/30">
+        <span className="inline-flex items-center gap-1 rounded-md bg-[#D9A15B]/15 px-2 py-0.5 text-[10px] font-bold text-[#D9A15B] border border-[#D9A15B]/30">
           Medium Density
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 rounded-md bg-slate-800 px-2 py-0.5 text-[10px] font-medium text-slate-400 border border-slate-700">
+      <span className="inline-flex items-center gap-1 rounded-md bg-[#161E26] px-2 py-0.5 text-[10px] font-medium text-[#8A949E] border border-[#2A3745]">
         Emerging
       </span>
     );
   };
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-md">
+    <div className="rounded-2xl border border-[#222E3A] bg-[#13191F]/90 p-5 shadow-xl backdrop-blur-md">
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white shadow-lg shadow-emerald-600/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1A222B] text-[#D9A15B] border border-[#222E3A] shadow-md">
             <Globe2 className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-base sm:text-lg font-bold text-white">
+              <h3 className="text-base sm:text-lg font-bold text-[#EDE6D9] font-serif tracking-tight">
                 All-India Statewise Retail Matrix
               </h3>
-              <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-bold text-emerald-400 border border-emerald-500/30">
+              <span className="inline-flex items-center rounded-full bg-[#4E9B8F]/15 px-2.5 py-0.5 text-xs font-bold text-[#4E9B8F] border border-[#4E9B8F]/30">
                 28 States + 8 UTs
               </span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#8A949E]">
               Live transaction volume & digital density weighted across all Indian regions
             </p>
           </div>
@@ -126,19 +126,19 @@ export function StateBreakdownTable({
 
         {/* Search */}
         <div className="relative w-full sm:w-64">
-          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-[#8A949E]" />
           <input
             type="text"
             placeholder="Search state or city..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-xl border border-slate-800 bg-slate-950 pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:border-emerald-500 focus:outline-none"
+            className="w-full rounded-xl border border-[#222E3A] bg-[#0A0E12] pl-8 pr-3 py-1.5 text-xs text-[#EDE6D9] placeholder-[#8A949E] focus:border-[#D9A15B] focus:outline-none"
           />
         </div>
       </div>
 
       {/* Region Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-1.5 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center gap-1.5 pb-4 border-b border-[#222E3A]">
         {REGIONS.map((reg) => (
           <button
             key={reg.id}
@@ -146,8 +146,8 @@ export function StateBreakdownTable({
             onClick={() => setActiveRegion(reg.id)}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
               activeRegion === reg.id
-                ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20 font-bold"
-                : "bg-slate-800/80 text-slate-300 hover:bg-slate-700 border border-slate-700/60"
+                ? "bg-[#D9A15B] text-[#0A0E12] shadow-md shadow-[#D9A15B]/20 font-bold"
+                : "bg-[#161E26] text-[#8A949E] hover:text-[#EDE6D9] hover:bg-[#1E2934] border border-[#2A3745]"
             }`}
           >
             {reg.label}

@@ -19,8 +19,8 @@ const RANGES: { id: DateRangeOption; label: string }[] = [
 
 export function DateRangeSelector({ value, onChange }: DateRangeSelectorProps) {
   return (
-    <div className="flex items-center gap-1.5 rounded-xl border border-slate-700/80 bg-slate-900/90 p-1 backdrop-blur-md">
-      <Calendar className="h-4 w-4 ml-2 mr-1 text-slate-400 hidden sm:inline-block" />
+    <div className="flex items-center gap-1.5 rounded-xl border border-[#222E3A] bg-[#0A0E12] p-1 backdrop-blur-md">
+      <Calendar className="h-4 w-4 ml-2 mr-1 text-[#8A949E] hidden sm:inline-block" />
       {RANGES.map((r) => {
         const isActive = value === r.id;
         return (
@@ -30,8 +30,8 @@ export function DateRangeSelector({ value, onChange }: DateRangeSelectorProps) {
             onClick={() => onChange(r.id)}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
               isActive
-                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shadow-sm"
-                : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+                ? "bg-[#D9A15B]/20 text-[#D9A15B] border border-[#D9A15B]/40 shadow-sm"
+                : "text-[#8A949E] hover:text-[#EDE6D9] hover:bg-[#161E26]"
             }`}
           >
             {r.label}

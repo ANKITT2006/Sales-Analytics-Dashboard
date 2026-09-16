@@ -51,7 +51,12 @@ export function DashboardView() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-6">
+      {/* Faint ambient fintech lighting glows */}
+      <div className="pointer-events-none absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-[#D9A15B]/5 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute top-1/3 -left-20 h-96 w-96 rounded-full bg-[#4E9B8F]/4 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute bottom-1/4 -right-20 h-96 w-96 rounded-full bg-[#C4695A]/4 blur-3xl -z-10" />
+
       {/* Header */}
       <DashboardHeader
         regionName={regionName}
@@ -61,7 +66,7 @@ export function DashboardView() {
       />
 
       {/* Control Bar: State / Region Filter + Date Range */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-3.5 backdrop-blur-md">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 rounded-2xl border border-[#222E3A] bg-[#12181D]/90 p-3.5 backdrop-blur-md shadow-lg">
         <div className="w-full sm:w-72">
           <StateSelector value={selectedState} onChange={setSelectedState} />
         </div>
@@ -71,7 +76,7 @@ export function DashboardView() {
             <button
               type="button"
               onClick={() => setSelectedState("ALL")}
-              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 underline underline-offset-2 shrink-0"
+              className="text-xs font-semibold text-[#D9A15B] hover:text-[#C6904A] underline underline-offset-2 shrink-0"
             >
               Reset to All India
             </button>

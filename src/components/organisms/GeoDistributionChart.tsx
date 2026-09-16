@@ -31,23 +31,25 @@ export function GeoDistributionChart({
   const maxRevenue = data[0]?.revenue || 1;
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-md">
+    <div className="rounded-2xl border border-[#222E3A] bg-[#13191F]/90 p-5 shadow-xl backdrop-blur-md">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1A222B] text-[#D9A15B] border border-[#222E3A]">
             <Globe2 className="h-4 w-4" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-white">State Revenue Distribution</h3>
-            <p className="text-xs text-slate-400">Live retail turnover across Indian states (INR)</p>
+            <h3 className="text-base font-bold text-[#EDE6D9] font-serif tracking-tight">
+              State Revenue Distribution
+            </h3>
+            <p className="text-xs text-[#8A949E]">Live retail turnover across Indian states (INR)</p>
           </div>
         </div>
-        <span className="text-xs font-semibold text-slate-400">
+        <span className="text-xs font-semibold text-[#8A949E]">
           {data.length} States
         </span>
       </div>
 
-      <div className="space-y-3 max-h-[340px] overflow-y-auto pr-1">
+      <div className="space-y-2.5 max-h-[340px] overflow-y-auto pr-1">
         {data.map((st) => {
           const isSelected = selectedState === st.state_code;
           const progressPercent = Math.min(100, Math.round((st.revenue / maxRevenue) * 100));
@@ -58,43 +60,43 @@ export function GeoDistributionChart({
               onClick={() => onSelectState(isSelected ? "ALL" : st.state_code)}
               className={`group flex flex-col rounded-xl border p-3 cursor-pointer transition-all ${
                 isSelected
-                  ? "border-emerald-500/50 bg-emerald-950/30 shadow-md shadow-emerald-950/50"
-                  : "border-slate-800/80 bg-slate-950/40 hover:border-slate-700 hover:bg-slate-800/40"
+                  ? "border-[#D9A15B]/70 bg-[#D9A15B]/10 shadow-md shadow-[#D9A15B]/10"
+                  : "border-[#222E3A] bg-[#0E141A]/60 hover:border-[#D9A15B]/40 hover:bg-[#151D24]"
               }`}
             >
               <div className="flex items-center justify-between text-xs mb-1.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[11px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
+                  <span className="font-mono text-[11px] font-bold px-1.5 py-0.5 rounded bg-[#1A222B] text-[#EDE6D9] border border-[#222E3A]">
                     {st.state_code}
                   </span>
-                  <span className="font-semibold text-white group-hover:text-emerald-400 transition-colors">
+                  <span className="font-semibold text-[#EDE6D9] group-hover:text-[#D9A15B] transition-colors">
                     {st.state_name}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-300 font-mono font-medium">
+                  <span className="text-[#EDE6D9] font-mono font-medium">
                     {formatCurrency(st.revenue)}
                   </span>
-                  <span className="text-[11px] font-bold text-emerald-400">
+                  <span className="text-[11px] font-bold text-[#4E9B8F]">
                     {st.share_pct}%
                   </span>
-                  <ChevronRight className="h-3.5 w-3.5 text-slate-500 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="h-3.5 w-3.5 text-[#8A949E] group-hover:translate-x-0.5 group-hover:text-[#D9A15B] transition-all" />
                 </div>
               </div>
 
-              {/* Progress Bar */}
-              <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-800">
+              {/* Progress Bar in Copper */}
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#1A222B]">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
                     isSelected
-                      ? "bg-emerald-400 shadow-sm shadow-emerald-400"
-                      : "bg-gradient-to-r from-blue-500 to-emerald-400 opacity-80 group-hover:opacity-100"
+                      ? "bg-[#D9A15B] shadow-sm shadow-[#D9A15B]"
+                      : "bg-[#D9A15B]/85 group-hover:bg-[#D9A15B]"
                   }`}
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
 
-              <div className="mt-1.5 flex justify-between text-[11px] text-slate-500">
+              <div className="mt-1.5 flex justify-between text-[11px] text-[#8A949E]">
                 <span>{formatNumberIN(st.orders)} verified orders</span>
                 <span>Click to {isSelected ? "clear filter" : "filter state"}</span>
               </div>

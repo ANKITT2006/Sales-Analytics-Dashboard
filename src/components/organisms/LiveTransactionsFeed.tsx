@@ -126,17 +126,26 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
     } else if (gw === "PhonePe") {
       badgeClasses = "bg-purple-500/20 text-purple-300 border-purple-400";
       label = "VERIFIED PHONEPE";
+    } else    if (gw === "Razorpay") {
+      badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
+      label = "VERIFIED RAZORPAY";
+    } else if (gw === "Google Pay") {
+      badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
+      label = "VERIFIED GPAY";
+    } else if (gw === "PhonePe") {
+      badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
+      label = "VERIFIED PHONEPE";
     } else if (gw === "Cashfree") {
-      badgeClasses = "bg-cyan-500/20 text-cyan-300 border-cyan-400";
+      badgeClasses = "bg-[#D9A15B]/20 text-[#D9A15B] border-[#D9A15B]/40";
       label = "VERIFIED CASHFREE";
     } else if (gw === "PayU") {
-      badgeClasses = "bg-lime-500/20 text-lime-300 border-lime-400";
+      badgeClasses = "bg-[#D9A15B]/20 text-[#D9A15B] border-[#D9A15B]/40";
       label = "VERIFIED PAYU";
     }
 
     return (
       <span
-        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-black border shadow-md ${badgeClasses}`}
+        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold border shadow-md ${badgeClasses}`}
       >
         <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
         {label}
@@ -146,29 +155,29 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
 
   return (
     <>
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-md">
+      <div className="rounded-2xl border border-[#222E3A] bg-[#13191F]/90 p-5 shadow-xl backdrop-blur-md">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2.5">
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 shadow-inner">
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#1A222B] text-[#D9A15B] border border-[#222E3A]">
               <Activity className="h-5 w-5" />
               {isRunning && (
                 <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4E9B8F] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-[#4E9B8F]"></span>
                 </span>
               )}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-white">
+                <h3 className="text-base font-bold text-[#EDE6D9] font-serif tracking-tight">
                   Live Multi-Gateway Transaction Stream
                 </h3>
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400 border border-emerald-500/30">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#D9A15B]/15 px-2.5 py-0.5 text-[10px] font-bold text-[#D9A15B] border border-[#D9A15B]/30">
                   <Zap className="h-3 w-3" /> All-India UPI & Cards
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#8A949E]">
                 Listening to Razorpay, Google Pay, PhonePe, Cashfree, and PayU live webhooks
               </p>
             </div>
@@ -179,7 +188,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
             <button
               type="button"
               onClick={handleOpenSimulator}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-md shadow-indigo-500/20 border border-indigo-400/30 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#D9A15B] hover:bg-[#C6904A] text-[#0A0E12] shadow-md shadow-[#D9A15B]/20 transition-all active:scale-95"
             >
               <Sparkles className="h-3.5 w-3.5" />
               <span>Simulate Gateway Payment</span>
@@ -191,13 +200,13 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
               disabled={isLoading}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                 isRunning
-                  ? "bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700"
-                  : "bg-emerald-600 hover:bg-emerald-500 text-white border-emerald-500"
+                  ? "bg-[#161E26] hover:bg-[#1E2934] text-[#EDE6D9] border-[#2A3745]"
+                  : "bg-[#4E9B8F] hover:bg-[#3F877C] text-[#0A0E12] border-[#4E9B8F]"
               }`}
             >
               {isRunning ? (
                 <>
-                  <Pause className="h-3 w-3 text-amber-400" />
+                  <Pause className="h-3 w-3 text-[#D9A15B]" />
                   <span>Pause</span>
                 </>
               ) : (
@@ -211,10 +220,10 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
             <button
               type="button"
               onClick={fetchLiveFeed}
-              className="p-1.5 rounded-xl text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all"
+              className="p-1.5 rounded-xl text-[#8A949E] bg-[#161E26] hover:bg-[#1E2934] hover:text-[#EDE6D9] border border-[#2A3745] transition-all"
               title="Manual Sync"
             >
-              <RefreshCw className="h-3.5 w-3.5 text-slate-400" />
+              <RefreshCw className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>

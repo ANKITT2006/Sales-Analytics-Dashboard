@@ -4,6 +4,8 @@ import React, { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import { Cpu, CheckCircle2, ShieldCheck, Star } from "lucide-react";
 
+import Image from "next/image";
+
 interface AuthLayoutProps {
   children: ReactNode;
 }
@@ -47,7 +49,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen w-full flex flex-col justify-between bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-emerald-500 selection:text-slate-950"
+      className="relative min-h-screen w-full flex flex-col justify-between bg-[#0A0E12] text-[#EDE6D9] overflow-x-hidden selection:bg-[#D9A15B] selection:text-[#0A0E12]"
     >
       {/* ====================================================================
           1. LIVE ANIMATED BACKGROUND ENVIRONMENT
@@ -68,9 +70,9 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
       {/* Organic Warm Festive Lamp / Lantern Flickering Lights */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-        {/* Top-left market canopy warm lantern glow */}
+        {/* Top-left market canopy warm lantern glow in copper */}
         <div
-          className="absolute top-[14%] left-[18%] h-40 w-40 rounded-full bg-amber-500/25 blur-3xl animate-lamp-soft"
+          className="absolute top-[14%] left-[18%] h-40 w-40 rounded-full bg-[#D9A15B]/20 blur-3xl animate-lamp-soft"
           style={{
             transform: `translate3d(${mouseOffset.x * 0.7}px, ${mouseOffset.y * 0.7}px, 0)`,
           }}
@@ -78,7 +80,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
         {/* Top-center festive lantern illumination */}
         <div
-          className="absolute top-[10%] left-[46%] h-52 w-52 rounded-full bg-amber-400/20 blur-3xl animate-lamp-gentle"
+          className="absolute top-[10%] left-[46%] h-52 w-52 rounded-full bg-[#D9A15B]/15 blur-3xl animate-lamp-gentle"
           style={{
             transform: `translate3d(${mouseOffset.x * 0.5}px, ${mouseOffset.y * 0.5}px, 0)`,
           }}
@@ -86,7 +88,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
         {/* Right street stall warm golden light */}
         <div
-          className="absolute top-[22%] right-[16%] h-44 w-44 rounded-full bg-orange-500/25 blur-3xl animate-lamp-soft"
+          className="absolute top-[22%] right-[16%] h-44 w-44 rounded-full bg-[#C4695A]/20 blur-3xl animate-lamp-soft"
           style={{
             transform: `translate3d(${mouseOffset.x * 0.6}px, ${mouseOffset.y * 0.6}px, 0)`,
           }}
@@ -94,14 +96,14 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
         {/* UPI digital commerce glowing green node in the lower quadrant */}
         <div
-          className="absolute bottom-[24%] left-[26%] h-56 w-56 rounded-full bg-emerald-500/15 blur-3xl animate-lamp-gentle"
+          className="absolute bottom-[24%] left-[26%] h-56 w-56 rounded-full bg-[#4E9B8F]/15 blur-3xl animate-lamp-gentle"
           style={{
             transform: `translate3d(${mouseOffset.x * 0.8}px, ${mouseOffset.y * 0.8}px, 0)`,
           }}
         />
 
-        {/* Deep blue/indigo atmospheric night glow on upper skyline */}
-        <div className="absolute -top-10 right-1/4 h-72 w-72 rounded-full bg-indigo-600/15 blur-3xl animate-lamp-gentle" />
+        {/* Atmospheric night glow on upper skyline */}
+        <div className="absolute -top-10 right-1/4 h-72 w-72 rounded-full bg-[#4E9B8F]/10 blur-3xl animate-lamp-gentle" />
       </div>
 
       {/* Floating festive golden dust motes / light particles */}
@@ -110,7 +112,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           PARTICLES.map((p) => (
             <div
               key={p.id}
-              className={`absolute rounded-full bg-gradient-to-tr from-amber-300 to-yellow-100 shadow-[0_0_6px_rgba(251,191,36,0.8)] ${p.variant}`}
+              className={`absolute rounded-full bg-gradient-to-tr from-[#D9A15B] to-yellow-100 shadow-[0_0_6px_rgba(217,161,91,0.8)] ${p.variant}`}
               style={{
                 left: p.left,
                 top: p.top,
@@ -123,17 +125,12 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           ))}
       </div>
 
-      {/* 
-        Subtle dark gradient overlay:
-        Smoothly adjusts depth when login card is visible vs. full background mode.
-        When full-screen (showLogin = false), lightens subtly so the Indian retail 
-        marketplace, vibrant stalls, and festive lights are fully immersive.
-      */}
+      {/* Subtle dark gradient overlay */}
       <div
         className={`fixed inset-0 z-0 transition-all duration-500 ease-in-out ${
           showLogin
-            ? "bg-gradient-to-b from-slate-950/75 via-slate-950/60 to-slate-950/85 backdrop-blur-[1.5px]"
-            : "bg-gradient-to-b from-slate-950/45 via-slate-950/30 to-slate-950/60 backdrop-blur-[0.5px]"
+            ? "bg-gradient-to-b from-[#0A0E12]/80 via-[#0A0E12]/65 to-[#0A0E12]/90 backdrop-blur-[1.5px]"
+            : "bg-gradient-to-b from-[#0A0E12]/50 via-[#0A0E12]/30 to-[#0A0E12]/65 backdrop-blur-[0.5px]"
         }`}
         aria-hidden="true"
       />
@@ -147,19 +144,27 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           href="/"
           className="group flex items-center gap-3 transition-transform duration-200 active:scale-95"
         >
-          <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-indigo-600 text-white shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-all">
-            <Cpu className="h-5 w-5 sm:h-6 sm:w-6" />
+          {/* Uploaded 3D Metallic Copper Logo */}
+          <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl overflow-hidden bg-[#12181D] border border-[#D9A15B]/30 shadow-lg shadow-[#D9A15B]/10 p-0.5 group-hover:border-[#D9A15B] transition-all">
+            <Image
+              src="/images/app-logo-square.png"
+              alt="Logo"
+              width={40}
+              height={40}
+              className="object-contain"
+              priority
+            />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-base sm:text-lg font-black tracking-tight text-white group-hover:text-emerald-300 transition-colors">
+              <span className="text-base sm:text-lg font-serif font-semibold tracking-tight text-[#EDE6D9] group-hover:text-[#D9A15B] transition-colors">
                 Sales Analytics Dashboard
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[11px] font-semibold text-emerald-400 border border-emerald-500/30">
+              <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-[#4E9B8F]/15 px-2 py-0.5 text-[11px] font-semibold text-[#4E9B8F] border border-[#4E9B8F]/30">
                 <CheckCircle2 className="h-3 w-3" /> Retail BI
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 hidden xs:block">
+            <p className="text-[11px] text-[#8A949E] hidden xs:block">
               Turn your sales data into actionable insights
             </p>
           </div>
@@ -173,33 +178,33 @@ export function AuthLayout({ children }: AuthLayoutProps) {
             onClick={() => setShowLogin((prev) => !prev)}
             aria-label={showLogin ? "Hide login interface" : "Show login interface"}
             title={showLogin ? "Hide Login" : "Show Login"}
-            className={`group relative flex h-9 w-9 items-center justify-center rounded-xl border transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 active:scale-95 cursor-pointer ${
+            className={`group relative flex h-9 w-9 items-center justify-center rounded-xl border transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-[#D9A15B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0E12] active:scale-95 cursor-pointer ${
               showLogin
-                ? "border-slate-700/80 bg-slate-900/85 text-slate-300 hover:border-amber-400/60 hover:bg-slate-800/90 hover:text-amber-300 hover:shadow-lg hover:shadow-amber-500/20"
-                : "border-amber-400/80 bg-amber-950/60 text-amber-300 shadow-lg shadow-amber-500/25 ring-1 ring-amber-400/50 hover:bg-amber-900/70"
+                ? "border-[#222E3A] bg-[#12181D]/90 text-[#8A949E] hover:border-[#D9A15B]/60 hover:bg-[#161E26] hover:text-[#D9A15B] hover:shadow-lg hover:shadow-[#D9A15B]/20"
+                : "border-[#D9A15B] bg-[#D9A15B]/20 text-[#D9A15B] shadow-lg shadow-[#D9A15B]/25 ring-1 ring-[#D9A15B]/50 hover:bg-[#D9A15B]/30"
             }`}
           >
             <Star
               className={`h-4 w-4 transition-all duration-300 ${
                 showLogin
-                  ? "group-hover:scale-110 group-hover:rotate-12 text-slate-300 group-hover:text-amber-300 group-hover:fill-amber-300/30"
-                  : "fill-amber-400 text-amber-300 scale-110 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+                  ? "group-hover:scale-110 group-hover:rotate-12 text-[#8A949E] group-hover:text-[#D9A15B] group-hover:fill-[#D9A15B]/30"
+                  : "fill-[#D9A15B] text-[#D9A15B] scale-110 drop-shadow-[0_0_8px_rgba(217,161,91,0.6)]"
               }`}
             />
 
             {/* Accessible hover tooltip */}
-            <span className="pointer-events-none absolute -bottom-8 right-0 whitespace-nowrap rounded-md bg-slate-900/95 px-2 py-1 text-[10px] font-semibold text-slate-200 opacity-0 shadow-lg border border-slate-800 transition-opacity duration-200 group-hover:opacity-100 z-30">
+            <span className="pointer-events-none absolute -bottom-8 right-0 whitespace-nowrap rounded-md bg-[#12181D] px-2 py-1 text-[10px] font-semibold text-[#EDE6D9] opacity-0 shadow-lg border border-[#222E3A] transition-opacity duration-200 group-hover:opacity-100 z-30">
               {showLogin ? "Hide Login" : "Show Login"}
             </span>
           </button>
 
           {/* Existing Live UPI Ingestion Indicator Badge */}
-          <div className="flex items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/80 px-2.5 sm:px-3 py-1.5 text-xs text-slate-300 backdrop-blur-md">
+          <div className="flex items-center gap-2 rounded-full border border-[#222E3A] bg-[#12181D]/90 px-2.5 sm:px-3 py-1.5 text-xs text-[#EDE6D9] backdrop-blur-md">
             <span className="relative flex h-2 w-2 shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4E9B8F] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4E9B8F]" />
             </span>
-            <span className="font-medium text-slate-300 whitespace-nowrap text-[11px] sm:text-xs">
+            <span className="font-medium text-[#EDE6D9] whitespace-nowrap text-[11px] sm:text-xs">
               Live UPI Ingestion
             </span>
           </div>
@@ -226,13 +231,13 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           4. FOOTER
           Business Intelligence credentials & GSTIN verification status
           ==================================================================== */}
-      <footer className="relative z-20 w-full px-4 py-4 text-center text-xs text-slate-400">
-        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-2 border-t border-slate-800/80 pt-3">
-          <p className="flex items-center justify-center gap-1.5 text-slate-400 text-[11px] sm:text-xs">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+      <footer className="relative z-20 w-full px-4 py-4 text-center text-xs text-[#8A949E]">
+        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-2 border-t border-[#222E3A] pt-3">
+          <p className="flex items-center justify-center gap-1.5 text-[#8A949E] text-[11px] sm:text-xs">
+            <ShieldCheck className="h-3.5 w-3.5 text-[#4E9B8F] shrink-0" />
             <span>Pan-India GSTIN-Verified Retail Intelligence • 28 States & 8 UTs</span>
           </p>
-          <div className="flex items-center gap-4 text-[11px] text-slate-500">
+          <div className="flex items-center gap-4 text-[11px] text-[#8A949E]/70">
             <span>Track performance. Discover trends. Make better decisions.</span>
           </div>
         </div>

@@ -26,6 +26,7 @@ import {
   setAuthToken,
 } from "@/lib/auth";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import Image from "next/image";
 
 export function SignInCard() {
   const router = useRouter();
@@ -126,7 +127,7 @@ export function SignInCard() {
       // Navigate smoothly to existing Sales Analytics Dashboard
       router.push("/");
     } catch {
-      setErrorMessage("Authentication failed. Please check your connection and try again.");
+      setErrorMessage("Authentication failed. Please verify credentials.");
     } finally {
       setIsLoading(false);
     }
@@ -140,38 +141,46 @@ export function SignInCard() {
   };
 
   return (
-    <div className="relative rounded-3xl border border-slate-700/60 bg-slate-900/85 p-6 sm:p-8 shadow-2xl shadow-black/80 backdrop-blur-xl">
+    <div className="relative rounded-3xl border border-[#222E3A] bg-[#12181D]/90 p-6 sm:p-8 shadow-2xl shadow-black/80 backdrop-blur-xl">
       {/* Subtle top ambient glow inside the card */}
-      <div className="pointer-events-none absolute -top-px left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
+      <div className="pointer-events-none absolute -top-px left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-[#D9A15B]/60 to-transparent" />
 
       {/* Header section with brand logo, application name, heading & subtitle */}
       <div className="text-center">
-        <div className="mx-auto mb-3.5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-indigo-600 text-white shadow-lg shadow-emerald-500/25">
-          <Cpu className="h-6 w-6" />
+        {/* Uploaded 3D Metallic Copper Logo */}
+        <div className="relative mx-auto mb-3.5 flex h-14 w-14 items-center justify-center rounded-2xl overflow-hidden bg-[#161E26] border border-[#D9A15B]/40 shadow-xl shadow-[#D9A15B]/15 p-1">
+          <Image
+            src="/images/app-logo-square.png"
+            alt="Logo"
+            width={48}
+            height={48}
+            className="object-contain"
+            priority
+          />
         </div>
-        <p className="text-[11px] font-bold tracking-wider uppercase text-emerald-400">
+        <p className="text-[11px] font-bold tracking-wider uppercase text-[#D9A15B]">
           Sales Analytics Dashboard
         </p>
-        <h1 className="mt-1 text-2xl sm:text-3xl font-black tracking-tight text-white">
+        <h1 className="mt-1 text-2xl sm:text-3xl font-serif font-bold tracking-tight text-[#EDE6D9]">
           Welcome Back
         </h1>
-        <p className="mt-1 text-xs sm:text-sm text-slate-400">
+        <p className="mt-1 text-xs sm:text-sm text-[#8A949E]">
           Sign in to continue to your sales analytics dashboard
         </p>
       </div>
 
       {/* Demo Credentials Quick Fill Banner */}
-      <div className="mt-5 flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-2.5 text-xs">
+      <div className="mt-5 flex items-center justify-between rounded-xl border border-[#2A3745] bg-[#161E26] p-2.5 text-xs">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-emerald-400 shrink-0" />
-          <span className="text-slate-300">
-            Reviewing prototype? <strong className="text-emerald-300">Demo account ready</strong>
+          <Sparkles className="h-4 w-4 text-[#D9A15B] shrink-0" />
+          <span className="text-[#EDE6D9]">
+            Reviewing prototype? <strong className="text-[#D9A15B]">Demo account ready</strong>
           </span>
         </div>
         <button
           type="button"
           onClick={handleFillDemo}
-          className="rounded-lg bg-emerald-500/20 px-2.5 py-1 text-[11px] font-semibold text-emerald-300 hover:bg-emerald-500/30 transition-colors border border-emerald-500/40"
+          className="rounded-lg bg-[#D9A15B] px-2.5 py-1 text-[11px] font-bold text-[#0A0E12] hover:bg-[#C6904A] transition-colors shadow-sm shadow-[#D9A15B]/20"
         >
           Auto Fill
         </button>
@@ -181,9 +190,9 @@ export function SignInCard() {
       {errorMessage && (
         <div
           role="alert"
-          className="mt-4 flex items-center gap-2.5 rounded-xl border border-rose-500/40 bg-rose-950/50 p-3 text-xs text-rose-200 animate-in fade-in duration-200"
+          className="mt-4 flex items-center gap-2.5 rounded-xl border border-[#C4695A]/40 bg-[#C4695A]/15 p-3 text-xs text-[#EDE6D9] animate-in fade-in duration-200"
         >
-          <AlertCircle className="h-4 w-4 shrink-0 text-rose-400" />
+          <AlertCircle className="h-4 w-4 shrink-0 text-[#C4695A]" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -194,12 +203,12 @@ export function SignInCard() {
         <div>
           <label
             htmlFor="signin-email"
-            className="block text-xs font-semibold text-slate-300"
+            className="block text-xs font-semibold text-[#8A949E]"
           >
             Email Address
           </label>
           <div className="relative mt-1.5">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-[#8A949E]">
               <Mail className="h-4 w-4" />
             </div>
             <input
@@ -213,15 +222,15 @@ export function SignInCard() {
               placeholder="name@company.in"
               autoComplete="email"
               disabled={isLoading}
-              className={`h-11 w-full rounded-xl border bg-slate-950/70 pl-10 pr-3 text-sm text-white placeholder:text-slate-500 transition-all outline-none focus:ring-2 disabled:opacity-50 ${
+              className={`h-11 w-full rounded-xl border bg-[#0D1217] pl-10 pr-3 text-sm text-[#EDE6D9] placeholder:text-[#8A949E]/50 transition-all outline-none focus:ring-2 disabled:opacity-50 ${
                 fieldErrors.email
-                  ? "border-rose-500/80 focus:border-rose-500 focus:ring-rose-500/20"
-                  : "border-slate-700/80 focus:border-emerald-500 focus:ring-emerald-500/20"
+                  ? "border-[#C4695A] focus:border-[#C4695A] focus:ring-[#C4695A]/20"
+                  : "border-[#222E3A] focus:border-[#D9A15B] focus:ring-[#D9A15B]/20"
               }`}
             />
           </div>
           {fieldErrors.email && (
-            <p className="mt-1 text-[11px] font-medium text-rose-400">
+            <p className="mt-1 text-[11px] font-medium text-[#C4695A]">
               {fieldErrors.email}
             </p>
           )}
@@ -232,19 +241,19 @@ export function SignInCard() {
           <div className="flex items-center justify-between">
             <label
               htmlFor="signin-password"
-              className="block text-xs font-semibold text-slate-300"
+              className="block text-xs font-semibold text-[#8A949E]"
             >
               Password
             </label>
             <Link
               href="/forgot-password"
-              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+              className="text-xs font-semibold text-[#D9A15B] hover:text-[#C6904A] transition-colors"
             >
               Forgot Password?
             </Link>
           </div>
           <div className="relative mt-1.5">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-[#8A949E]">
               <Lock className="h-4 w-4" />
             </div>
             <input
@@ -258,23 +267,23 @@ export function SignInCard() {
               placeholder="••••••••"
               autoComplete="current-password"
               disabled={isLoading}
-              className={`h-11 w-full rounded-xl border bg-slate-950/70 pl-10 pr-10 text-sm text-white placeholder:text-slate-500 transition-all outline-none focus:ring-2 disabled:opacity-50 ${
+              className={`h-11 w-full rounded-xl border bg-[#0D1217] pl-10 pr-10 text-sm text-[#EDE6D9] placeholder:text-[#8A949E]/50 transition-all outline-none focus:ring-2 disabled:opacity-50 ${
                 fieldErrors.password
-                  ? "border-rose-500/80 focus:border-rose-500 focus:ring-rose-500/20"
-                  : "border-slate-700/80 focus:border-emerald-500 focus:ring-emerald-500/20"
+                  ? "border-[#C4695A] focus:border-[#C4695A] focus:ring-[#C4695A]/20"
+                  : "border-[#222E3A] focus:border-[#D9A15B] focus:ring-[#D9A15B]/20"
               }`}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-200 transition-colors"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#8A949E] hover:text-[#EDE6D9] transition-colors"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
           {fieldErrors.password && (
-            <p className="mt-1 text-[11px] font-medium text-rose-400">
+            <p className="mt-1 text-[11px] font-medium text-[#C4695A]">
               {fieldErrors.password}
             </p>
           )}
@@ -288,21 +297,21 @@ export function SignInCard() {
               checked={remember}
               onChange={(e) => setRemember(e.target.checked)}
               disabled={isLoading}
-              className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-emerald-500 focus:ring-2 focus:ring-emerald-500/30 focus:ring-offset-0 transition-colors"
+              className="h-4 w-4 rounded border-[#222E3A] bg-[#0D1217] text-[#D9A15B] focus:ring-2 focus:ring-[#D9A15B]/30 focus:ring-offset-0 transition-colors"
             />
-            <span className="text-xs text-slate-300 font-medium">Remember me</span>
+            <span className="text-xs text-[#8A949E] font-medium">Remember me</span>
           </label>
         </div>
 
-        {/* Primary Sign In Button */}
+        {/* Primary Sign In Button: Solid Copper */}
         <button
           type="submit"
           disabled={isLoading}
-          className="group relative flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 px-4 text-sm font-bold text-slate-950 shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:from-emerald-400 hover:to-teal-500 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+          className="group relative flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#D9A15B] hover:bg-[#C6904A] px-4 text-sm font-bold text-[#0A0E12] shadow-lg shadow-[#D9A15B]/20 transition-all duration-200 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A15B]"
         >
           {isLoading ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin text-slate-950" />
+              <Loader2 className="h-4 w-4 animate-spin text-[#0A0E12]" />
               <span>Signing In...</span>
             </>
           ) : (
@@ -317,10 +326,10 @@ export function SignInCard() {
       {/* Divider with "OR" */}
       <div className="relative my-5">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-slate-700/80" />
+          <div className="w-full border-t border-[#222E3A]" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-slate-900 px-3 text-[11px] font-bold tracking-wider text-slate-400">
+          <span className="bg-[#12181D] px-3 text-[11px] font-bold tracking-wider text-[#8A949E]">
             OR
           </span>
         </div>
@@ -330,11 +339,11 @@ export function SignInCard() {
       <SocialButtons mode="signin" />
 
       {/* Bottom Text: Don't have an account? Sign Up */}
-      <div className="mt-6 text-center text-xs text-slate-400">
+      <div className="mt-6 text-center text-xs text-[#8A949E]">
         Don&apos;t have an account?{" "}
         <Link
           href="/signup"
-          className="font-bold text-emerald-400 hover:text-emerald-300 hover:underline transition-colors"
+          className="font-bold text-[#D9A15B] hover:text-[#C6904A] hover:underline transition-colors"
         >
           Sign Up
         </Link>

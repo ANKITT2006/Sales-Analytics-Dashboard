@@ -11,26 +11,28 @@ html {
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased selection:bg-brand-500 selection:text-white;
+  @apply bg-[#0A0E12] text-[#EDE6D9] antialiased selection:bg-[#D9A15B] selection:text-[#0A0E12];
+  background-color: #0A0E12;
+  color: #EDE6D9;
 }
 
-/* Custom subtle scrollbars */
+/* Custom subtle dark fintech scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0A0E12;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #222E3A;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #D9A15B;
 }
 
 .sr-only {

@@ -161,19 +161,19 @@ export function GatewaySimulatorModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-lg rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+      <div className="relative w-full max-w-lg rounded-2xl border border-[#222E3A] bg-[#12181D] p-6 shadow-2xl text-[#EDE6D9]">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div className="flex items-center justify-between pb-4 border-b border-[#222E3A]">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-purple-600 text-white shadow-lg shadow-blue-500/20">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#D9A15B]/20 text-[#D9A15B] border border-[#D9A15B]/30 shadow-lg shadow-[#D9A15B]/10">
               <Zap className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-[#EDE6D9]">
                 Multi-Gateway Webhook Simulator
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#8A949E]">
                 Trigger verified live webhooks across Indian payment providers
               </p>
             </div>
@@ -181,7 +181,7 @@ export function GatewaySimulatorModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+            className="rounded-lg p-1 text-[#8A949E] hover:bg-[#1A232C] hover:text-[#EDE6D9] transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -189,7 +189,7 @@ export function GatewaySimulatorModal({
 
         {/* Gateway Selection Buttons */}
         <div className="mt-4">
-          <label className="text-xs font-semibold text-slate-300 block mb-2">
+          <label className="text-xs font-semibold text-[#8A949E] block mb-2">
             Select Payment Gateway:
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -203,15 +203,15 @@ export function GatewaySimulatorModal({
                   onClick={() => handleGatewayChange(gw.id)}
                   className={`flex flex-col items-start p-2.5 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? `${gw.color} ${gw.borderColor} ring-2 ring-emerald-400/50 shadow-md`
-                      : "bg-slate-950/60 border-slate-800 hover:border-slate-700"
+                      ? `bg-[#D9A15B]/15 border-[#D9A15B] ring-1 ring-[#D9A15B]/50 shadow-md`
+                      : "bg-[#0A0E12] border-[#222E3A] hover:border-[#D9A15B]/40"
                   }`}
                 >
                   <div className="flex items-center gap-1.5 mb-1">
-                    <Icon className={`h-3.5 w-3.5 ${gw.textColor}`} />
-                    <span className="font-bold text-xs text-white">{gw.name.split(" ")[0]}</span>
+                    <Icon className={`h-3.5 w-3.5 ${isSelected ? "text-[#D9A15B]" : "text-[#8A949E]"}`} />
+                    <span className="font-bold text-xs text-[#EDE6D9]">{gw.name.split(" ")[0]}</span>
                   </div>
-                  <span className={`text-[10px] font-bold ${gw.textColor}`}>
+                  <span className={`text-[10px] font-bold ${isSelected ? "text-[#D9A15B]" : "text-[#8A949E]"}`}>
                     {gw.badge.replace("VERIFIED ", "")}
                   </span>
                 </button>
@@ -223,7 +223,7 @@ export function GatewaySimulatorModal({
         {/* Form Fields */}
         <form onSubmit={handleSimulate} className="mt-4 space-y-3.5">
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
+            <label className="text-xs font-semibold text-[#8A949E] block mb-1">
               Amount (INR ₹):
             </label>
             <div className="flex items-center gap-2">
@@ -233,7 +233,7 @@ export function GatewaySimulatorModal({
                 max="100000"
                 value={amount}
                 onChange={(e) => setAmount(Number(e.target.value))}
-                className="w-full rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 text-sm font-mono font-bold text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl border border-[#222E3A] bg-[#0A0E12] px-3 py-2 text-sm font-mono font-bold text-[#EDE6D9] focus:border-[#D9A15B] focus:outline-none"
                 required
               />
               <div className="flex items-center gap-1">
@@ -242,7 +242,7 @@ export function GatewaySimulatorModal({
                     key={val}
                     type="button"
                     onClick={() => setAmount(val)}
-                    className="px-2 py-1 rounded-lg text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
+                    className="px-2 py-1 rounded-lg text-[11px] font-semibold bg-[#141C24] hover:bg-[#1E2833] text-[#EDE6D9] border border-[#222E3A]"
                   >
                     ₹{val}
                   </button>
@@ -253,29 +253,29 @@ export function GatewaySimulatorModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-[#8A949E] block mb-1">
                 Customer Name:
               </label>
               <input
                 type="text"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
-                className="w-full rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 text-xs text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl border border-[#222E3A] bg-[#0A0E12] px-3 py-2 text-xs text-[#EDE6D9] focus:border-[#D9A15B] focus:outline-none"
                 required
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-[#8A949E] block mb-1">
                 Indian State:
               </label>
               <select
                 value={selectedState}
                 onChange={(e) => setSelectedState(e.target.value)}
-                className="w-full rounded-xl border border-slate-800 bg-slate-950 px-2.5 py-2 text-xs text-slate-200 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl border border-[#222E3A] bg-[#0A0E12] px-2.5 py-2 text-xs text-[#EDE6D9] focus:border-[#D9A15B] focus:outline-none"
               >
                 {ALL_INDIAN_STATES.slice(0, 15).map((s) => (
-                  <option key={s.code} value={s.code} className="bg-slate-900 text-white">
+                  <option key={s.code} value={s.code} className="bg-[#12181D] text-[#EDE6D9]">
                     {s.name} ({s.code})
                   </option>
                 ))}
@@ -287,8 +287,8 @@ export function GatewaySimulatorModal({
             <div
               className={`p-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 ${
                 lastResult.startsWith("Success")
-                  ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
-                  : "bg-rose-500/15 text-rose-300 border border-rose-500/30"
+                  ? "bg-[#4E9B8F]/15 text-[#73BFB3] border border-[#4E9B8F]/30"
+                  : "bg-[#C4695A]/15 text-[#E8998C] border border-[#C4695A]/30"
               }`}
             >
               <CheckCircle2 className="h-4 w-4 shrink-0" />
@@ -301,7 +301,7 @@ export function GatewaySimulatorModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-[#8A949E] hover:text-[#EDE6D9] hover:bg-[#1A232C] transition-all"
             >
               Close
             </button>
@@ -309,7 +309,7 @@ export function GatewaySimulatorModal({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-900/40 transition-all disabled:opacity-50"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-[#D9A15B] hover:bg-[#E5AF6D] text-slate-950 shadow-md shadow-[#D9A15B]/20 transition-all disabled:opacity-50"
             >
               <Send className="h-3.5 w-3.5" />
               <span>{isSubmitting ? "Dispatching Webhook..." : `Send ${currentGw.name} Payment`}</span>

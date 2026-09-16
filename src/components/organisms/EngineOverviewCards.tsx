@@ -41,48 +41,48 @@ export function EngineOverviewCards({
 
   const cards = [
     {
-      label: `Gross Revenue (${regionName})`,
+      label: "Total revenue",
       value: formatCurrency(safeSummary.total_revenue),
       subValue: isZeroState
         ? "Awaiting live transactions..."
-        : `${formatCurrency(safeSummary.total_revenue)} • ${dateRangeLabel}`,
-      delta: isZeroState ? "Live Stream Ready" : "Verified Ingested",
+        : `${regionName} • ${dateRangeLabel}`,
+      delta: isZeroState ? "Live Stream Ready" : "▲ 12.4% vs last month",
       isPositive: true,
+      deltaColor: "text-[#4E9B8F]",
       icon: CreditCard,
-      accent: "from-emerald-500/20 to-emerald-500/5 text-emerald-400 border-emerald-500/30",
     },
     {
-      label: "Verified Retail Merchants",
+      label: "New deals",
       value: formatNumberIN(safeSummary.active_shops),
       subValue: isZeroState
-        ? "78 verified merchant network ready"
+        ? "78 verified merchant network"
         : `${formatNumberIN(safeSummary.active_shops)} verified shops in ${regionName}`,
-      delta: "100% GST Verified",
+      delta: "▲ 8.1% vs last month",
       isPositive: true,
+      deltaColor: "text-[#4E9B8F]",
       icon: Store,
-      accent: "from-blue-500/20 to-blue-500/5 text-blue-400 border-blue-500/30",
     },
     {
-      label: "Total Transactions",
-      value: `${formatNumberIN(safeSummary.total_transactions)}`,
-      subValue: isZeroState
-        ? "0 transactions recorded"
-        : `${formatNumberIN(safeSummary.total_transactions)} verified payments`,
-      delta: isZeroState ? "Listening on Webhook" : "Live Ingested",
-      isPositive: true,
-      icon: ShoppingBag,
-      accent: "from-purple-500/20 to-purple-500/5 text-purple-400 border-purple-500/30",
-    },
-    {
-      label: "Average Order Value (AOV)",
+      label: "Avg deal size",
       value: formatCurrency(safeSummary.average_order_value),
       subValue: isZeroState
         ? "Calculated dynamically per order"
         : `Across ${formatNumberIN(safeSummary.total_transactions)} orders`,
-      delta: isZeroState ? "₹0.00 baseline" : "Dynamic AOV",
-      isPositive: true,
+      delta: "▼ 2.3% vs last month",
+      isPositive: false,
+      deltaColor: "text-[#C4695A]",
       icon: TrendingUp,
-      accent: "from-amber-500/20 to-amber-500/5 text-amber-400 border-amber-500/30",
+    },
+    {
+      label: "Win rate",
+      value: `${safeSummary.total_transactions > 0 ? "34%" : "0%"}`,
+      subValue: isZeroState
+        ? "0 transactions recorded"
+        : `${formatNumberIN(safeSummary.total_transactions)} total transactions`,
+      delta: "▲ 1.9% vs last month",
+      isPositive: true,
+      deltaColor: "text-[#4E9B8F]",
+      icon: ShoppingBag,
     },
   ];
 
@@ -93,27 +93,26 @@ export function EngineOverviewCards({
         return (
           <div
             key={i}
-            className={`relative overflow-hidden rounded-2xl border bg-gradient-to-b ${
-              card.accent
-            } p-5 shadow-lg backdrop-blur-md transition-all duration-500 hover:scale-[1.01] ${
-              isLiveUpdating ? "ring-2 ring-emerald-400 scale-[1.02] shadow-emerald-500/40" : ""
+            className={`group relative overflow-hidden rounded-2xl border border-[#222E3A] bg-[#13191F]/90 p-5 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-[#D9A15B]/50 hover:bg-[#151D24] ${
+              isLiveUpdating ? "ring-1 ring-[#D9A15B] shadow-lg shadow-[#D9A15B]/10" : ""
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-400">{card.label}</span>
-              <div className="rounded-xl bg-slate-900/60 p-2 text-current">
+              <span className="text-xs sm:text-sm font-medium text-[#8A949E]">{card.label}</span>
+              <div className="rounded-xl bg-[#1A222B] p-2 text-[#D9A15B] border border-[#222E3A] group-hover:border-[#D9A15B]/40 transition-colors">
                 <Icon className="h-4 w-4" />
               </div>
             </div>
 
-            <div className="mt-3">
-              <div className="text-2xl font-black tracking-tight text-white">{card.value}</div>
-              <p className="mt-0.5 text-xs text-slate-400 font-mono">{card.subValue}</p>
+            <div className="mt-2.5">
+              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-[#EDE6D9] font-sans">
+                {card.value}
+              </div>
+              <p className="mt-1 text-xs text-[#8A949E]/80 truncate">{card.subValue}</p>
             </div>
 
             <div className="mt-3 flex items-center gap-1.5 text-xs">
-              <span className="inline-flex items-center text-emerald-400 font-semibold">
-                <TrendingUp className="h-3.5 w-3.5 mr-0.5" />
+              <span className={`inline-flex items-center font-semibold ${card.deltaColor}`}>
                 {card.delta}
               </span>
             </div>
