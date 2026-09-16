@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   indiaTransactionEngine,
   IndianRegion,
+  NationalTransaction,
 } from "@/lib/stream/indiaTransactionEngine";
+import { verifyAuth } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,25 +14,48 @@ export async function GET(request: NextRequest) {
     const regionParam = searchParams.get("region");
     const action = searchParams.get("action");
 
-    // Optional stream ticker action
-    if (action === "toggle") {
-      const isRunning = indiaTransactionEngine.toggleSimulation();
-      return NextResponse.json({ success: true, is_running: isRunning });
-    } else if (action === "tick") {
-      const newTx = indiaTransactionEngine.generateNextTransaction();
-      return NextResponse.json({ success: true, transaction: newTx });
+    // Optional stream ticker action (Mutations require authentication)
+    if (action === "toggle" || action === "tick") {
+      const auth = await verifyAuth(request);
+      if (!auth.authenticated) {
+        return NextResponse.json(
+          { success: false, error: "Authentication Required to modify stream simulation" },
+          { status: 401 }
+        );
+      }
+
+      if (action === "toggle") {
+        const isRunning = indiaTransactionEngine.toggleSimulation();
+        return NextResponse.json({ success: true, is_running: isRunning });
+      } else {
+        const newTx = indiaTransactionEngine.generateNextTransaction();
+        return NextResponse.json({ success: true, transaction: newTx });
+      }
     }
 
     const region = regionParam && regionParam !== "ALL"
       ? (regionParam as IndianRegion)
       : undefined;
 
-    const transactions = indiaTransactionEngine.getTransactions(limit, state, region);
+    const rawTransactions = indiaTransactionEngine.getTransactions(limit, state, region);
+
+    // Check authentication to determine if customer PII should be sanitized
+    const auth = await verifyAuth(request);
+    const transactions = auth.authenticated
+      ? rawTransactions
+      : rawTransactions.map((tx: NationalTransaction) => ({
+          ...tx,
+          // Mask customer PII for public readers
+          customer_name: tx.is_verified || tx.is_verified_razorpay
+            ? "Verified Shopper"
+            : "Customer ••••",
+        }));
 
     return NextResponse.json({
       success: true,
       count: transactions.length,
       is_running: indiaTransactionEngine.isRunning(),
+      is_authenticated: auth.authenticated,
       data: transactions,
     });
   } catch (error) {
@@ -44,6 +69,15 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Mutations require server-side authentication
+    const auth = await verifyAuth(request);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Authentication Required to modify stream simulation" },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json().catch(() => ({}));
     if (typeof body.active === "boolean") {
       const running = indiaTransactionEngine.toggleSimulation(body.active);

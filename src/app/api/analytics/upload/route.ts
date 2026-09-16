@@ -3,11 +3,24 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs';
 import path from 'path';
+import { verifyAuth } from '@/lib/supabase/server';
 
 const execAsync = promisify(exec);
 
 export async function POST(request: NextRequest) {
   try {
+    // 1. Enforce Server-Side Authentication
+    const authResult = await verifyAuth(request);
+    if (!authResult.authenticated) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Authentication Required. Please sign in to access data ingestion and store synchronization.",
+        },
+        { status: 401 }
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
 

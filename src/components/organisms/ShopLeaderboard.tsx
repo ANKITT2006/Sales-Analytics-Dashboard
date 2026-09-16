@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Award,
   Store,
@@ -17,6 +17,7 @@ import {
 import type { ShopLeaderboardItem } from "@/lib/analytics";
 import { formatCurrency, formatNumberIN } from "@/lib/utils";
 import { VERIFIED_SHOPS, type VerifiedShop } from "@/data/verifiedShops";
+import { getStoredUser, User } from "@/lib/auth";
 
 interface ShopLeaderboardProps {
   data: ShopLeaderboardItem[];
@@ -24,10 +25,15 @@ interface ShopLeaderboardProps {
 }
 
 export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
+  const [user, setUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<"leaderboard" | "verified_all">("leaderboard");
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("ALL");
   const [stateFilter, setStateFilter] = useState("ALL");
+
+  useEffect(() => {
+    setUser(getStoredUser());
+  }, []);
 
   // Lookup live revenue mapped by shop_id
   const liveRevenueByShopId = useMemo(() => {
@@ -359,7 +365,7 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
                             {shop.gstin}
                           </span>
                           <span className="font-mono text-[10px] text-slate-500">
-                            PAN: {shop.pan}
+                            PAN: {user ? shop.pan : "••••••••••"}
                           </span>
                         </div>
                       </td>

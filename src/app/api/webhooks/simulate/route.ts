@@ -1,8 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { verifyAuth } from "@/lib/supabase/server";
 
 export async function POST(request: NextRequest) {
   try {
+    const authResult = await verifyAuth(request);
+    if (!authResult.authenticated) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Authentication Required. Please sign in to access webhook simulation.",
+        },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json().catch(() => ({}));
     const gateway = (body.gateway || "GooglePay") as "GooglePay" | "PhonePe" | "Razorpay" | "Cashfree" | "PayU";
     const amount = body.amount ? Number(body.amount) : undefined;

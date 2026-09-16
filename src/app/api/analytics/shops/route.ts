@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { VERIFIED_SHOPS, VerifiedShop } from "@/data/verifiedShops";
+import { verifyAuth } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,6 +9,8 @@ export async function GET(request: NextRequest) {
     const categoryParam = searchParams.get("category")?.trim();
     const searchParam = searchParams.get("search")?.trim().toLowerCase();
     const format = searchParams.get("format")?.trim().toLowerCase();
+
+    const auth = await verifyAuth(request);
 
     let result: VerifiedShop[] = VERIFIED_SHOPS;
 
@@ -33,15 +36,25 @@ export async function GET(request: NextRequest) {
         (s) =>
           s.shop_name.toLowerCase().includes(searchParam) ||
           s.gstin.toLowerCase().includes(searchParam) ||
-          s.pan.toLowerCase().includes(searchParam) ||
+          (auth.authenticated && s.pan.toLowerCase().includes(searchParam)) ||
           s.state_name.toLowerCase().includes(searchParam) ||
           s.category.toLowerCase().includes(searchParam) ||
           s.shop_id.toLowerCase().includes(searchParam)
       );
     }
 
-    // CSV format export support
+    // CSV format export support - Restricted to authenticated users
     if (format === "csv") {
+      if (!auth.authenticated) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Authentication Required to export full merchant records with tax identifiers.",
+          },
+          { status: 401 }
+        );
+      }
+
       const headers = [
         "Serial No",
         "Shop ID",
@@ -79,11 +92,20 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    // Sanitize merchant response for public readers: omit private PAN
+    const sanitizedResult = auth.authenticated
+      ? result
+      : result.map((s) => ({
+          ...s,
+          pan: "••••••••••", // Masked for public
+        }));
+
     return NextResponse.json({
       success: true,
       total_verified_shops: VERIFIED_SHOPS.length,
-      filtered_count: result.length,
-      data: result,
+      filtered_count: sanitizedResult.length,
+      is_authenticated: auth.authenticated,
+      data: sanitizedResult,
     });
   } catch (error) {
     console.error("Error fetching verified shops:", error);

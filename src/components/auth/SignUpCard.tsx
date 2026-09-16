@@ -15,7 +15,8 @@ import {
   Cpu,
 } from "lucide-react";
 import { SocialButtons } from "./SocialButtons";
-import { setStoredUser, User } from "@/lib/auth";
+import { setStoredUser, setAuthToken, User } from "@/lib/auth";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export function SignUpCard() {
   const router = useRouter();
@@ -105,6 +106,28 @@ export function SignUpCard() {
       // Simulate realistic registration round-trip
       await new Promise((resolve) => setTimeout(resolve, 800));
 
+      let accessToken = `token_${Date.now()}`;
+      const supabase = getSupabaseBrowserClient();
+      if (supabase) {
+        try {
+          const { data, error } = await supabase.auth.signUp({
+            email: email.trim(),
+            password,
+            options: {
+              data: {
+                name: fullName.trim(),
+                role: "Retail Store Owner",
+              },
+            },
+          });
+          if (!error && data?.session) {
+            accessToken = data.session.access_token;
+          }
+        } catch {
+          // Gracefully continue with local session
+        }
+      }
+
       const newUser: User = {
         id: `usr_${Date.now()}`,
         name: fullName.trim(),
@@ -115,6 +138,7 @@ export function SignUpCard() {
       };
 
       setStoredUser(newUser);
+      setAuthToken(accessToken);
 
       // Navigate to Sales Analytics Dashboard
       router.push("/");

@@ -16,6 +16,8 @@ import {
 import { formatCurrency } from "@/lib/utils";
 import type { NationalTransaction } from "@/lib/stream/indiaTransactionEngine";
 import { GatewaySimulatorModal } from "@/components/molecules/GatewaySimulatorModal";
+import { AuthPromptModal } from "@/components/molecules/AuthPromptModal";
+import { getStoredUser, getAuthHeaders } from "@/lib/auth";
 
 interface LiveTransactionsFeedProps {
   selectedState?: string;
@@ -28,11 +30,17 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
   const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date());
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalMessage, setAuthModalMessage] = useState(
+    "Please sign in to access payment gateway simulation and test transaction ingestion."
+  );
 
   const fetchLiveFeed = useCallback(async () => {
     try {
       const stateParam = selectedState !== "ALL" ? `&state=${selectedState}` : "";
-      const res = await fetch(`/api/analytics/live-feed?limit=18${stateParam}`);
+      const res = await fetch(`/api/analytics/live-feed?limit=18${stateParam}`, {
+        headers: getAuthHeaders(),
+      });
       if (!res.ok) return;
       const json = await res.json();
       if (json.success && Array.isArray(json.data)) {
@@ -58,10 +66,29 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
     return () => clearInterval(interval);
   }, [fetchLiveFeed]);
 
+  const handleOpenSimulator = () => {
+    const user = getStoredUser();
+    if (!user) {
+      setAuthModalMessage("Please sign in to access payment gateway simulation and test transaction ingestion.");
+      setIsAuthModalOpen(true);
+      return;
+    }
+    setIsSimulatorOpen(true);
+  };
+
   const toggleStream = async () => {
+    const user = getStoredUser();
+    if (!user) {
+      setAuthModalMessage("Please sign in to manage national transaction stream simulation.");
+      setIsAuthModalOpen(true);
+      return;
+    }
+
     try {
       setIsLoading(true);
-      const res = await fetch("/api/analytics/live-feed?action=toggle");
+      const res = await fetch("/api/analytics/live-feed?action=toggle", {
+        headers: getAuthHeaders(),
+      });
       const json = await res.json();
       if (json.success) {
         setIsRunning(json.is_running);
@@ -151,7 +178,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
           <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
             <button
               type="button"
-              onClick={() => setIsSimulatorOpen(true)}
+              onClick={handleOpenSimulator}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-md shadow-indigo-500/20 border border-indigo-400/30 transition-all"
             >
               <Sparkles className="h-3.5 w-3.5" />
@@ -298,6 +325,13 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
         isOpen={isSimulatorOpen}
         onClose={() => setIsSimulatorOpen(false)}
         onSuccess={fetchLiveFeed}
+      />
+
+      {/* Authentication Prompt Modal */}
+      <AuthPromptModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        message={authModalMessage}
       />
     </>
   );

@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { UploadCloud, CheckCircle2, AlertCircle, X, Loader2, FileSpreadsheet } from "lucide-react";
 import Papa from "papaparse";
+import { getAuthHeaders } from "@/lib/auth";
 
 interface CsvUploadModalProps {
   isOpen: boolean;
@@ -107,6 +108,7 @@ export function CsvUploadModal({ isOpen, onClose, onSuccess }: CsvUploadModalPro
 
       const res = await fetch("/api/analytics/upload", {
         method: "POST",
+        headers: getAuthHeaders(),
         body: formData,
       });
 

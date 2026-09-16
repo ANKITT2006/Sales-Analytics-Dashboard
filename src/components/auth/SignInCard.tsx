@@ -23,7 +23,9 @@ import {
   setRememberMe,
   setSavedEmail,
   setStoredUser,
+  setAuthToken,
 } from "@/lib/auth";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export function SignInCard() {
   const router = useRouter();
@@ -88,19 +90,38 @@ export function SignInCard() {
       }
 
       // If user logs in with demo credentials or any valid email
-      const userToStore =
-        email.trim().toLowerCase() === DEMO_USER.email.toLowerCase()
-          ? DEMO_USER
-          : {
-              id: `usr_${Date.now()}`,
-              name: email.split("@")[0].replace(/[._-]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-              email: email.trim(),
-              role: "Retail Operations Manager",
-              companyName: "Indian Enterprise Store",
-              gstin: "27AAACB2468R1Z1",
-            };
+      const isDemo = email.trim().toLowerCase() === DEMO_USER.email.toLowerCase();
+      let accessToken = isDemo ? "demo_token_authenticated" : `token_${Date.now()}`;
+
+      // Check if Supabase Auth client is configured
+      const supabase = getSupabaseBrowserClient();
+      if (supabase && !isDemo) {
+        try {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: email.trim(),
+            password,
+          });
+          if (!error && data?.session) {
+            accessToken = data.session.access_token;
+          }
+        } catch {
+          // Gracefully continue with local session
+        }
+      }
+
+      const userToStore = isDemo
+        ? DEMO_USER
+        : {
+            id: `usr_${Date.now()}`,
+            name: email.split("@")[0].replace(/[._-]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+            email: email.trim(),
+            role: "Retail Operations Manager",
+            companyName: "Indian Enterprise Store",
+            gstin: "27AAACB2468R1Z1",
+          };
 
       setStoredUser(userToStore);
+      setAuthToken(accessToken);
 
       // Navigate smoothly to existing Sales Analytics Dashboard
       router.push("/");

@@ -1,3 +1,5 @@
+import { getSupabaseBrowserClient } from './supabase/client';
+
 export interface User {
   id: string;
   name: string;
@@ -20,6 +22,7 @@ export const DEMO_USER: User = {
 export const DEMO_PASSWORD = "Password@123";
 
 const USER_STORAGE_KEY = "sa_auth_user";
+const TOKEN_STORAGE_KEY = "sa_auth_token";
 const REMEMBER_ME_KEY = "sa_remember_me";
 const SAVED_EMAIL_KEY = "sa_saved_email";
 
@@ -37,6 +40,30 @@ export function setStoredUser(user: User): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+    // Also set demo token if no custom token exists
+    if (!localStorage.getItem(TOKEN_STORAGE_KEY)) {
+      localStorage.setItem(TOKEN_STORAGE_KEY, `demo_token_${user.id}`);
+      document.cookie = `sa_auth_token=demo_token_${user.id}; path=/; SameSite=Lax`;
+    }
+  } catch {
+    // ignore
+  }
+}
+
+export function getAuthToken(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return localStorage.getItem(TOKEN_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function setAuthToken(token: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+    document.cookie = `sa_auth_token=${token}; path=/; SameSite=Lax`;
   } catch {
     // ignore
   }
@@ -46,9 +73,39 @@ export function clearStoredUser(): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(USER_STORAGE_KEY);
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    document.cookie = "sa_auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    
+    // Also sign out from Supabase if connected
+    const supabase = getSupabaseBrowserClient();
+    if (supabase) {
+      supabase.auth.signOut().catch(() => {});
+    }
   } catch {
     // ignore
   }
+}
+
+export function getAuthHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {};
+  if (typeof window === "undefined") return headers;
+
+  const user = getStoredUser();
+  const token = getAuthToken();
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  if (user) {
+    headers["x-auth-user"] = JSON.stringify(user);
+  }
+
+  return headers;
+}
+
+export function isAuthenticated(): boolean {
+  if (typeof window === "undefined") return false;
+  return getStoredUser() !== null;
 }
 
 export function getRememberMe(): boolean {

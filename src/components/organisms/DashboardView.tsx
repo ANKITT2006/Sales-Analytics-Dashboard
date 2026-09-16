@@ -14,6 +14,7 @@ import { CsvUploadModal } from "@/components/molecules/CsvUploadModal";
 import { LoadingState } from "@/components/molecules/LoadingState";
 import { ErrorState } from "@/components/molecules/ErrorState";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { getAuthHeaders } from "@/lib/auth";
 
 export function DashboardView() {
   const [selectedState, setSelectedState] = useState<string>("ALL");
@@ -37,7 +38,9 @@ export function DashboardView() {
     setIsRetraining(true);
     try {
       // Trigger train script through lightweight fetch or re-ingestion
-      const res = await fetch("/api/analytics/overview?retrain=true");
+      const res = await fetch("/api/analytics/overview?retrain=true", {
+        headers: getAuthHeaders(),
+      });
       await res.json();
       refetch();
     } catch {

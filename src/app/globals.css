@@ -45,3 +45,133 @@ body {
   border-width: 0;
 }
 
+/* ==========================================================================
+   Live Animated Indian Retail Market Background Animations
+   ========================================================================== */
+
+@keyframes ambient-scene-breath {
+  0%, 100% {
+    transform: scale(1.03) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.055) translate3d(-0.5%, -0.4%, 0);
+  }
+}
+
+@keyframes lamp-flicker-soft {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.88;
+    transform: scale(1.08);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  75% {
+    opacity: 0.82;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes lamp-flicker-gentle {
+  0%, 100% {
+    opacity: 0.52;
+    transform: scale(0.96);
+  }
+  35% {
+    opacity: 0.82;
+    transform: scale(1.06);
+  }
+  65% {
+    opacity: 0.6;
+    transform: scale(1.01);
+  }
+}
+
+@keyframes float-dust-slow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate3d(24px, -120px, 0) scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes float-dust-reverse {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(-22px, -135px, 0) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes subtle-sway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(1.4deg);
+  }
+}
+
+.animate-scene-breath {
+  animation: ambient-scene-breath 28s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-lamp-soft {
+  animation: lamp-flicker-soft 5.5s ease-in-out infinite;
+}
+
+.animate-lamp-gentle {
+  animation: lamp-flicker-gentle 7s ease-in-out infinite;
+}
+
+.animate-dust-1 {
+  animation: float-dust-slow 11s ease-in-out infinite;
+}
+
+.animate-dust-2 {
+  animation: float-dust-reverse 14s ease-in-out infinite;
+}
+
+.animate-sway {
+  transform-origin: top center;
+  animation: subtle-sway 6.5s ease-in-out infinite;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scene-breath,
+  .animate-lamp-soft,
+  .animate-lamp-gentle,
+  .animate-dust-1,
+  .animate-dust-2,
+  .animate-sway {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+

@@ -12,6 +12,7 @@ import {
   Send,
 } from "lucide-react";
 import { ALL_INDIAN_STATES } from "@/lib/stream/indiaTransactionEngine";
+import { getAuthHeaders } from "@/lib/auth";
 
 interface GatewaySimulatorModalProps {
   isOpen: boolean;
@@ -131,7 +132,10 @@ export function GatewaySimulatorModal({
 
       const res = await fetch("/api/webhooks/simulate", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
         body: JSON.stringify({
           gateway: selectedGateway,
           amount,
