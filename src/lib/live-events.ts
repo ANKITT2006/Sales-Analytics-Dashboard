@@ -2,7 +2,6 @@ import { EventEmitter } from "events";
 
 // Global EventEmitter singleton to broadcast live webhook transactions to SSE streams
 declare global {
-  // eslint-disable-next-line no-var
   var globalLiveEventEmitter: EventEmitter | undefined;
 }
 

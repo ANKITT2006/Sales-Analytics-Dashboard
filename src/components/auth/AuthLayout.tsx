@@ -2,7 +2,7 @@
 
 import React, { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
-import { Cpu, CheckCircle2, ShieldCheck, Star } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Star } from "lucide-react";
 
 import Image from "next/image";
 
@@ -58,7 +58,9 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
       {/* Primary living artwork layer with slow ambient camera breath & subtle parallax */}
       <div
-        className="fixed inset-0 z-0 bg-cover bg-no-repeat transition-transform duration-700 ease-out animate-scene-breath will-change-transform"
+        className={`fixed inset-0 z-0 bg-cover bg-no-repeat transition-all duration-700 ease-out animate-scene-breath will-change-transform ${
+          showLogin ? "opacity-30" : "opacity-90"
+        }`}
         style={{
           backgroundImage: "url('/images/auth-bg.jpg')",
           backgroundPosition: "center 32%",
@@ -125,12 +127,12 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           ))}
       </div>
 
-      {/* Subtle dark gradient overlay */}
+      {/* Subtle dark gradient overlay with enhanced contrast for login card */}
       <div
         className={`fixed inset-0 z-0 transition-all duration-500 ease-in-out ${
           showLogin
-            ? "bg-gradient-to-b from-[#0A0E12]/80 via-[#0A0E12]/65 to-[#0A0E12]/90 backdrop-blur-[1.5px]"
-            : "bg-gradient-to-b from-[#0A0E12]/50 via-[#0A0E12]/30 to-[#0A0E12]/65 backdrop-blur-[0.5px]"
+            ? "bg-gradient-to-b from-[#0A0E12]/92 via-[#0A0E12]/86 to-[#0A0E12]/96 backdrop-blur-[2.5px]"
+            : "bg-gradient-to-b from-[#0A0E12]/45 via-[#0A0E12]/20 to-[#0A0E12]/60 backdrop-blur-[0.5px]"
         }`}
         aria-hidden="true"
       />
@@ -145,13 +147,13 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           className="group flex items-center gap-3 transition-transform duration-200 active:scale-95"
         >
           {/* Uploaded 3D Metallic Copper Logo */}
-          <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl overflow-hidden bg-[#12181D] border border-[#D9A15B]/30 shadow-lg shadow-[#D9A15B]/10 p-0.5 group-hover:border-[#D9A15B] transition-all">
+          <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl overflow-hidden bg-[#13191F]/90 border border-[#D9A15B]/30 shadow-lg shadow-[#D9A15B]/10 p-1.5 group-hover:border-[#D9A15B] transition-all">
             <Image
               src="/images/app-logo-square.png"
               alt="Logo"
-              width={40}
-              height={40}
-              className="object-contain"
+              width={36}
+              height={36}
+              className="object-contain drop-shadow-[0_2px_8px_rgba(217,161,91,0.25)] group-hover:scale-110 transition-transform duration-300"
               priority
             />
           </div>

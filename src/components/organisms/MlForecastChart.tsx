@@ -28,11 +28,11 @@ export function MlForecastChart({ data, regionName }: MlForecastChartProps) {
 
   if (!data || data.length === 0) {
     return (
-      <div className="flex h-80 flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-900/80 p-5 text-center shadow-xl backdrop-blur-md">
-        <Activity className="h-8 w-8 text-emerald-400 mb-2 animate-pulse" />
-        <h4 className="text-base font-bold text-white">Awaiting Live Transactions</h4>
-        <p className="mt-1 text-xs text-slate-400 max-w-sm">
-          Sales timeline will plot transaction velocity dynamically as payments are captured through <code className="text-emerald-400 font-mono">/api/webhooks/razorpay</code>.
+      <div className="flex h-80 flex-col items-center justify-center rounded-2xl border border-[#222E3A] bg-[#13191F]/80 p-5 text-center shadow-xl backdrop-blur-xl">
+        <Activity className="h-8 w-8 text-[#4E9B8F] mb-2 animate-pulse" />
+        <h4 className="text-base font-bold text-[#EDE6D9]">Building today&apos;s trend line…</h4>
+        <p className="mt-1 text-xs text-[#8A949E] max-w-sm">
+          Sales timeline will plot transaction velocity dynamically as payments are captured through <code className="text-[#D9A15B] font-mono">/api/webhooks/razorpay</code>.
         </p>
       </div>
     );
@@ -82,7 +82,7 @@ export function MlForecastChart({ data, regionName }: MlForecastChartProps) {
   };
 
   return (
-    <div className="rounded-2xl border border-[#222E3A] bg-[#13191F]/90 p-5 shadow-xl backdrop-blur-md">
+    <div className="rounded-2xl glass-panel p-5">
       {/* Header & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
         <div>
@@ -166,6 +166,9 @@ export function MlForecastChart({ data, regionName }: MlForecastChartProps) {
                 strokeWidth={2.5}
                 fill="url(#actualGrad)"
                 name="Revenue (INR)"
+                isAnimationActive={true}
+                animationDuration={1200}
+                animationEasing="ease-out"
               />
             </AreaChart>
           ) : chartType === "bar" ? (
@@ -178,7 +181,15 @@ export function MlForecastChart({ data, regionName }: MlForecastChartProps) {
                 tickFormatter={formatCurrencyShort}
               />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="sales" fill="#D9A15B" radius={[6, 6, 0, 0]} name="Revenue (INR)" />
+              <Bar
+                dataKey="sales"
+                fill="#D9A15B"
+                radius={[6, 6, 0, 0]}
+                name="Revenue (INR)"
+                isAnimationActive={true}
+                animationDuration={1200}
+                animationEasing="ease-out"
+              />
             </BarChart>
           ) : (
             <LineChart data={formattedData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
@@ -196,6 +207,9 @@ export function MlForecastChart({ data, regionName }: MlForecastChartProps) {
                 stroke="#D9A15B"
                 strokeWidth={3}
                 dot={{ r: 3.5, fill: "#D9A15B" }}
+                isAnimationActive={true}
+                animationDuration={1200}
+                animationEasing="ease-out"
               />
             </LineChart>
           )}

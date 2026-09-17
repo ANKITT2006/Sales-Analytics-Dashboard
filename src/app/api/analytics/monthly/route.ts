@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const state = searchParams.get('state') || 'ALL';
     const dateRange = searchParams.get('dateRange') || 'all';
 
-    const points = queryLiveTimeline(state);
+    const points = queryLiveTimeline(state, dateRange);
     const filtered = filterMonthlyByDateRange(points, dateRange);
 
     const regionName = state !== 'ALL' ? (INDIAN_STATE_MAP[state] || state) : 'All India';

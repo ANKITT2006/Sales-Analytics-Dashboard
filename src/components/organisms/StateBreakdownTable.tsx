@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  MapPin,
   Search,
   ArrowUpDown,
   Building2,
@@ -102,7 +101,7 @@ export function StateBreakdownTable({
   };
 
   return (
-    <div className="rounded-2xl border border-[#222E3A] bg-[#13191F]/90 p-5 shadow-xl backdrop-blur-md">
+    <div className="rounded-2xl glass-panel p-5">
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
         <div className="flex items-center gap-3">
@@ -212,7 +211,7 @@ export function StateBreakdownTable({
                 </td>
               </tr>
             ) : (
-              filtered.map((s, idx) => {
+              filtered.map((s) => {
                 const isSelected = selectedState === s.state_code;
                 const progressWidth = Math.min(
                   100,
@@ -225,16 +224,16 @@ export function StateBreakdownTable({
                     onClick={() => onSelectState && onSelectState(isSelected ? "ALL" : s.state_code)}
                     className={`cursor-pointer transition-colors group ${
                       isSelected
-                        ? "bg-emerald-950/40 border-l-2 border-l-emerald-500"
-                        : "hover:bg-slate-800/40"
+                        ? "bg-[#13191F]/90 border-l-2 border-l-[#D9A15B]"
+                        : "hover:bg-[#161E26]/60"
                     }`}
                   >
                     <td className="py-3 px-3">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
+                        <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#1A222B] text-[#EDE6D9] border border-[#222E3A]">
                           {s.state_code}
                         </span>
-                        <span className="font-semibold text-white group-hover:text-emerald-400 transition-colors">
+                        <span className="font-semibold text-[#EDE6D9] group-hover:text-[#D9A15B] transition-colors">
                           {s.state_name}
                         </span>
                       </div>

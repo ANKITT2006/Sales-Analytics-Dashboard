@@ -117,24 +117,18 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
     }
 
     const gw = tx.gateway || "Razorpay";
-    let badgeClasses = "bg-emerald-500/20 text-emerald-300 border-emerald-400";
+    let badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
     let label = "VERIFIED RAZORPAY";
 
     if (gw === "GooglePay") {
-      badgeClasses = "bg-blue-500/20 text-blue-300 border-blue-400";
+      badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
       label = "VERIFIED GOOGLE PAY";
     } else if (gw === "PhonePe") {
-      badgeClasses = "bg-purple-500/20 text-purple-300 border-purple-400";
+      badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
       label = "VERIFIED PHONEPE";
-    } else    if (gw === "Razorpay") {
+    } else if (gw === "Razorpay") {
       badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
       label = "VERIFIED RAZORPAY";
-    } else if (gw === "Google Pay") {
-      badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
-      label = "VERIFIED GPAY";
-    } else if (gw === "PhonePe") {
-      badgeClasses = "bg-[#4E9B8F]/20 text-[#4E9B8F] border-[#4E9B8F]/40";
-      label = "VERIFIED PHONEPE";
     } else if (gw === "Cashfree") {
       badgeClasses = "bg-[#D9A15B]/20 text-[#D9A15B] border-[#D9A15B]/40";
       label = "VERIFIED CASHFREE";
@@ -155,7 +149,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
 
   return (
     <>
-      <div className="rounded-2xl border border-[#222E3A] bg-[#13191F]/90 p-5 shadow-xl backdrop-blur-md">
+      <div className="rounded-2xl glass-panel p-5">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2.5">
@@ -178,7 +172,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
                 </span>
               </div>
               <p className="text-xs text-[#8A949E]">
-                Listening to Razorpay, Google Pay, PhonePe, Cashfree, and PayU live webhooks
+                Listening to Razorpay, Google Pay, PhonePe, Cashfree, and PayU live webhooks • Synced {lastRefreshed.toLocaleTimeString()}
               </p>
             </div>
           </div>
@@ -188,7 +182,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
             <button
               type="button"
               onClick={handleOpenSimulator}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#D9A15B] hover:bg-[#C6904A] text-[#0A0E12] shadow-md shadow-[#D9A15B]/20 transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#D9A15B] hover:bg-[#C6904A] text-[#0A0E12] shadow-md shadow-[#D9A15B]/20 transition-all hover:scale-105 active:scale-95"
             >
               <Sparkles className="h-3.5 w-3.5" />
               <span>Simulate Gateway Payment</span>
@@ -198,7 +192,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
               type="button"
               onClick={toggleStream}
               disabled={isLoading}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all active:scale-95 ${
                 isRunning
                   ? "bg-[#161E26] hover:bg-[#1E2934] text-[#EDE6D9] border-[#2A3745]"
                   : "bg-[#4E9B8F] hover:bg-[#3F877C] text-[#0A0E12] border-[#4E9B8F]"
@@ -220,7 +214,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
             <button
               type="button"
               onClick={fetchLiveFeed}
-              className="p-1.5 rounded-xl text-[#8A949E] bg-[#161E26] hover:bg-[#1E2934] hover:text-[#EDE6D9] border border-[#2A3745] transition-all"
+              className="p-1.5 rounded-xl text-[#8A949E] bg-[#161E26] hover:bg-[#1E2934] hover:text-[#EDE6D9] border border-[#2A3745] hover:border-[#D9A15B]/40 transition-all active:scale-95"
               title="Manual Sync"
             >
               <RefreshCw className="h-3.5 w-3.5" />
@@ -230,14 +224,14 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
 
         {/* Ticker Table */}
         {transactions.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-950/40 p-8 text-center text-xs text-slate-400">
-            <Activity className="h-6 w-6 text-slate-600 mb-2 animate-pulse" />
-            <p className="font-semibold text-slate-300">Listening for national transactions...</p>
+          <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#222E3A] bg-[#0A0E12]/40 p-8 text-center text-xs text-[#8A949E]">
+            <Activity className="h-6 w-6 text-[#8A949E]/60 mb-2 animate-pulse" />
+            <p className="font-semibold text-[#EDE6D9]">Listening for national transactions...</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60">
+            <table className="w-full text-left text-xs text-[#EDE6D9]">
+              <thead className="border-b border-[#222E3A] text-[11px] uppercase tracking-wider text-[#8A949E] bg-[#0A0E12]/80">
                 <tr>
                   <th className="py-2.5 px-3">State & City</th>
                   <th className="py-2.5 px-3">Transaction ID</th>
@@ -249,7 +243,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
                   <th className="py-2.5 px-3 text-right">Time</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-[#222E3A]/60">
                 {transactions.map((tx, idx) => {
                   const isVerified = tx.is_verified || tx.is_verified_razorpay;
                   const isPulse = highlightedId === tx.transaction_id;
@@ -257,22 +251,22 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
                   return (
                     <tr
                       key={`${tx.transaction_id}-${idx}`}
-                      className={`transition-all duration-500 ${
+                      className={`transition-all duration-300 ${
                         isVerified
-                          ? "bg-slate-900/90 border-l-4 border-l-emerald-400 ring-1 ring-emerald-500/30 shadow-md"
-                          : "hover:bg-slate-800/40"
-                      } ${isPulse ? "animate-pulse" : ""}`}
+                          ? "bg-[#13191F]/90 border-l-4 border-l-[#4E9B8F] ring-1 ring-[#4E9B8F]/30 shadow-sm"
+                          : "hover:bg-[#161E26]/70"
+                      } ${isPulse ? "animate-row-flash" : ""}`}
                     >
                       {/* State & City */}
                       <td className="py-3 px-3">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-200">
+                          <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#1A222B] text-[#EDE6D9] border border-[#222E3A]">
                             {tx.state_code}
                           </span>
                           <div className="flex flex-col">
-                            <span className="font-semibold text-white">{tx.state_name}</span>
-                            <span className="text-[10px] text-slate-400 flex items-center gap-0.5">
-                              <MapPin className="h-2.5 w-2.5 text-slate-500" />
+                            <span className="font-semibold text-[#EDE6D9]">{tx.state_name}</span>
+                            <span className="text-[10px] text-[#8A949E] flex items-center gap-0.5">
+                              <MapPin className="h-2.5 w-2.5 text-[#8A949E]" />
                               {tx.city}
                             </span>
                           </div>
@@ -280,20 +274,20 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
                       </td>
 
                       {/* Transaction ID */}
-                      <td className="py-3 px-3 font-mono text-xs text-slate-300">
+                      <td className="py-3 px-3 font-mono text-xs text-[#8A949E]">
                         {tx.transaction_id}
                       </td>
 
                       {/* Amount */}
-                      <td className="py-3 px-3 font-mono font-bold text-white text-sm">
-                        <span className={isVerified ? "text-emerald-400 font-black text-base" : ""}>
+                      <td className="py-3 px-3 font-mono font-bold text-[#EDE6D9] text-sm">
+                        <span className={isVerified ? "text-[#D9A15B] font-bold text-base" : ""}>
                           {formatCurrency(tx.amount_inr)}
                         </span>
                       </td>
 
                       {/* Payment Method & Provider */}
                       <td className="py-3 px-3">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-semibold bg-slate-800 text-slate-200 border border-slate-700">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-semibold bg-[#161E26] text-[#EDE6D9] border border-[#2A3745]">
                           {getMethodIcon(tx.method)}
                           <span>{tx.payment_provider || tx.method}</span>
                         </span>
@@ -301,13 +295,13 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
 
                       {/* Category */}
                       <td className="py-3 px-3">
-                        <span className="text-[11px] text-slate-300 font-medium">
+                        <span className="text-[11px] text-[#8A949E] font-medium">
                           {tx.category}
                         </span>
                       </td>
 
                       {/* Customer */}
-                      <td className="py-3 px-3 text-slate-300 font-medium">
+                      <td className="py-3 px-3 text-[#8A949E] font-medium">
                         {tx.customer_name}
                       </td>
 
@@ -317,7 +311,7 @@ export function LiveTransactionsFeed({ selectedState = "ALL" }: LiveTransactions
                       </td>
 
                       {/* Time */}
-                      <td className="py-3 px-3 text-right font-mono text-[11px] text-slate-400">
+                      <td className="py-3 px-3 text-right font-mono text-[11px] text-[#8A949E]">
                         {new Date(tx.timestamp).toLocaleTimeString()}
                       </td>
                     </tr>

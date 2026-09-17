@@ -211,8 +211,15 @@ export async function POST(request: NextRequest) {
     }
 
     const event = body.event || "payment.captured";
-    const payment = body.payload?.payment?.entity;
-    const order = body.payload?.order?.entity;
+    const payload = body.payload;
+    const payment = payload?.payment?.entity;
+    const order = payload?.order?.entity;
+
+    if (payload?.payment?.entity?.id && payload?.payment?.entity?.amount !== undefined) {
+      console.log("[Webhook Received]", payload.payment.entity.id, payload.payment.entity.amount);
+    } else if (payment || order) {
+      console.log("[Webhook Received]", payment?.id || order?.id, payment?.amount || order?.amount);
+    }
 
     // Handle payment.captured or order.paid
     if (

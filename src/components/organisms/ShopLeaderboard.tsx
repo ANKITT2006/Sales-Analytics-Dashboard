@@ -7,16 +7,16 @@ import {
   Search,
   Filter,
   CheckCircle2,
-  Download,
   FileSpreadsheet,
   FileJson,
   ShieldCheck,
   Building2,
   MapPin,
+  Info,
 } from "lucide-react";
 import type { ShopLeaderboardItem } from "@/lib/analytics";
 import { formatCurrency, formatNumberIN } from "@/lib/utils";
-import { VERIFIED_SHOPS, type VerifiedShop } from "@/data/verifiedShops";
+import { VERIFIED_SHOPS } from "@/data/verifiedShops";
 import { getStoredUser, User } from "@/lib/auth";
 
 interface ShopLeaderboardProps {
@@ -30,6 +30,7 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("ALL");
   const [stateFilter, setStateFilter] = useState("ALL");
+  const [sortBy, setSortBy] = useState<"score" | "revenue">("score");
 
   useEffect(() => {
     setUser(getStoredUser());
@@ -61,9 +62,9 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
     return ["ALL", ...Array.from(new Set(VERIFIED_SHOPS.map((s) => s.state_name)))].sort();
   }, []);
 
-  // Filtered leaderboard
+  // Filtered leaderboard with dual sorting capability (Performance Score vs Ingested Revenue)
   const filteredLeaderboard = useMemo(() => {
-    return data.filter((s) => {
+    const list = data.filter((s) => {
       const matchesSearch =
         s.shop_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         s.gstin.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -72,7 +73,14 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
       const matchesCategory = categoryFilter === "ALL" || s.category === categoryFilter;
       return matchesSearch && matchesCategory;
     });
-  }, [data, searchTerm, categoryFilter]);
+
+    return list.sort((a, b) => {
+      if (sortBy === "revenue") {
+        return b.revenue - a.revenue;
+      }
+      return b.performance_score - a.performance_score;
+    });
+  }, [data, searchTerm, categoryFilter, sortBy]);
 
   // Filtered All Verified Shops
   const filteredVerifiedShops = useMemo(() => {
@@ -97,26 +105,25 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-md">
+    <div className="rounded-2xl glass-panel p-5">
       {/* Top Header & Tab Switcher */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30">
-            {activeTab === "leaderboard" ? <Award className="h-5 w-5" /> : <ShieldCheck className="h-5 w-5 text-emerald-400" />}
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A15B]/15 text-[#D9A15B] border border-[#D9A15B]/30">
+            {activeTab === "leaderboard" ? <Award className="h-5 w-5" /> : <ShieldCheck className="h-5 w-5 text-[#4E9B8F]" />}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-[#EDE6D9]">
                 {activeTab === "leaderboard" ? "Merchant Performance Leaderboard" : "Verified Retail Merchant Network"}
               </h3>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-400 border border-emerald-500/30">
               <span className="inline-flex items-center gap-1 rounded-full bg-[#4E9B8F]/10 px-2.5 py-0.5 text-[11px] font-semibold text-[#4E9B8F] border border-[#4E9B8F]/30">
                 <CheckCircle2 className="h-3 w-3" /> 78 Verified Stores
               </span>
             </div>
             <p className="text-xs text-[#8A949E]">
               {activeTab === "leaderboard"
-                ? `Ranked by verified live volume & order count • ${regionName}`
+                ? `Ranked by ${sortBy === "score" ? "Composite Performance Score" : "Ingested Live Revenue"} • ${regionName}`
                 : "Authenticated retail stores with valid GSTIN across all 28 Indian States & 8 UTs"}
             </p>
           </div>
@@ -243,6 +250,46 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
         </div>
       </div>
 
+      {/* Ranking Breakdown & Score Criteria Banner (for Leaderboard) */}
+      {activeTab === "leaderboard" && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 px-3.5 py-2.5 rounded-xl bg-[#0A0E12]/90 border border-[#222E3A] text-xs">
+          <div className="flex items-center gap-2.5 text-[#8A949E]">
+            <Info className="h-4 w-4 text-[#D9A15B] shrink-0" />
+            <span>
+              <strong className="text-[#EDE6D9]">Performance Score (0–100):</strong> Evaluated dynamically from{" "}
+              <span className="text-[#EDE6D9] font-medium">50% Turnover Volume</span>,{" "}
+              <span className="text-[#EDE6D9] font-medium">30% Order Velocity</span>, and{" "}
+              <span className="text-[#EDE6D9] font-medium">20% GSTIN Compliance & low return rates</span>.
+            </span>
+          </div>
+
+          {/* Dual Sort Controls */}
+          <div className="flex items-center gap-1.5 self-start sm:self-auto shrink-0 bg-[#12181D] p-1 rounded-lg border border-[#2A3745]">
+            <span className="text-[11px] text-[#8A949E] px-1 font-medium">Rank by:</span>
+            <button
+              onClick={() => setSortBy("score")}
+              className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+                sortBy === "score"
+                  ? "bg-[#D9A15B]/20 text-[#D9A15B] border border-[#D9A15B]/40 shadow-sm"
+                  : "text-[#8A949E] hover:text-[#EDE6D9] border border-transparent"
+              }`}
+            >
+              ★ Score (0–100)
+            </button>
+            <button
+              onClick={() => setSortBy("revenue")}
+              className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+                sortBy === "revenue"
+                  ? "bg-[#D9A15B]/20 text-[#D9A15B] border border-[#D9A15B]/40 shadow-sm"
+                  : "text-[#8A949E] hover:text-[#EDE6D9] border border-transparent"
+              }`}
+            >
+              ₹ Ingested Revenue
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* View 1: Active Leaderboard Table */}
       {activeTab === "leaderboard" && (
         <div className="overflow-x-auto">
@@ -275,7 +322,7 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
                       <div className="flex items-center gap-1.5">
                         <span className="font-semibold text-white">{shop.shop_name}</span>
                         <span title="Verified Merchant by GSTIN">
-                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                          <CheckCircle2 className="h-3.5 w-3.5 text-[#4E9B8F] shrink-0" />
                         </span>
                       </div>
                       <span className="text-[10px] text-slate-500 font-mono">{shop.shop_id}</span>
@@ -343,7 +390,7 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
                       <td className="py-2.5 px-3 font-mono text-slate-500 text-[11px]">
                         {shop.serial_no || idx + 1}
                       </td>
-                      <td className="py-2.5 px-3 font-mono text-xs font-semibold text-emerald-400">
+                      <td className="py-2.5 px-3 font-mono text-xs font-semibold text-[#D9A15B]">
                         {shop.shop_id}
                       </td>
                       <td className="py-2.5 px-3">
@@ -362,7 +409,7 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
                       </td>
                       <td className="py-2.5 px-3">
                         <div className="flex flex-col">
-                          <span className="font-mono text-[11px] text-emerald-300 tracking-wider">
+                          <span className="font-mono text-[11px] text-[#4E9B8F] tracking-wider">
                             {shop.gstin}
                           </span>
                           <span className="font-mono text-[10px] text-slate-500">
@@ -372,7 +419,7 @@ export function ShopLeaderboard({ data, regionName }: ShopLeaderboardProps) {
                       </td>
                       <td className="py-2.5 px-3 text-slate-300">{shop.category}</td>
                       <td className="py-2.5 px-3 text-center">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-400 border border-emerald-500/30">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-[#4E9B8F]/10 px-2 py-0.5 text-[10px] font-bold text-[#4E9B8F] border border-[#4E9B8F]/30">
                           <CheckCircle2 className="h-2.5 w-2.5" /> VERIFIED
                         </span>
                       </td>

@@ -157,13 +157,13 @@ export function SignUpCard() {
       {/* Header section with brand logo, heading & subtitle */}
       <div className="text-center">
         {/* Uploaded 3D Metallic Copper Logo */}
-        <div className="relative mx-auto mb-3.5 flex h-14 w-14 items-center justify-center rounded-2xl overflow-hidden bg-[#161E26] border border-[#D9A15B]/40 shadow-xl shadow-[#D9A15B]/15 p-1">
+        <div className="relative mx-auto mb-3.5 flex h-14 w-14 items-center justify-center rounded-2xl overflow-hidden bg-[#13191F]/90 border border-[#D9A15B]/40 shadow-xl shadow-[#D9A15B]/15 p-2 hover:border-[#D9A15B] transition-all group">
           <Image
             src="/images/app-logo-square.png"
             alt="Logo"
-            width={48}
-            height={48}
-            className="object-contain"
+            width={44}
+            height={44}
+            className="object-contain drop-shadow-[0_2px_10px_rgba(217,161,91,0.3)] group-hover:scale-110 transition-transform duration-300"
             priority
           />
         </div>

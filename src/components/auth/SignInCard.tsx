@@ -12,7 +12,6 @@ import {
   Loader2,
   AlertCircle,
   Sparkles,
-  Cpu,
 } from "lucide-react";
 import { SocialButtons } from "./SocialButtons";
 import {
@@ -141,20 +140,20 @@ export function SignInCard() {
   };
 
   return (
-    <div className="relative rounded-3xl border border-[#222E3A] bg-[#12181D]/90 p-6 sm:p-8 shadow-2xl shadow-black/80 backdrop-blur-xl">
+    <div className="relative rounded-3xl glass-panel p-6 sm:p-8 shadow-2xl">
       {/* Subtle top ambient glow inside the card */}
       <div className="pointer-events-none absolute -top-px left-1/2 -translate-x-1/2 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-[#D9A15B]/60 to-transparent" />
 
       {/* Header section with brand logo, application name, heading & subtitle */}
       <div className="text-center">
         {/* Uploaded 3D Metallic Copper Logo */}
-        <div className="relative mx-auto mb-3.5 flex h-14 w-14 items-center justify-center rounded-2xl overflow-hidden bg-[#161E26] border border-[#D9A15B]/40 shadow-xl shadow-[#D9A15B]/15 p-1">
+        <div className="relative mx-auto mb-3.5 flex h-14 w-14 items-center justify-center rounded-2xl overflow-hidden bg-[#13191F]/90 border border-[#D9A15B]/40 shadow-xl shadow-[#D9A15B]/15 p-2 hover:border-[#D9A15B] transition-all group">
           <Image
             src="/images/app-logo-square.png"
             alt="Logo"
-            width={48}
-            height={48}
-            className="object-contain"
+            width={44}
+            height={44}
+            className="object-contain drop-shadow-[0_2px_10px_rgba(217,161,91,0.3)] group-hover:scale-110 transition-transform duration-300"
             priority
           />
         </div>
@@ -203,7 +202,7 @@ export function SignInCard() {
         <div>
           <label
             htmlFor="signin-email"
-            className="block text-xs font-semibold text-[#8A949E]"
+            className="block text-xs font-semibold text-[#EDE6D9]/90"
           >
             Email Address
           </label>
@@ -241,7 +240,7 @@ export function SignInCard() {
           <div className="flex items-center justify-between">
             <label
               htmlFor="signin-password"
-              className="block text-xs font-semibold text-[#8A949E]"
+              className="block text-xs font-semibold text-[#EDE6D9]/90"
             >
               Password
             </label>
