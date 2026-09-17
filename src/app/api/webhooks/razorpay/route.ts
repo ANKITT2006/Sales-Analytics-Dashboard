@@ -2,9 +2,26 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import path from "path";
 import fs from "fs";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { liveEvents } from "@/lib/live-events";
 import { indiaTransactionEngine } from "@/lib/stream/indiaTransactionEngine";
-import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseServer";
+
+function getSupabaseServiceAdmin(): SupabaseClient | null {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const serviceRoleKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    "";
+
+  if (!supabaseUrl || !serviceRoleKey) return null;
+  return createClient(supabaseUrl, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}
 
 interface RazorpayPayload {
   entity?: string;
@@ -76,11 +93,13 @@ export interface LiveSyncedRecord {
 
 async function syncToLiveStore(record: LiveSyncedRecord) {
   let supabaseSynced = false;
-  const supabase = getSupabaseAdmin();
+  const supabase = getSupabaseServiceAdmin();
 
   // 1. Primary write to Cloud Supabase PostgreSQL
-  if (supabase && isSupabaseConfigured()) {
+  if (supabase) {
     try {
+      console.log(`[Razorpay Webhook] Writing transaction ${record.transaction_id} to Cloud Supabase...`);
+
       // Upsert into live_transactions
       const { error: txError } = await supabase
         .from("live_transactions")
@@ -105,6 +124,8 @@ async function syncToLiveStore(record: LiveSyncedRecord) {
 
       if (txError) {
         console.warn("[Razorpay Webhook] Supabase live_transactions warning:", txError.message);
+      } else {
+        console.log(`⚡ [Razorpay Webhook] ✓ Inserted into live_transactions (${record.transaction_id})`);
       }
 
       // Upsert into live_webhook_transactions
@@ -132,6 +153,8 @@ async function syncToLiveStore(record: LiveSyncedRecord) {
 
       if (whError) {
         console.warn("[Razorpay Webhook] Supabase live_webhook_transactions warning:", whError.message);
+      } else {
+        console.log(`⚡ [Razorpay Webhook] ✓ Inserted into live_webhook_transactions (${record.transaction_id})`);
       }
 
       if (!txError && !whError) {
@@ -142,8 +165,9 @@ async function syncToLiveStore(record: LiveSyncedRecord) {
       console.warn("[Razorpay Webhook] Cloud Supabase write exception:", supaErr);
     }
   } else {
-    console.warn("[Razorpay Webhook] Cloud Supabase not configured or URL is placeholder. Falling back to local store.");
+    console.warn("[Razorpay Webhook] Cloud Supabase not configured. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.");
   }
+
 
   // 2. Secondary fallback / local store synchronization so offline development never breaks
   try {

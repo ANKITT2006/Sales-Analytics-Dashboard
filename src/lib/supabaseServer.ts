@@ -1,20 +1,19 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const serviceRoleKey =
-  process.env.SUPABASE_SERVICE_ROLE_KEY ||
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-  "";
-
 let adminClient: SupabaseClient | null = null;
 
 /**
  * Helper to check whether real Supabase credentials are configured.
  */
 export function isSupabaseConfigured(): boolean {
-  if (!supabaseUrl || !serviceRoleKey) return false;
-  if (supabaseUrl.includes("your-project-ref")) return false;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    "";
+  if (!url || !key) return false;
+  if (url.includes("your-project-ref")) return false;
   return true;
 }
 
@@ -23,12 +22,19 @@ export function isSupabaseConfigured(): boolean {
  * and webhook ingestion without exposing secrets to the browser.
  */
 export function getSupabaseAdmin(): SupabaseClient | null {
-  if (!supabaseUrl || !serviceRoleKey) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    "";
+
+  if (!url || !key) {
     return null;
   }
 
   if (!adminClient) {
-    adminClient = createClient(supabaseUrl, serviceRoleKey, {
+    adminClient = createClient(url, key, {
       auth: {
         autoRefreshToken: false,
         persistSession: false,
@@ -39,5 +45,4 @@ export function getSupabaseAdmin(): SupabaseClient | null {
   return adminClient;
 }
 
-export const supabaseServer = getSupabaseAdmin();
 export default getSupabaseAdmin;
