@@ -40,6 +40,9 @@ export async function GET(request: NextRequest) {
       ? (regionParam as IndianRegion)
       : undefined;
 
+    // Trigger background batch flush to Supabase
+    indiaTransactionEngine.flushBatchToSupabase().catch(() => {});
+
     // Fetch from Supabase PostgreSQL live_transactions (with SQLite fallback)
     const storedTxs = await getLiveTransactions(limit, state);
     const engineTxs = indiaTransactionEngine.getTransactions(limit, state, region);

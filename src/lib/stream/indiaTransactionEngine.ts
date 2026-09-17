@@ -545,12 +545,24 @@ class IndiaTransactionEngine {
    * Flushes buffered transactions to public.live_transactions using SUPABASE_SERVICE_ROLE_KEY
    */
   public async flushBatchToSupabase(): Promise<void> {
-    if (this.isFlushing || this.supabaseWriteBuffer.length === 0) {
+    if (this.isFlushing) {
+      return;
+    }
+
+    // Ensure we have transactions in the buffer to persist
+    if (this.supabaseWriteBuffer.length === 0) {
+      this.generateNextTransaction();
+    }
+
+    if (this.supabaseWriteBuffer.length === 0) {
       return;
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const serviceRoleKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
     if (!supabaseUrl || !serviceRoleKey) {
       return;
@@ -578,6 +590,8 @@ class IndiaTransactionEngine {
         console.warn("[TransactionEngine -> Supabase] Batch insert notice:", error.message);
         // Put unpersisted records back at the front of the buffer (up to 15) for graceful retry
         this.supabaseWriteBuffer.unshift(...batch.slice(0, 15));
+      } else {
+        console.log(`⚡ [TransactionEngine -> Supabase] ✓ Persisted ${batch.length} live transactions into public.live_transactions.`);
       }
     } catch (err) {
       console.warn("[TransactionEngine -> Supabase] Batch persistence exception:", err);
@@ -827,8 +841,13 @@ const globalForStream = global as unknown as {
   indiaTransactionEngine?: IndiaTransactionEngine;
 };
 
-if (!globalForStream.indiaTransactionEngine || typeof (globalForStream.indiaTransactionEngine as unknown as Record<string, unknown>).injectVerifiedPayment !== "function") {
+if (
+  !globalForStream.indiaTransactionEngine ||
+  typeof (globalForStream.indiaTransactionEngine as unknown as Record<string, unknown>).startBatchPersistence !== "function"
+) {
   globalForStream.indiaTransactionEngine = new IndiaTransactionEngine();
+} else {
+  globalForStream.indiaTransactionEngine.startBatchPersistence();
 }
 
 export const indiaTransactionEngine = globalForStream.indiaTransactionEngine;
