@@ -105,25 +105,23 @@ async function syncToLiveStore(record: LiveSyncedRecord) {
         .from("live_transactions")
         .upsert(
           {
-            transaction_id: record.transaction_id,
+            id: record.transaction_id,
             amount_inr: record.amount_inr,
             currency: record.currency || "INR",
             method: record.method,
             status: record.status,
-            customer_email: record.customer_email || null,
-            customer_contact: record.customer_contact || null,
             customer_name: record.customer_name || record.customer_email || "Customer",
+            customer_email: record.customer_email || null,
             shop_id: record.shop_id,
             state_code: record.state_code,
             city: record.city || "Mumbai",
-            timestamp: record.timestamp,
             created_at: record.timestamp || new Date().toISOString(),
           },
-          { onConflict: "transaction_id" }
+          { onConflict: "id" }
         );
 
       if (txError) {
-        console.warn("[Razorpay Webhook] Supabase live_transactions warning:", txError.message);
+        console.warn("[Razorpay Webhook] Supabase live_transactions notice:", txError.message);
       } else {
         console.log(`⚡ [Razorpay Webhook] ✓ Inserted into live_transactions (${record.transaction_id})`);
       }
@@ -138,21 +136,19 @@ async function syncToLiveStore(record: LiveSyncedRecord) {
             currency: record.currency || "INR",
             method: record.method,
             status: record.status,
-            customer: record.customer_name || record.customer_email || record.customer_contact || "Customer",
+            customer_name: record.customer_name || "Customer",
             customer_email: record.customer_email || null,
             customer_contact: record.customer_contact || null,
-            customer_name: record.customer_name || "Customer",
             shop_id: record.shop_id,
             state_code: record.state_code,
             city: record.city || "Mumbai",
-            event: record.event || "payment.captured",
             created_at: record.timestamp || new Date().toISOString(),
           },
           { onConflict: "id" }
         );
 
       if (whError) {
-        console.warn("[Razorpay Webhook] Supabase live_webhook_transactions warning:", whError.message);
+        console.warn("[Razorpay Webhook] Supabase live_webhook_transactions notice:", whError.message);
       } else {
         console.log(`⚡ [Razorpay Webhook] ✓ Inserted into live_webhook_transactions (${record.transaction_id})`);
       }

@@ -649,22 +649,25 @@ export async function getLiveTransactions(limit = 15, state?: string): Promise<L
 
       const { data, error } = await query;
       if (!error && data && data.length > 0) {
-        return data.map((r) => ({
-          id: r.transaction_id,
-          transaction_id: r.transaction_id,
-          amount_inr: Number(r.amount_inr || 0),
-          currency: r.currency || "INR",
-          payment_method: r.method || "upi",
-          status: r.status || "captured",
-          customer_name: r.customer_name || r.customer_email || "Customer",
-          customer_email: r.customer_email || undefined,
-          customer_contact: r.customer_contact || undefined,
-          shop_id: r.shop_id || "IND_SHOP_1001",
-          state_code: r.state_code || "27",
-          city: r.city || INDIAN_STATE_MAP[r.state_code] || "Mumbai",
-          event: "payment.captured",
-          created_at: r.created_at || r.timestamp,
-        }));
+        return data.map((r) => {
+          const txId = r.id || r.transaction_id || `tx_${Date.now()}`;
+          return {
+            id: txId,
+            transaction_id: txId,
+            amount_inr: Number(r.amount_inr || 0),
+            currency: r.currency || "INR",
+            payment_method: r.method || "upi",
+            status: r.status || "captured",
+            customer_name: r.customer_name || r.customer_email || "Customer",
+            customer_email: r.customer_email || undefined,
+            customer_contact: r.customer_contact || undefined,
+            shop_id: r.shop_id || "IND_SHOP_1001",
+            state_code: r.state_code || "27",
+            city: r.city || INDIAN_STATE_MAP[r.state_code] || "Mumbai",
+            event: "payment.captured",
+            created_at: r.created_at || r.timestamp || new Date().toISOString(),
+          };
+        });
       }
     } catch (supaErr) {
       console.warn("[Supabase] getLiveTransactions notice, falling back to SQLite:", supaErr);
