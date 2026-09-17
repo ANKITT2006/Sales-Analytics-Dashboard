@@ -62,7 +62,9 @@ export function DashboardHeader({
       setIsAuthModalOpen(true);
       return;
     }
-    onRetrain();
+    if (onRetrain) {
+      onRetrain();
+    }
   };
 
   return (

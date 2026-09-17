@@ -3,6 +3,7 @@ import {
   indiaTransactionEngine,
   IndianRegion,
   NationalTransaction,
+  ALL_INDIAN_STATES,
 } from "@/lib/stream/indiaTransactionEngine";
 import { verifyAuth } from "@/lib/supabase/server";
 import { getLiveTransactions } from "@/lib/analytics";
@@ -46,24 +47,32 @@ export async function GET(request: NextRequest) {
     if (storedTxs && storedTxs.length > 0) {
       const seen = new Set<string>();
       rawTransactions = [
-        ...storedTxs.map((t) => ({
-          id: t.id,
-          transaction_id: t.transaction_id,
-          amount_inr: t.amount_inr,
-          currency: t.currency,
-          payment_method: t.payment_method,
-          status: t.status,
-          customer_name: t.customer_name,
-          customer_email: t.customer_email,
-          customer_contact: t.customer_contact,
-          shop_id: t.shop_id,
-          state_code: t.state_code,
-          city: t.city,
-          event: t.event,
-          created_at: t.created_at,
-          is_verified_razorpay: true,
-          is_verified: true,
-        })),
+        ...storedTxs.map((t): NationalTransaction => {
+          const stateMeta = ALL_INDIAN_STATES.find(
+            (s) => s.code === t.state_code || s.gstCode === t.state_code
+          );
+          const stateName = stateMeta ? stateMeta.name : (t.city || "Maharashtra");
+          const stateCode = stateMeta ? stateMeta.code : (t.state_code || "MH");
+          const method = (t.payment_method || "UPI").toUpperCase();
+
+          return {
+            transaction_id: t.transaction_id || t.id,
+            timestamp: t.created_at || new Date().toISOString(),
+            amount_inr: t.amount_inr,
+            method,
+            payment_provider: `Razorpay (${method})`,
+            gateway: "Razorpay",
+            state_code: stateCode,
+            state_name: stateName,
+            city: t.city || (stateMeta?.tierCities?.[0] ?? "Mumbai"),
+            category: "Quick Commerce",
+            customer_name: t.customer_name || "Verified Customer",
+            shop_id: t.shop_id,
+            is_verified: true,
+            is_verified_razorpay: true,
+            verification_badge: "VERIFIED RAZORPAY",
+          };
+        }),
         ...engineTxs,
       ].filter((t) => {
         if (seen.has(t.transaction_id)) return false;
