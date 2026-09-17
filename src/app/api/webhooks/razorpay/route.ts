@@ -8,13 +8,15 @@ import { indiaTransactionEngine } from "@/lib/stream/indiaTransactionEngine";
 
 function getSupabaseServiceAdmin(): SupabaseClient | null {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-  const serviceRoleKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-    "";
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 
-  if (!supabaseUrl || !serviceRoleKey) return null;
+  if (!supabaseUrl || !serviceRoleKey) {
+    console.warn(
+      "[Razorpay Webhook] SUPABASE_SERVICE_ROLE_KEY is not configured. Webhook writes require the service role key to bypass RLS."
+    );
+    return null;
+  }
+
   return createClient(supabaseUrl, serviceRoleKey, {
     auth: {
       autoRefreshToken: false,
