@@ -632,7 +632,7 @@ export async function queryLiveLeaderboard(
 /**
  * Retrieve recent live transactions for the transaction feed (Supabase with fallback)
  */
-export async function getLiveTransactions(limit = 15, state?: string): Promise<LiveTransaction[]> {
+export async function getLiveTransactions(limit = 20, state?: string): Promise<LiveTransaction[]> {
   // 1. Try fetching from Cloud Supabase
   const supabase = getSupabaseAdmin();
   if (supabase && isSupabaseConfigured()) {

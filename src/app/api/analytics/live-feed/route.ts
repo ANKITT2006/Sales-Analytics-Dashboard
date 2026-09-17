@@ -4,6 +4,7 @@ import {
   IndianRegion,
   NationalTransaction,
   ALL_INDIAN_STATES,
+  PaymentGatewayType,
 } from "@/lib/stream/indiaTransactionEngine";
 import { verifyAuth } from "@/lib/supabase/server";
 import { getLiveTransactions } from "@/lib/analytics";
@@ -55,13 +56,16 @@ export async function GET(request: NextRequest) {
           const stateCode = stateMeta ? stateMeta.code : (t.state_code || "MH");
           const method = (t.payment_method || "UPI").toUpperCase();
 
+          const isRazorpay = (t.id || t.transaction_id || "").startsWith("pay_");
+          const gateway: PaymentGatewayType = isRazorpay ? "Razorpay" : "DirectUPI";
+
           return {
             transaction_id: t.transaction_id || t.id,
             timestamp: t.created_at || new Date().toISOString(),
             amount_inr: t.amount_inr,
             method,
-            payment_provider: `Razorpay (${method})`,
-            gateway: "Razorpay",
+            payment_provider: isRazorpay ? `Razorpay (${method})` : `UPI Direct (${method})`,
+            gateway,
             state_code: stateCode,
             state_name: stateName,
             city: t.city || (stateMeta?.tierCities?.[0] ?? "Mumbai"),
@@ -69,8 +73,8 @@ export async function GET(request: NextRequest) {
             customer_name: t.customer_name || "Verified Customer",
             shop_id: t.shop_id,
             is_verified: true,
-            is_verified_razorpay: true,
-            verification_badge: "VERIFIED RAZORPAY",
+            is_verified_razorpay: isRazorpay,
+            verification_badge: isRazorpay ? "VERIFIED RAZORPAY" : "UPI NETWORK",
           };
         }),
         ...engineTxs,

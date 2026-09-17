@@ -4,6 +4,7 @@
  */
 
 import { getVerifiedShopForState, VERIFIED_SHOPS } from "@/data/verifiedShops";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 export type IndianRegion = "North" | "South" | "West" | "East" | "Central" | "North-East";
 
@@ -419,10 +420,27 @@ class IndiaTransactionEngine {
   private maxBufferSize = 250;
   private isSimulationRunning = true;
   private tickerInterval: NodeJS.Timeout | null = null;
+  private supabaseClient: SupabaseClient | null = null;
+  private supabaseWriteBuffer: Array<{
+    id: string;
+    amount_inr: number;
+    currency: string;
+    method: string;
+    status: string;
+    customer_name: string;
+    customer_email: string;
+    shop_id: string;
+    state_code: string;
+    city: string;
+    created_at: string;
+  }> = [];
+  private flushInterval: NodeJS.Timeout | null = null;
+  private isFlushing = false;
 
   constructor() {
     this.seedInitialTransactions();
     this.startTicker();
+    this.startBatchPersistence();
   }
 
   private seedInitialTransactions() {
@@ -471,6 +489,102 @@ class IndiaTransactionEngine {
     current.volume += tx.amount_inr;
     current.count += 1;
     this.stateTotals.set(tx.state_code, current);
+
+    // Queue transaction for throttled batch persistence into Supabase
+    this.queueForSupabase(tx);
+  }
+
+  private queueForSupabase(tx: NationalTransaction) {
+    // Keep max buffer at 200 to prevent runaway memory usage under network interruption
+    if (this.supabaseWriteBuffer.length >= 200) {
+      this.supabaseWriteBuffer.shift();
+    }
+
+    const customerName = tx.customer_name || "Customer";
+    const emailPrefix = customerName.toLowerCase().replace(/[^a-z0-9]/g, ".");
+    const emailDomain = ["retail.in", "bharatmail.in", "payflow.in", "quickcart.in"][
+      Math.floor(Math.random() * 4)
+    ];
+
+    this.supabaseWriteBuffer.push({
+      id: tx.transaction_id,
+      amount_inr: tx.amount_inr,
+      currency: "INR",
+      method: (tx.method || "upi").toLowerCase(),
+      status: "captured",
+      customer_name: customerName,
+      customer_email: `${emailPrefix || "customer"}@${emailDomain}`,
+      shop_id: tx.shop_id || "IND_SHOP_1001",
+      state_code: tx.state_code,
+      city: tx.city,
+      created_at: tx.timestamp || new Date().toISOString(),
+    });
+  }
+
+  /**
+   * Starts background timer flushing buffered transactions to Supabase every 4 seconds.
+   * Throttles network writes to stay well within Supabase free-tier connection and rate limits.
+   */
+  public startBatchPersistence() {
+    if (this.flushInterval) return;
+    this.flushInterval = setInterval(() => {
+      this.flushBatchToSupabase().catch((err) => {
+        console.warn("[TransactionEngine] Background batch flush exception:", err);
+      });
+    }, 4000);
+  }
+
+  public stopBatchPersistence() {
+    if (this.flushInterval) {
+      clearInterval(this.flushInterval);
+      this.flushInterval = null;
+    }
+  }
+
+  /**
+   * Flushes buffered transactions to public.live_transactions using SUPABASE_SERVICE_ROLE_KEY
+   */
+  public async flushBatchToSupabase(): Promise<void> {
+    if (this.isFlushing || this.supabaseWriteBuffer.length === 0) {
+      return;
+    }
+
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl || !serviceRoleKey) {
+      return;
+    }
+
+    this.isFlushing = true;
+    // Extract a bounded batch of up to 25 records per flush
+    const batch = this.supabaseWriteBuffer.splice(0, 25);
+
+    try {
+      if (!this.supabaseClient) {
+        this.supabaseClient = createClient(supabaseUrl, serviceRoleKey, {
+          auth: {
+            autoRefreshToken: false,
+            persistSession: false,
+          },
+        });
+      }
+
+      const { error } = await this.supabaseClient
+        .from("live_transactions")
+        .upsert(batch, { onConflict: "id" });
+
+      if (error) {
+        console.warn("[TransactionEngine -> Supabase] Batch insert notice:", error.message);
+        // Put unpersisted records back at the front of the buffer (up to 15) for graceful retry
+        this.supabaseWriteBuffer.unshift(...batch.slice(0, 15));
+      }
+    } catch (err) {
+      console.warn("[TransactionEngine -> Supabase] Batch persistence exception:", err);
+      // Non-blocking: in-memory engine and UI feeds continue without disruption
+    } finally {
+      this.isFlushing = false;
+    }
   }
 
   /**
