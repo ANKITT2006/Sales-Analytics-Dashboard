@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const limitParam = searchParams.get('limit');
     const limit = limitParam ? parseInt(limitParam, 10) : 100;
 
-    const shops = queryLiveLeaderboard(state, limit);
+    const shops = await queryLiveLeaderboard(state, limit);
 
     return NextResponse.json({
       success: true,

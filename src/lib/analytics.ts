@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { getSupabaseAdmin, isSupabaseConfigured } from '@/lib/supabaseServer';
 
 export interface AnalyticsSummary {
   total_revenue: number;
@@ -141,97 +142,147 @@ function getDatabaseConnection() {
 }
 
 /**
- * Recalculate all summary metrics solely from live transactions
+ * Recalculate all summary metrics from live transactions (Supabase with SQLite fallback)
  */
-export function queryDynamicOverview(
+export async function queryDynamicOverview(
   stateCode?: string | null,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   dateRange?: string | null
-): { region: string; data: AnalyticsSummary } {
+): Promise<{ region: string; data: AnalyticsSummary }> {
   const isAll = !stateCode || stateCode === 'ALL';
   const regionName = isAll ? 'All India' : (INDIAN_STATE_MAP[stateCode] || `State ${stateCode}`);
 
-  try {
-    const db = getDatabaseConnection();
+  let totalRevenueFromDb = 0;
+  let totalTransactionsFromDb = 0;
+  let activeShopsFromDb = 0;
+  let supabaseQueried = false;
 
-    interface AggRow {
-      total_revenue: number | null;
-      total_transactions: number;
-      active_shops: number;
+  // 1. Query Supabase PostgreSQL live_transactions
+  const supabase = getSupabaseAdmin();
+  if (supabase && isSupabaseConfigured()) {
+    try {
+      let query = supabase.from("live_transactions").select("amount_inr, shop_id");
+      if (!isAll && stateCode) {
+        query = query.eq("state_code", stateCode);
+      }
+      const { data, error } = await query;
+      if (!error && data) {
+        supabaseQueried = true;
+        totalRevenueFromDb = data.reduce((acc, r) => acc + Number(r.amount_inr || 0), 0);
+        totalTransactionsFromDb = data.length;
+        activeShopsFromDb = new Set(data.map((r) => r.shop_id)).size;
+      } else if (error) {
+        console.warn("[Supabase] Overview query notice:", error.message);
+      }
+    } catch (supaErr) {
+      console.warn("[Supabase] Overview query exception, falling back to local SQLite:", supaErr);
     }
-
-    let row: AggRow;
-    if (isAll) {
-      const stmt = db.prepare(`
-        SELECT 
-          coalesce(sum(amount_inr), 0) as total_revenue,
-          count(*) as total_transactions,
-          count(DISTINCT shop_id) as active_shops
-        FROM "LiveTransaction"
-      `);
-      row = stmt.get() as AggRow;
-    } else {
-      const stmt = db.prepare(`
-        SELECT 
-          coalesce(sum(amount_inr), 0) as total_revenue,
-          count(*) as total_transactions,
-          count(DISTINCT shop_id) as active_shops
-        FROM "LiveTransaction"
-        WHERE state_code = ?
-      `);
-      row = stmt.get(stateCode) as AggRow;
-    }
-
-    db.close();
-
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { indiaTransactionEngine } = require("@/lib/stream/indiaTransactionEngine");
-    const streamSummary = indiaTransactionEngine.getOverviewSummary(stateCode || undefined);
-
-    const totalRevenue = Number(row?.total_revenue || 0) + streamSummary.total_revenue;
-    const totalTransactions = Number(row?.total_transactions || 0) + streamSummary.total_transactions;
-    const verifiedShopsCount = isAll
-      ? VERIFIED_SHOPS.length
-      : (VERIFIED_SHOPS.filter((s) => s.state_code === stateCode).length || streamSummary.active_shops || 2);
-    const aov = totalTransactions > 0 ? Number((totalRevenue / totalTransactions).toFixed(2)) : 0.00;
-
-    return {
-      region: regionName,
-      data: {
-        total_revenue: totalRevenue,
-        active_shops: verifiedShopsCount,
-        total_transactions: totalTransactions,
-        average_order_value: aov,
-        return_rate_pct: 0.0,
-        yoy_growth_pct: streamSummary.yoy_growth_pct,
-        mom_growth_pct: streamSummary.mom_growth_pct,
-      },
-    };
-  } catch (err) {
-    console.error('Error querying live transactions overview:', err);
-    return {
-      region: regionName,
-      data: {
-        total_revenue: 0.00,
-        active_shops: 0,
-        total_transactions: 0,
-        average_order_value: 0.00,
-        return_rate_pct: 0.0,
-        yoy_growth_pct: 0.0,
-        mom_growth_pct: 0.0,
-      },
-    };
   }
+
+  // 2. Fallback to local SQLite if Supabase was not configured or threw an error
+  if (!supabaseQueried) {
+    try {
+      const db = getDatabaseConnection();
+      interface AggRow {
+        total_revenue: number | null;
+        total_transactions: number;
+        active_shops: number;
+      }
+      let row: AggRow;
+      if (isAll) {
+        const stmt = db.prepare(`
+          SELECT 
+            coalesce(sum(amount_inr), 0) as total_revenue,
+            count(*) as total_transactions,
+            count(DISTINCT shop_id) as active_shops
+          FROM "LiveTransaction"
+        `);
+        row = stmt.get() as AggRow;
+      } else {
+        const stmt = db.prepare(`
+          SELECT 
+            coalesce(sum(amount_inr), 0) as total_revenue,
+            count(*) as total_transactions,
+            count(DISTINCT shop_id) as active_shops
+          FROM "LiveTransaction"
+          WHERE state_code = ?
+        `);
+        row = stmt.get(stateCode) as AggRow;
+      }
+      db.close();
+
+      totalRevenueFromDb = Number(row?.total_revenue || 0);
+      totalTransactionsFromDb = Number(row?.total_transactions || 0);
+      activeShopsFromDb = Number(row?.active_shops || 0);
+    } catch (sqliteErr) {
+      console.error('Error querying SQLite overview fallback:', sqliteErr);
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { indiaTransactionEngine } = require("@/lib/stream/indiaTransactionEngine");
+  const streamSummary = indiaTransactionEngine.getOverviewSummary(stateCode || undefined);
+
+  const totalRevenue = totalRevenueFromDb + streamSummary.total_revenue;
+  const totalTransactions = totalTransactionsFromDb + streamSummary.total_transactions;
+  const verifiedShopsCount = isAll
+    ? VERIFIED_SHOPS.length
+    : (VERIFIED_SHOPS.filter((s) => s.state_code === stateCode).length || streamSummary.active_shops || activeShopsFromDb || 2);
+  const aov = totalTransactions > 0 ? Number((totalRevenue / totalTransactions).toFixed(2)) : 0.00;
+
+  return {
+    region: regionName,
+    data: {
+      total_revenue: totalRevenue,
+      active_shops: verifiedShopsCount,
+      total_transactions: totalTransactions,
+      average_order_value: aov,
+      return_rate_pct: 0.0,
+      yoy_growth_pct: streamSummary.yoy_growth_pct,
+      mom_growth_pct: streamSummary.mom_growth_pct,
+    },
+  };
 }
 
 /**
- * Retrieve state distribution aggregated solely from live transactions
+ * Retrieve state distribution aggregated from live transactions (Supabase with fallback)
  */
-export function queryLiveStateDistribution(): StateDistribution[] {
+export async function queryLiveStateDistribution(): Promise<StateDistribution[]> {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { indiaTransactionEngine } = require("@/lib/stream/indiaTransactionEngine");
     const states = indiaTransactionEngine.getStateBreakdown();
+
+    // Optionally overlay Supabase state aggregates if available
+    const supabase = getSupabaseAdmin();
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        const { data, error } = await supabase.from("live_transactions").select("state_code, amount_inr");
+        if (!error && data && data.length > 0) {
+          const stateRevMap = new Map<string, { revenue: number; count: number }>();
+          data.forEach((r) => {
+            const current = stateRevMap.get(r.state_code) || { revenue: 0, count: 0 };
+            current.revenue += Number(r.amount_inr || 0);
+            current.count += 1;
+            stateRevMap.set(r.state_code, current);
+          });
+
+          return states.map((s: { state_code: string; state_name: string; total_volume_inr: number; transaction_count: number; share_pct: number }) => {
+            const extra = stateRevMap.get(s.state_code) || { revenue: 0, count: 0 };
+            return {
+              state_code: s.state_code,
+              state_name: s.state_name,
+              revenue: s.total_volume_inr + extra.revenue,
+              orders: s.transaction_count + extra.count,
+              share_pct: s.share_pct,
+            };
+          });
+        }
+      } catch (err) {
+        console.warn("[Supabase] queryLiveStateDistribution notice:", err);
+      }
+    }
+
     return states.map((s: { state_code: string; state_name: string; total_volume_inr: number; transaction_count: number; share_pct: number }) => ({
       state_code: s.state_code,
       state_name: s.state_name,
@@ -246,28 +297,53 @@ export function queryLiveStateDistribution(): StateDistribution[] {
 }
 
 /**
- * Retrieve timeline / chronological sales points aggregated solely from live transactions
+ * Retrieve timeline / chronological sales points aggregated from live transactions (Supabase with fallback)
  */
-export function queryLiveTimeline(
+export async function queryLiveTimeline(
   stateCode?: string | null,
   dateRange?: string | null
-): MonthlySalesPoint[] {
+): Promise<MonthlySalesPoint[]> {
   try {
-    const db = getDatabaseConnection();
     const isAll = !stateCode || stateCode === 'ALL';
-
-    // 1. Fetch live aggregated revenue for current period from LiveTransaction
     let liveRevenue = 0;
-    if (isAll) {
-      const stmt = db.prepare(`SELECT coalesce(sum(amount_inr), 0) as total FROM "LiveTransaction"`);
-      const row = stmt.get() as { total: number };
-      liveRevenue = Number(row?.total || 0);
-    } else {
-      const stmt = db.prepare(`SELECT coalesce(sum(amount_inr), 0) as total FROM "LiveTransaction" WHERE state_code = ?`);
-      const row = stmt.get(stateCode) as { total: number };
-      liveRevenue = Number(row?.total || 0);
+    let supaQueried = false;
+
+    // 1. Fetch live aggregated revenue from Supabase live_transactions
+    const supabase = getSupabaseAdmin();
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        let query = supabase.from("live_transactions").select("amount_inr");
+        if (!isAll && stateCode) {
+          query = query.eq("state_code", stateCode);
+        }
+        const { data, error } = await query;
+        if (!error && data) {
+          supaQueried = true;
+          liveRevenue = data.reduce((acc, r) => acc + Number(r.amount_inr || 0), 0);
+        }
+      } catch (supaErr) {
+        console.warn("[Supabase] queryLiveTimeline notice:", supaErr);
+      }
     }
-    db.close();
+
+    // Fallback to SQLite
+    if (!supaQueried) {
+      try {
+        const db = getDatabaseConnection();
+        if (isAll) {
+          const stmt = db.prepare(`SELECT coalesce(sum(amount_inr), 0) as total FROM "LiveTransaction"`);
+          const row = stmt.get() as { total: number };
+          liveRevenue = Number(row?.total || 0);
+        } else {
+          const stmt = db.prepare(`SELECT coalesce(sum(amount_inr), 0) as total FROM "LiveTransaction" WHERE state_code = ?`);
+          const row = stmt.get(stateCode) as { total: number };
+          liveRevenue = Number(row?.total || 0);
+        }
+        db.close();
+      } catch (sqliteErr) {
+        console.error("SQLite timeline error fallback:", sqliteErr);
+      }
+    }
 
     // 2. Add in-memory streaming revenue engine summary
     // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -383,71 +459,121 @@ export function queryLiveTimeline(
 }
 
 /**
- * Retrieve shop leaderboard aggregated solely from live transactions
+ * Retrieve shop leaderboard aggregated from live transactions (Supabase with fallback)
  */
-export function queryLiveLeaderboard(
+export async function queryLiveLeaderboard(
   stateCode?: string | null,
   limit = 100
-): ShopLeaderboardItem[] {
+): Promise<ShopLeaderboardItem[]> {
   try {
-    const db = getDatabaseConnection();
     const isAll = !stateCode || stateCode === 'ALL';
-
-    interface ShopRow {
+    interface ShopStat {
       shop_id: string;
       state_code: string;
       city: string | null;
       revenue: number;
       orders: number;
     }
+    const liveStatsMap = new Map<string, { revenue: number; orders: number }>();
+    const customRows: ShopStat[] = [];
+    let supaQueried = false;
 
-    let rows: ShopRow[] = [];
-    if (isAll) {
-      const stmt = db.prepare(`
-        SELECT 
-          shop_id,
-          state_code,
-          city,
-          coalesce(sum(amount_inr), 0) as revenue,
-          count(*) as orders
-        FROM "LiveTransaction"
-        GROUP BY shop_id, state_code, city
-        ORDER BY revenue DESC
-        LIMIT ?
-      `);
-      rows = stmt.all(limit) as ShopRow[];
-    } else {
-      const stmt = db.prepare(`
-        SELECT 
-          shop_id,
-          state_code,
-          city,
-          coalesce(sum(amount_inr), 0) as revenue,
-          count(*) as orders
-        FROM "LiveTransaction"
-        WHERE state_code = ?
-        GROUP BY shop_id, state_code, city
-        ORDER BY revenue DESC
-        LIMIT ?
-      `);
-      rows = stmt.all(stateCode, limit) as ShopRow[];
+    // 1. Query Supabase live_transactions
+    const supabase = getSupabaseAdmin();
+    if (supabase && isSupabaseConfigured()) {
+      try {
+        let query = supabase.from("live_transactions").select("shop_id, state_code, city, amount_inr");
+        if (!isAll && stateCode) {
+          query = query.eq("state_code", stateCode);
+        }
+        const { data, error } = await query;
+        if (!error && data && data.length > 0) {
+          supaQueried = true;
+          data.forEach((r) => {
+            const current = liveStatsMap.get(r.shop_id) || { revenue: 0, orders: 0 };
+            current.revenue += Number(r.amount_inr || 0);
+            current.orders += 1;
+            liveStatsMap.set(r.shop_id, current);
+          });
+          const seen = new Set<string>();
+          data.forEach((r) => {
+            if (!seen.has(r.shop_id)) {
+              seen.add(r.shop_id);
+              const stats = liveStatsMap.get(r.shop_id)!;
+              customRows.push({
+                shop_id: r.shop_id,
+                state_code: r.state_code,
+                city: r.city,
+                revenue: stats.revenue,
+                orders: stats.orders,
+              });
+            }
+          });
+        }
+      } catch (supaErr) {
+        console.warn("[Supabase] queryLiveLeaderboard notice:", supaErr);
+      }
     }
 
-    db.close();
+    // 2. Fallback to SQLite if Supabase not used
+    if (!supaQueried) {
+      try {
+        const db = getDatabaseConnection();
+        let rows: Array<{ shop_id: string; state_code: string; city: string | null; revenue: number; orders: number }> = [];
+        if (isAll) {
+          const stmt = db.prepare(`
+            SELECT 
+              shop_id,
+              state_code,
+              city,
+              coalesce(sum(amount_inr), 0) as revenue,
+              count(*) as orders
+            FROM "LiveTransaction"
+            GROUP BY shop_id, state_code, city
+            ORDER BY revenue DESC
+            LIMIT ?
+          `);
+          rows = stmt.all(limit) as typeof rows;
+        } else {
+          const stmt = db.prepare(`
+            SELECT 
+              shop_id,
+              state_code,
+              city,
+              coalesce(sum(amount_inr), 0) as revenue,
+              count(*) as orders
+            FROM "LiveTransaction"
+            WHERE state_code = ?
+            GROUP BY shop_id, state_code, city
+            ORDER BY revenue DESC
+            LIMIT ?
+          `);
+          rows = stmt.all(stateCode, limit) as typeof rows;
+        }
+        db.close();
+
+        rows.forEach((r) => {
+          liveStatsMap.set(r.shop_id, {
+            revenue: Number(r.revenue || 0),
+            orders: Number(r.orders || 0),
+          });
+          customRows.push({
+            shop_id: r.shop_id,
+            state_code: r.state_code,
+            city: r.city,
+            revenue: Number(r.revenue || 0),
+            orders: Number(r.orders || 0),
+          });
+        });
+      } catch (err) {
+        console.error("SQLite leaderboard query fallback error:", err);
+      }
+    }
 
     // Collect all verified shops for target scope
     const targetVerifiedShops = isAll
       ? VERIFIED_SHOPS
       : VERIFIED_SHOPS.filter((s) => s.state_code === stateCode);
-
-    // Map of live revenue and orders by shop_id
-    const liveStatsMap = new Map<string, { revenue: number; orders: number }>();
-    rows.forEach((r) => {
-      liveStatsMap.set(r.shop_id, {
-        revenue: Number(r.revenue || 0),
-        orders: Number(r.orders || 0),
-      });
-    });
 
     const fullLeaderboard: ShopLeaderboardItem[] = targetVerifiedShops.map((s) => {
       const stats = liveStatsMap.get(s.shop_id) || { revenue: 0, orders: 0 };
@@ -466,7 +592,7 @@ export function queryLiveLeaderboard(
     });
 
     // Also include any custom shop_id from live transactions
-    rows.forEach((r) => {
+    customRows.forEach((r) => {
       if (!targetVerifiedShops.some((s) => s.shop_id === r.shop_id)) {
         const vShop = VERIFIED_SHOP_MAP[r.shop_id];
         fullLeaderboard.push({
@@ -504,9 +630,48 @@ export function queryLiveLeaderboard(
 }
 
 /**
- * Retrieve recent live transactions for the transaction feed
+ * Retrieve recent live transactions for the transaction feed (Supabase with fallback)
  */
-export function getLiveTransactions(limit = 15): LiveTransaction[] {
+export async function getLiveTransactions(limit = 15, state?: string): Promise<LiveTransaction[]> {
+  // 1. Try fetching from Cloud Supabase
+  const supabase = getSupabaseAdmin();
+  if (supabase && isSupabaseConfigured()) {
+    try {
+      let query = supabase
+        .from("live_transactions")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+      if (state && state !== "ALL") {
+        query = query.eq("state_code", state);
+      }
+
+      const { data, error } = await query;
+      if (!error && data && data.length > 0) {
+        return data.map((r) => ({
+          id: r.transaction_id,
+          transaction_id: r.transaction_id,
+          amount_inr: Number(r.amount_inr || 0),
+          currency: r.currency || "INR",
+          payment_method: r.method || "upi",
+          status: r.status || "captured",
+          customer_name: r.customer_name || r.customer_email || "Customer",
+          customer_email: r.customer_email || undefined,
+          customer_contact: r.customer_contact || undefined,
+          shop_id: r.shop_id || "IND_SHOP_1001",
+          state_code: r.state_code || "27",
+          city: r.city || INDIAN_STATE_MAP[r.state_code] || "Mumbai",
+          event: "payment.captured",
+          created_at: r.created_at || r.timestamp,
+        }));
+      }
+    } catch (supaErr) {
+      console.warn("[Supabase] getLiveTransactions notice, falling back to SQLite:", supaErr);
+    }
+  }
+
+  // 2. Fallback to SQLite
   try {
     const db = getDatabaseConnection();
 
@@ -560,6 +725,7 @@ export function getLiveTransactions(limit = 15): LiveTransaction[] {
     return [];
   }
 }
+
 
 /**
  * Filter monthly timeline array by window

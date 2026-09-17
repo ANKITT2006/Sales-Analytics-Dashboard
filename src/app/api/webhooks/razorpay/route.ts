@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import { liveEvents } from "@/lib/live-events";
 import { indiaTransactionEngine } from "@/lib/stream/indiaTransactionEngine";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseServer";
 
 interface RazorpayPayload {
   entity?: string;
@@ -73,14 +74,85 @@ export interface LiveSyncedRecord {
   event?: string;
 }
 
-function syncToLiveStore(record: LiveSyncedRecord) {
-  const dbPath = path.join(process.cwd(), "prisma", "dev.db");
-  const dbDir = path.dirname(dbPath);
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
+async function syncToLiveStore(record: LiveSyncedRecord) {
+  let supabaseSynced = false;
+  const supabase = getSupabaseAdmin();
+
+  // 1. Primary write to Cloud Supabase PostgreSQL
+  if (supabase && isSupabaseConfigured()) {
+    try {
+      // Upsert into live_transactions
+      const { error: txError } = await supabase
+        .from("live_transactions")
+        .upsert(
+          {
+            transaction_id: record.transaction_id,
+            amount_inr: record.amount_inr,
+            currency: record.currency || "INR",
+            method: record.method,
+            status: record.status,
+            customer_email: record.customer_email || null,
+            customer_contact: record.customer_contact || null,
+            customer_name: record.customer_name || record.customer_email || "Customer",
+            shop_id: record.shop_id,
+            state_code: record.state_code,
+            city: record.city || "Mumbai",
+            timestamp: record.timestamp,
+            created_at: record.timestamp || new Date().toISOString(),
+          },
+          { onConflict: "transaction_id" }
+        );
+
+      if (txError) {
+        console.warn("[Razorpay Webhook] Supabase live_transactions warning:", txError.message);
+      }
+
+      // Upsert into live_webhook_transactions
+      const { error: whError } = await supabase
+        .from("live_webhook_transactions")
+        .upsert(
+          {
+            id: record.transaction_id,
+            transaction_id: record.transaction_id,
+            amount_inr: record.amount_inr,
+            payment_method: record.method,
+            status: record.status,
+            customer: record.customer_name || record.customer_email || record.customer_contact || "Customer",
+            customer_email: record.customer_email || null,
+            customer_contact: record.customer_contact || null,
+            customer_name: record.customer_name || "Customer",
+            shop_id: record.shop_id,
+            state_code: record.state_code,
+            city: record.city || "Mumbai",
+            event: record.event || "payment.captured",
+            created_at: record.timestamp || new Date().toISOString(),
+          },
+          { onConflict: "id" }
+        );
+
+      if (whError) {
+        console.warn("[Razorpay Webhook] Supabase live_webhook_transactions warning:", whError.message);
+      }
+
+      if (!txError && !whError) {
+        supabaseSynced = true;
+        console.log(`⚡ [Razorpay Webhook] Synced payment ${record.transaction_id} to Cloud Supabase PostgreSQL.`);
+      }
+    } catch (supaErr) {
+      console.warn("[Razorpay Webhook] Cloud Supabase write exception:", supaErr);
+    }
+  } else {
+    console.warn("[Razorpay Webhook] Cloud Supabase not configured or URL is placeholder. Falling back to local store.");
   }
 
+  // 2. Secondary fallback / local store synchronization so offline development never breaks
   try {
+    const dbPath = path.join(process.cwd(), "prisma", "dev.db");
+    const dbDir = path.dirname(dbPath);
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, { recursive: true });
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { DatabaseSync } = require("node:sqlite");
     const db = new DatabaseSync(dbPath);
@@ -175,13 +247,16 @@ function syncToLiveStore(record: LiveSyncedRecord) {
     );
 
     db.close();
-
-    // Broadcast event to connected SSE subscribers in real-time
-    liveEvents.emit("transaction", record);
   } catch (err) {
-    console.error("[Razorpay Webhook] Store sync error:", err);
+    if (!supabaseSynced) {
+      console.error("[Razorpay Webhook] Store sync error:", err);
+    }
   }
+
+  // Broadcast event to connected SSE subscribers in real-time
+  liveEvents.emit("transaction", record);
 }
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -276,8 +351,8 @@ export async function POST(request: NextRequest) {
       console.log(JSON.stringify(record, null, 2));
       console.log("=======================================================\n");
 
-      // Synchronize directly into active persistent storage
-      syncToLiveStore(record);
+      // Synchronize directly into active persistent storage (Supabase PostgreSQL + fallback)
+      await syncToLiveStore(record);
 
       // Inject into All-India state stream as verified Razorpay payment
       const nationalTx = indiaTransactionEngine.injectVerifiedRazorpay({

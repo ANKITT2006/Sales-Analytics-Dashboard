@@ -5,6 +5,7 @@ import {
   NationalTransaction,
 } from "@/lib/stream/indiaTransactionEngine";
 import { verifyAuth } from "@/lib/supabase/server";
+import { getLiveTransactions } from "@/lib/analytics";
 
 export async function GET(request: NextRequest) {
   try {
@@ -37,7 +38,41 @@ export async function GET(request: NextRequest) {
       ? (regionParam as IndianRegion)
       : undefined;
 
-    const rawTransactions = indiaTransactionEngine.getTransactions(limit, state, region);
+    // Fetch from Supabase PostgreSQL live_transactions (with SQLite fallback)
+    const storedTxs = await getLiveTransactions(limit, state);
+    const engineTxs = indiaTransactionEngine.getTransactions(limit, state, region);
+
+    let rawTransactions: NationalTransaction[];
+    if (storedTxs && storedTxs.length > 0) {
+      const seen = new Set<string>();
+      rawTransactions = [
+        ...storedTxs.map((t) => ({
+          id: t.id,
+          transaction_id: t.transaction_id,
+          amount_inr: t.amount_inr,
+          currency: t.currency,
+          payment_method: t.payment_method,
+          status: t.status,
+          customer_name: t.customer_name,
+          customer_email: t.customer_email,
+          customer_contact: t.customer_contact,
+          shop_id: t.shop_id,
+          state_code: t.state_code,
+          city: t.city,
+          event: t.event,
+          created_at: t.created_at,
+          is_verified_razorpay: true,
+          is_verified: true,
+        })),
+        ...engineTxs,
+      ].filter((t) => {
+        if (seen.has(t.transaction_id)) return false;
+        seen.add(t.transaction_id);
+        return true;
+      }).slice(0, limit);
+    } else {
+      rawTransactions = engineTxs;
+    }
 
     // Check authentication to determine if customer PII should be sanitized
     const auth = await verifyAuth(request);

@@ -3,7 +3,7 @@ import { queryLiveStateDistribution } from '@/lib/analytics';
 
 export async function GET() {
   try {
-    const distribution = queryLiveStateDistribution();
+    const distribution = await queryLiveStateDistribution();
 
     return NextResponse.json({
       success: true,

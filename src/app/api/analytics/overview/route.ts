@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    const result = queryDynamicOverview(state, dateRange);
+    const result = await queryDynamicOverview(state, dateRange);
 
     return NextResponse.json({
       success: true,
