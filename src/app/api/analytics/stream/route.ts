@@ -1,9 +1,13 @@
 import { NextRequest } from "next/server";
 import { liveEvents } from "@/lib/live-events";
+import { indiaTransactionEngine } from "@/lib/stream/indiaTransactionEngine";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  // Ensure background continuous persistence ticker is running
+  indiaTransactionEngine.startContinuousPersistence(3000);
+
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({

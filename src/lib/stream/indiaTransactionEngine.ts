@@ -5,6 +5,7 @@
 
 import { getVerifiedShopForState, VERIFIED_SHOPS } from "@/data/verifiedShops";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { liveEvents } from "@/lib/live-events";
 
 export type IndianRegion = "North" | "South" | "West" | "East" | "Central" | "North-East";
 
@@ -419,6 +420,7 @@ class IndiaTransactionEngine {
   private stateTotals: Map<string, { volume: number; count: number }> = new Map();
   private maxBufferSize = 250;
   private isSimulationRunning = true;
+  private persistenceInterval: NodeJS.Timeout | null = null;
   private tickerInterval: NodeJS.Timeout | null = null;
   private supabaseClient: SupabaseClient | null = null;
   private supabaseWriteBuffer: Array<{
@@ -439,8 +441,7 @@ class IndiaTransactionEngine {
 
   constructor() {
     this.seedInitialTransactions();
-    this.startTicker();
-    this.startBatchPersistence();
+    this.startContinuousPersistence(3000);
   }
 
   private seedInitialTransactions() {
@@ -490,7 +491,14 @@ class IndiaTransactionEngine {
     current.count += 1;
     this.stateTotals.set(tx.state_code, current);
 
-    // Queue transaction for throttled batch persistence into Supabase
+    // Broadcast in real-time to active SSE subscribers
+    try {
+      liveEvents.emit("transaction", tx);
+    } catch {
+      // Non-blocking
+    }
+
+    // Queue transaction for persistence into Supabase
     this.queueForSupabase(tx);
   }
 
@@ -522,23 +530,69 @@ class IndiaTransactionEngine {
   }
 
   /**
-   * Starts background timer flushing buffered transactions to Supabase every 4 seconds.
-   * Throttles network writes to stay well within Supabase free-tier connection and rate limits.
+   * Starts active continuous persistence ticker (running every 2-4 seconds).
+   * Continuously produces 1-2 simulated retail transactions across Indian states & payment methods
+   * and inserts these generated records into public.live_transactions using the Supabase service role client.
    */
-  public startBatchPersistence() {
-    if (this.flushInterval) return;
-    this.flushInterval = setInterval(() => {
-      this.flushBatchToSupabase().catch((err) => {
-        console.warn("[TransactionEngine] Background batch flush exception:", err);
-      });
-    }, 4000);
+  public startContinuousPersistence(intervalMs = 3000) {
+    if (this.persistenceInterval) return;
+    this.isSimulationRunning = true;
+
+    this.persistenceInterval = setInterval(async () => {
+      if (!this.isSimulationRunning) return;
+      try {
+        await this.tickAndPersist();
+      } catch (err) {
+        console.warn("[TransactionEngine] Continuous ticker notice:", err);
+      }
+    }, intervalMs);
+
+    console.log(`⚡ [TransactionEngine] Continuous persistence ticker active (${intervalMs}ms interval).`);
   }
 
-  public stopBatchPersistence() {
+  public async tickAndPersist(): Promise<void> {
+    if (!this.isSimulationRunning) return;
+
+    // Continuously produce 1-2 simulated retail transactions across different Indian states and payment methods
+    const count = Math.random() > 0.4 ? 2 : 1;
+    for (let i = 0; i < count; i++) {
+      this.generateNextTransaction();
+    }
+
+    // Persist buffered records into Supabase public.live_transactions
+    await this.flushBatchToSupabase();
+  }
+
+  public stopContinuousPersistence() {
+    if (this.persistenceInterval) {
+      clearInterval(this.persistenceInterval);
+      this.persistenceInterval = null;
+    }
+    if (this.tickerInterval) {
+      clearInterval(this.tickerInterval);
+      this.tickerInterval = null;
+    }
     if (this.flushInterval) {
       clearInterval(this.flushInterval);
       this.flushInterval = null;
     }
+    this.isSimulationRunning = false;
+  }
+
+  public startBatchPersistence() {
+    this.startContinuousPersistence(3000);
+  }
+
+  public stopBatchPersistence() {
+    this.stopContinuousPersistence();
+  }
+
+  public startTicker() {
+    this.startContinuousPersistence(3000);
+  }
+
+  public stopTicker() {
+    this.stopContinuousPersistence();
   }
 
   /**
@@ -709,26 +763,6 @@ class IndiaTransactionEngine {
     });
   }
 
-  /**
-   * Starts background ticker generating transactions every 1.8 seconds
-   */
-  public startTicker() {
-    if (this.tickerInterval) return;
-    this.isSimulationRunning = true;
-    this.tickerInterval = setInterval(() => {
-      if (this.isSimulationRunning) {
-        this.generateNextTransaction();
-      }
-    }, 1800);
-  }
-
-  public stopTicker() {
-    if (this.tickerInterval) {
-      clearInterval(this.tickerInterval);
-      this.tickerInterval = null;
-    }
-    this.isSimulationRunning = false;
-  }
 
   public toggleSimulation(active?: boolean): boolean {
     if (typeof active === "boolean") {
@@ -839,15 +873,19 @@ class IndiaTransactionEngine {
 // Global Singleton instance
 const globalForStream = global as unknown as {
   indiaTransactionEngine?: IndiaTransactionEngine;
+  indiaEnginePersistenceStarted?: boolean;
 };
 
 if (
   !globalForStream.indiaTransactionEngine ||
-  typeof (globalForStream.indiaTransactionEngine as unknown as Record<string, unknown>).startBatchPersistence !== "function"
+  typeof (globalForStream.indiaTransactionEngine as unknown as Record<string, unknown>).startContinuousPersistence !== "function"
 ) {
   globalForStream.indiaTransactionEngine = new IndiaTransactionEngine();
-} else {
-  globalForStream.indiaTransactionEngine.startBatchPersistence();
 }
 
 export const indiaTransactionEngine = globalForStream.indiaTransactionEngine;
+
+if (!globalForStream.indiaEnginePersistenceStarted) {
+  globalForStream.indiaEnginePersistenceStarted = true;
+  indiaTransactionEngine.startContinuousPersistence(3000);
+}

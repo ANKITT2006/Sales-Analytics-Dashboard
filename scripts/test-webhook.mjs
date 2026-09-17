@@ -39,9 +39,9 @@ async function main() {
     body: payload,
   });
 
-  const data = await response.json();
+  const rawText = await response.text();
   console.log("Response Status:", response.status);
-  console.log("Response Body:", data);
+  console.log("Snippet:", rawText.slice(0, 300));
 }
 
 main().catch(console.error);
