@@ -134,9 +134,9 @@ async function syncToLiveStore(record: LiveSyncedRecord) {
         .upsert(
           {
             id: record.transaction_id,
-            transaction_id: record.transaction_id,
             amount_inr: record.amount_inr,
-            payment_method: record.method,
+            currency: record.currency || "INR",
+            method: record.method,
             status: record.status,
             customer: record.customer_name || record.customer_email || record.customer_contact || "Customer",
             customer_email: record.customer_email || null,
