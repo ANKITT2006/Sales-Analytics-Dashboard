@@ -67,3 +67,6 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# claude artifacts
+.claude/
