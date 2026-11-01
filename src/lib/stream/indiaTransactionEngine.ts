@@ -618,7 +618,7 @@ class IndiaTransactionEngine {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-    if (!supabaseUrl || !serviceRoleKey) {
+    if (!supabaseUrl || !serviceRoleKey || supabaseUrl.includes("your-project-ref") || serviceRoleKey.includes("your-key")) {
       return;
     }
 
@@ -889,3 +889,4 @@ if (!globalForStream.indiaEnginePersistenceStarted) {
   globalForStream.indiaEnginePersistenceStarted = true;
   indiaTransactionEngine.startContinuousPersistence(3000);
 }
+
