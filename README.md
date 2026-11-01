@@ -67,45 +67,83 @@ An enterprise-grade, real-time sales intelligence and transaction analytics plat
 
 ## 🏗 System Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                             NEXT.JS 15 APP ROUTER                               │
-│                                                                                 │
-│  ┌─────────────────────────┐   ┌───────────────────────┐   ┌─────────────────┐  │
-│  │   Executive KPI Cards   │   │  Chronological Trend  │   │  ML Forecast    │  │
-│  │  (Sticky Scroll Header) │   │     (Apr-Sep 2026)    │   │  (GradientBoost)│  │
-│  └─────────────────────────┘   └───────────────────────┘   └─────────────────┘  │
-│  ┌─────────────────────────┐   ┌───────────────────────┐   ┌─────────────────┐  │
-│  │  Pan-India Geo Matrix   │   │ Merchant Leaderboard  │   │ Live Txn Stream │  │
-│  │  (36 States & UTs)      │   │ (Score vs Ingested ₹) │   │ (Real-Time SSE) │  │
-│  └─────────────────────────┘   └───────────────────────┘   └─────────────────┘  │
-└────────────────────────────────────────┬────────────────────────────────────────┘
-                                         │
-       ┌─────────────────────────────────┴─────────────────────────────────┐
-       ▼                                                                   ▼
-┌─────────────────────────────────┐                       ┌─────────────────────────────────┐
-│     DATA & INGESTION LAYER      │                       │     SECURITY & AUTH LAYER       │
-│                                 │                       │                                 │
-│ • Razorpay Webhook Ingestion    │                       │ • Razorpay HMAC-SHA256 Crypto   │
-│   (payment.captured, order.paid)│                       │ • Supabase SSR Session Cookie   │
-│ • UPI / PhonePe / GPay Sim      │                       │ • Row Level Security (RLS)      │
-│ • Live SSE Transaction Stream   │                       │ • GSTIN & PAN Verification      │
-│ • PapaParse CSV / JSON Export   │                       │ • Art-Reveal Auth Pages         │
-└────────────────┬────────────────┘                       └─────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                              STORAGE & PERSISTENCE                              │
-│                                                                                 │
-│  ┌─────────────────────────────────────────┐  ┌──────────────────────────────┐  │
-│  │          Prisma ORM & SQLite            │  │        Supabase Postgres     │  │
-│  │   (LiveTransaction, RegisteredShop)     │  │     (Cloud RLS & Auth Sync)  │  │
-│  └─────────────────────────────────────────┘  └──────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────────┘
+The platform is organized into five connected layers: the dashboard, analytics services, payment ingestion, identity and authentication, and persistent storage. The diagram below shows how an operator interacts with the dashboard, how analytics services read transaction data, and how payment events move through the ingestion pipeline into Supabase.
+
+```mermaid
+flowchart TB
+    OP((Operator))
+
+    subgraph DASH["Analytics Dashboard"]
+        PAGE["Dashboard Page<br/>page.tsx"]
+        VIEW["Dashboard View<br/>DashboardView.tsx"]
+
+        KPI["Executive KPIs"]
+        FEED["Live Transaction Feed"]
+        GEO["Geographic Analytics"]
+        LEADER["Merchant Leaderboard"]
+
+        PAGE -->|renders| VIEW
+        VIEW -->|shows| KPI
+        VIEW -->|shows| FEED
+        VIEW -->|shows| GEO
+        VIEW -->|shows| LEADER
+    end
+
+    OP -->|opens| PAGE
+
+    subgraph SERVICES["Analytics Services"]
+        SALES_API["Sales API<br/>route.ts"]
+        SALES_SERVICE["Sales Service<br/>sales.ts"]
+        FORECAST["Revenue Forecasting<br/>train.py"]
+        ANALYTICS_API["Analytics API"]
+        ANALYTICS_LOGIC["Analytics Logic<br/>analytics.ts"]
+
+        SALES_API -->|delegates| SALES_SERVICE
+        ANALYTICS_API --> ANALYTICS_LOGIC
+    end
+
+    VIEW -->|presents| SALES_API
+    VIEW -.->|requests| ANALYTICS_API
+
+    subgraph INGESTION["Payment Ingestion"]
+        SIMULATOR["Webhook Simulator<br/>route.ts"]
+        WEBHOOKS["Gateway Webhook Handlers"]
+        ENGINE["Transaction Engine"]
+        BROADCASTER["Live Event Broadcaster<br/>live-events.ts"]
+
+        SIMULATOR -->|dispatches| WEBHOOKS
+        SIMULATOR -->|injects payments| ENGINE
+        WEBHOOKS -->|injects payments| ENGINE
+        ENGINE -->|emits transactions| BROADCASTER
+    end
+
+    GATEWAYS((Payment Gateways))
+    GATEWAYS -->|submits payments| WEBHOOKS
+
+    ANALYTICS_LOGIC -->|reads live transactions| ENGINE
+
+    subgraph IDENTITY["Identity and Persistence"]
+        AUTH["Authentication<br/>server.ts"]
+    end
+
+    ANALYTICS_API -->|verifies access| AUTH
+    SALES_API -->|verifies access| AUTH
+
+    AUTH -->|checks sessions| DB[(Supabase)]
+    BROADCASTER -->|persists transactions| DB
+
+    classDef dashboard fill:#dbeafe,stroke:#2563eb,color:#172554
+    classDef service fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef payment fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef identity fill:#fee2e2,stroke:#e11d48,color:#881337
+
+    class PAGE,VIEW,KPI,FEED,GEO,LEADER dashboard
+    class SALES_API,SALES_SERVICE,FORECAST,ANALYTICS_API,ANALYTICS_LOGIC service
+    class SIMULATOR,WEBHOOKS,ENGINE,BROADCASTER payment
+    class AUTH identity
 ```
 
 ---
-
 ## 🚀 Core Features
 
 ### 1. Real-Time Multi-Gateway Ingestion (UPI, Razorpay, PhonePe, GPay)
